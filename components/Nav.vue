@@ -3,8 +3,8 @@
         <a href="/" id="site-title">MyTungsten</a>
         <ul>
             <li><a href="https://bowls.mytungsten.net">Bowls</a></li>
-            <li><a href="/trips">Trips</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li><a href="/">Trips</a></li>
+            <li><a href="/">Blog</a></li>
         </ul>
     </nav>
 </template>
