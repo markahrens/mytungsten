@@ -1,0 +1,46 @@
+:root {
+    --color: #011A08;
+    --color-primary: #0e1a12;
+    --color-secondary: #182c1b;
+    --bg: #f3f5f4;
+    --bg-secondary: #a4e9b6;
+    --border-color: #ddd;
+}
+
+.dark-mode {
+    --color: #ebf4f1;
+    --color-primary: #80d396;
+    --color-secondary: #fdf9f3;
+    --bg: #011A08;
+    --bg-secondary: #000A03;
+    --border-color: #0d2538;
+  }
+
+body{
+    font-family: "Inter";
+    padding: 0;
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--color);
+    transition: background-color 0.3s;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+h1{ 
+    font-size: 2.4rem;
+    margin: 0;
+    font-weight: 800;
+}
+
+h2{
+    font-size: 1.8rem;
+    margin:0;
+}

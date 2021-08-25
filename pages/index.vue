@@ -16,3 +16,16 @@ export default {
   }
 }
 </script>
+
+<style>
+h1{
+  text-align: center;
+  font-size: 4rem;
+  margin: 40px 0;
+}
+.nuxt-content h2{
+  text-align: center;
+  font-weight: 200;
+  font-style: italic;
+}
+</style>

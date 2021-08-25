@@ -1,11 +1,6 @@
 <template>
     <div>
+        <Nav />
         <Nuxt />
     </div>
 </template>
-
-<style>
-html {
-  font-family: "Oxygen";
-}
-</style>
