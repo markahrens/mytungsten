@@ -4,7 +4,8 @@
     <ul class="post-list">
       <li v-for="post of posts" :key="post.slug">
         <NuxtLink :to="{ name: 'trips-ghana2013-slug', params: { slug: post.slug } }">
-           <h2>{{ post.title }}</h2>
+          <nuxt-img width="400"  fit="cover" :src="post.img" :alt="post.alt" class="hero-image"/>
+          <h2>{{ post.title }}</h2>
         </NuxtLink>
            
       </li>
@@ -16,7 +17,6 @@
   export default {
     async asyncData({ $content, params }) {
       const posts = await $content('trips/ghana2013')
-        .only(['title','slug'])
         .fetch()
 
       return {
@@ -37,7 +37,7 @@
 }
 
 .post-list li{
-  width: 300px;
+  width: 400px;
   text-align: center;
   list-style-type: none;
 

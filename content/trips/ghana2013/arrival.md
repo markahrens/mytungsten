@@ -2,6 +2,8 @@
 title: Arrival
 description: 
 date: 05-25-2013
+img: ghana2013/IMG_0045.jpeg
+alt: Plane in Amsterdam
 ---
 
 When the plane landed, the first surprise was that there was no taxiway to deplane. It shouldn’t have been a huge surprise, but I had just given it no thought before. We then made our way to the passport check. The building appeared to have been built in the 60s and never touched since, with the exception of putting up mobile phone ads all over the place. We passed through customs just fine, then surprisingly found out luggage within 10 minutes.
