@@ -1,20 +1,11 @@
 :root {
-    --color: #011A08;
-    --color-primary: #0e1a12;
-    --color-secondary: #182c1b;
-    --bg: #f3f5f4;
-    --bg-secondary: #a4e9b6;
-    --border-color: #ddd;
-}
-
-.dark-mode {
     --color: #ebf4f1;
     --color-primary: #80d396;
     --color-secondary: #fdf9f3;
     --bg: #011A08;
     --bg-secondary: #000A03;
     --border-color: #0d2538;
-  }
+}
 
 body{
     font-family: "Inter";

@@ -1,7 +1,7 @@
 ---
 title: Arrival
 description: 
-date: 05-25-2013
+date: 2013-05-25
 img: ghana2013/IMG_0045.jpeg
 alt: Plane in Amsterdam
 ---

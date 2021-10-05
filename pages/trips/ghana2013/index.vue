@@ -4,8 +4,13 @@
     <ul class="post-list">
       <li v-for="post of posts" :key="post.slug">
         <NuxtLink :to="{ name: 'trips-ghana2013-slug', params: { slug: post.slug } }">
-          <nuxt-img width="400"  fit="cover" :src="post.img" :alt="post.alt" class="hero-image"/>
-          <h2>{{ post.title }}</h2>
+          <div class="card__thumb">
+            <nuxt-img width="400"  fit="cover" :src="post.img" :alt="post.alt" class="hero-image"/>
+          </div>
+          <div class="card__content">
+             <h2>{{ post.title }}</h2>
+          </div>
+          
         </NuxtLink>
            
       </li>
@@ -40,7 +45,22 @@
   width: 400px;
   text-align: center;
   list-style-type: none;
+}
 
+.post-list li a {
+    position: relative;
+  display: grid;
+}
+
+.card__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.card__thumb,
+.card__content {
+    grid-area: 1/2;
 }
 
 </style>
