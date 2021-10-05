@@ -22,6 +22,7 @@
   export default {
     async asyncData({ $content, params }) {
       const posts = await $content('trips/ghana2013')
+        .sortBy('date', 'asc')
         .fetch()
 
       return {
@@ -43,19 +44,21 @@
 
 .post-list li{
   width: 400px;
-  text-align: center;
   list-style-type: none;
 }
 
 .post-list li a {
     position: relative;
   display: grid;
+  text-decoration: none;
 }
 
 .card__content {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    padding: 20px;
+    background: linear-gradient(to top, #000000d9, #0000) bottom/100% 60% no-repeat;
 }
 
 .card__thumb,
