@@ -30,6 +30,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~plugins/filters.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -37,7 +38,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/color-mode',
+    '@nuxt/image',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -51,5 +52,18 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  image: {
+    presets: {
+      cover: {
+        modifiers: {
+          fit: "cover",
+          format: "jpg",
+          width: '100%',
+          height: 400,
+        },
+      },
+    },
+  },
 }
