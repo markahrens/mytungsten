@@ -1,6 +1,6 @@
 ---
 title: Mixing the Waint
-description: 
+description: First full day of work at the school
 date: 2013-05-28
 img: ghana2013/DSC00239.jpg
 alt: Children at the Schoolyard

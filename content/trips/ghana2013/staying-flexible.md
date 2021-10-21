@@ -1,6 +1,6 @@
 ---
 title: Staying Flexible
-description: 
+description: The day on Ghana time
 date: 2013-05-26
 img: ghana2013/IMG_0098.jpg
 alt: Chalkboard in Classroom
