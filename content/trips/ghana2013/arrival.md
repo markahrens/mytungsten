@@ -1,6 +1,6 @@
 ---
 title: Arrival
-description: 
+description: First impressions of Ghana
 date: 2013-05-25
 img: ghana2013/IMG_1641.jpg
 alt: Welcome Sign in Accra

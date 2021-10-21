@@ -1,6 +1,6 @@
 ---
 title: Church & Beach
-description: 
+description: Three hours at the church and then three hours at the beach
 date: 2013-05-26
 img: ghana2013/DSC00085.jpg
 alt: Church Stage
