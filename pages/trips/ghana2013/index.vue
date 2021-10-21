@@ -28,6 +28,11 @@
       return {
         posts
       }
+    },
+    head() {
+      return {
+        title: "Ghana 2013 | MyTungsten",
+      }
     }
   }
 </script>
@@ -40,11 +45,13 @@
   max-width: 1024px;
   margin: 0 auto;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .post-list li{
   width: 400px;
   list-style-type: none;
+  margin-bottom: 40px;
 }
 
 .post-list li a {

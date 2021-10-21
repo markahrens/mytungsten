@@ -2,7 +2,7 @@
 title: Lots of Travel
 description: North Liberty ➡️ Accra
 date: 2013-05-24
-img: ghana2013/IMG_0045.jpeg
+img: ghana2013/IMG_0045.jpg
 alt: Plane in Amsterdam
 ---
 

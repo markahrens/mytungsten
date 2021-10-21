@@ -12,6 +12,11 @@
     async asyncData({ $content, params }) {
       const post = await $content('trips/ghana2013', params.slug).fetch()
       return { post }
+    },
+    head() {
+      return {
+        title: this.post.title + " | Ghana 2013 | MyTungsten",
+      }
     }
   }
 </script>
