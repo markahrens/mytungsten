@@ -32,6 +32,7 @@
 
 .nuxt-content{
   font-size: 1.2rem;
+  font-weight: 500;
   line-height: 2rem;
 }
 
@@ -42,6 +43,12 @@
 
 .date{
   text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
+    .nuxt-content{
+      font-weight: 400;
+    }
 }
 
 </style>
