@@ -14,9 +14,13 @@
 nav{
     display: flex;
     justify-content: space-between;
-    background-color:var(--bg-secondary);
-    color: var(--color-secondary);
+    background-color:var(--clr-20);
+    color: var(--clr-90);
     padding: 20px;
+}
+
+nav a {
+    color: var( --clr-90);
 }
 
 nav ul{
@@ -35,6 +39,13 @@ nav ul li{
 #site-title{
     font-weight: 800;
     font-size: 1.2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    nav{
+        background-color:var(--clr-30);
+        color: var(--clr-10);
+    }
 }
 
 </style>

@@ -12,13 +12,15 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'theme-color', content: '#9ff2f9', media: '(prefers-color-scheme: light)'},
+      { name: 'theme-color', content: '#032c30', media: '(prefers-color-scheme: dark)'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@200;400;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;800&display=swap",
       },
     ]
   },

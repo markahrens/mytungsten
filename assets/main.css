@@ -1,24 +1,51 @@
 :root {
-    --color: #ebf4f1;
-    --color-primary: #80d396;
-    --color-secondary: #fdf9f3;
-    --bg: #011A08;
-    --bg-secondary: #000A03;
-    --border-color: #0d2538;
+    --base-hue: 185;
+  --base-sat: 89%;
+
+  /* full color palette, from dark to light */
+  --clr-10: hsl(var(--base-hue), var(--base-sat), 10%); /* #032c30 */
+  --clr-20: hsl(var(--base-hue), var(--base-sat), 20%); /* #065960 */
+  --clr-30: hsl(var(--base-hue), var(--base-sat), 30%); /* #088591 */
+  --clr-40: hsl(var(--base-hue), var(--base-sat), 40%); /* #0bb2c1 */
+  --clr-50: hsl(var(--base-hue), var(--base-sat), 50%); /* #0edef1 */
+  --clr-60: hsl(var(--base-hue), var(--base-sat), 60%); /* #3ee5f4 */
+  --clr-70: hsl(var(--base-hue), var(--base-sat), 70%); /* #6eebf7 */
+  --clr-80: hsl(var(--base-hue), var(--base-sat), 80%); /* #9ff2f9 */
+  --clr-90: hsl(var(--base-hue), var(--base-sat), 90%); /* #cff8fc */
+  --clr-95: hsl(var(--base-hue), var(--base-sat), 95%); /* #e7fcfe */
+
+
+  --primary-lightness: 80%;
+
+  /* primary color in varying opacity levels */
+  --primary: hsl(var(--base-hue), var(--base-sat), var(--primary-lightness));
+  --primary-75: hsla(var(--base-hue), var(--base-sat), var(--primary-lightness), 75%);
+  --primary-50: hsla(var(--base-hue), var(--base-sat), var(--primary-lightness), 50%);
+  --primary-25: hsla(var(--base-hue), var(--base-sat), var(--primary-lightness), 25%);
+  --primary-15: hsla(var(--base-hue), var(--base-sat), var(--primary-lightness), 15%);
+  --primary-10: hsla(var(--base-hue), var(--base-sat), var(--primary-lightness), 10%);
+
+
+  --accent-hue: calc(var(--base-hue) + 135);
+  --accent-lightness: 50%;
+
+  /* accent color in varying opacity levels */
+  --accent: hsl(275, 89%, 50%); /* #f10ea5 */
 }
 
 body{
     font-family: "Inter";
     padding: 0;
     margin: 0;
-    background-color: var(--bg);
-    color: var(--color);
+    background-color: var(--clr-80);
+    color: var(--clr-20);
     transition: background-color 0.3s;
 }
 
 a {
-    color: var(--color-primary);
+    color: var(--accent);
     text-decoration: none;
+    font-weight: 500;
 }
 
 a:hover{
@@ -34,4 +61,24 @@ h1{
 h2{
     font-size: 1.8rem;
     margin:0;
+}
+
+h3{
+    font-size: 1.6rem;
+    margin:0;
+}
+
+h1 a, h2 a, h3 a{
+    font-weight: 800;
+}
+
+p{
+    margin-top: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+    body{
+        background-color: var(--clr-10);
+        color: var(--clr-80);
+    }
 }
