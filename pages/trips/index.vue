@@ -7,7 +7,7 @@
         <p>Based in the Winneba region</p>
       </div>
       <div>
-        <h3>Ghana 2015</h3>
+        <h3><NuxtLink to="/trips/ghana2015">Ghana 2015</NuxtLink></h3>
         <p>Based in Accra and Kumasi.</p>
       </div>
       <div>
