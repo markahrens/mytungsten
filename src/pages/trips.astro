@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+const tripEntries = await getCollection('trips');
+---
+<ul>
+  {tripEntries.map(tripPostEntry => (
+    <li>
+      <a href={`/trip/${tripPostEntry.slug}`}>{tripPostEntry.data.title}</a>
+    </li>
+  ))}
+</ul>
