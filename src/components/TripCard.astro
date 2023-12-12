@@ -1,0 +1,16 @@
+---
+import { Image } from "astro:assets";
+
+const { href, title, description, img, alt } = Astro.props;
+---
+
+<div class="trip-card">
+	<Image src={img} alt={alt} width='300px' />
+  <a href={href}>{title}</a>
+	<p>{description}</p>
+</div>
+
+<style>
+	.trip-card {
+		width: 300px;
+	}

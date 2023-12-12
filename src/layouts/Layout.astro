@@ -12,21 +12,103 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/mt-icon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{title} | MyTungsten</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=AR+One+Sans&family=Onest:wght@500;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		<nav>
+			<a href="/" class="site-logo-container">
+				<svg version="1.1" id="mt-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				viewBox="0 0 1024 1024" xml:space="preserve">
+				<style>
+					.st0 {
+						fill:none;
+						stroke:#008080;
+						stroke-width:120;
+						stroke-miterlimit:10;
+						@media (prefers-color-scheme: dark) {
+							stroke:#f1fef6
+						}
+					}
+				</style>
+					<path class="st0" d="M128.2,642c0-71,57.5-128.5,128.5-128.5S385.2,571.1,385.2,642"/>
+					<path class="st0" d="M385.2,642c0-71,57.5-128.5,128.5-128.5S642.2,571.1,642.2,642"/>
+					<line class="st0" x1="128.2" y1="640" x2="128.2" y2="840"/>
+					<line class="st0" x1="385.2" y1="640" x2="385.2" y2="840"/>
+					<path class="st0" d="M899.2,656.6c0,71-57.5,128.5-128.5,128.5s-128.5-57.5-128.5-128.5"/>
+					<line class="st0" x1="642.2" y1="189.6" x2="642.2" y2="668.6"/>
+					<line class="st0" x1="619.8" y1="374.6" x2="826.8" y2="374.6"/>
+				</svg>
+				<span>MyTungsten</span>
+			</a>
+			<ul>
+				<li><a href="/trips">Trips</a></li>
+				<li><a href="/projects">Projects</a></li>
+				<li><a href="/about">About</a></li>
+			</ul>
+
+		</nav>
 		<slot />
 	</body>
 </html>
 <style is:global>
 	:root {
-		--textColor: #f3fdf3;
-		--backgroundColor: #008080;
+		--lightColor: #f1fef6;
+		--darkColor: #008080;
 	}
 	html {
 		font-family: system-ui, sans-serif;
-		background-color: var(--backgroundColor);
+		color: var(--darkColor);
+		background-color: var(--lightColor);
+		@media (prefers-color-scheme: dark) {
+			color: var(--lightColor);
+			background-color: var(--darkColor);
+		}
 	}
+
+	nav {
+		display: flex;
+		justify-content: space-between;
+		font-family: 'Onest', sans-serif;
+		font-weight: 500;
+		margin-bottom: 40px;
+		& a {
+			color: white;
+			text-decoration: none;
+		}
+		& .site-logo-container {
+			display: flex;
+			align-items: center;
+			& span {
+				display: inline-block;
+				padding: 8px 16px;
+				font-size: 1.6rem;
+			}
+		}
+		 
+		& svg {
+			width: 64px;
+			display: inline;
+		}
+		& .st0{
+			@media (prefers-color-scheme: dark) {
+				stroke:var(--lightColor)
+			}
+		}
+		& ul {
+			padding: 0;
+			margin: 0;
+			& li {
+				list-style-type: none;
+				display: inline-block;
+				padding: 16px;
+				font-size: 1.2rem;
+			}
+		}
+	}
+	
 </style>

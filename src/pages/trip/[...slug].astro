@@ -1,6 +1,7 @@
 ---
 import { Picture } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const tripEntries = await getCollection('trips');
@@ -12,31 +13,30 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{entry.data.title}</title>
-	</head>
-	<body>
-    <Picture src={entry.data.img} formats={['avif', 'webp']} alt={entry.data.alt}/>
+<Layout title={entry.data.title}>
+	<Picture src={entry.data.img} formats={['avif', 'webp']} alt={entry.data.alt}/>
+
+	<div class="blog-content">
 		<h1>{entry.data.title}</h1>
-    <p>{entry.data.description}</p>
-    <Content />
-	</body>
-</html>
-<style is:global>
-	:root {
-		--textColor: #f3fdf3;
-		--backgroundColor: #008080;
+		<Content />
+	</div>
+	
+</Layout>
+
+<style>
+	.blog-content {
+		font-family: 'AR One Sans', sans-serif;
+		& h1 {
+			font-family: 'Onest', sans-serif;
+			font-weight: 500;
+		}
 	}
-	html {
-		font-family: system-ui, sans-serif;
-    color: var(--textColor);
-		background-color: var(--backgroundColor);
+	picture {
+		margin: 0 auto;
+	}
+	img { 
+		max-width: 90%;
+		height: auto;
+
 	}
 </style>

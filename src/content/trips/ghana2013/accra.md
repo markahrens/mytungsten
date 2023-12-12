@@ -1,6 +1,5 @@
 ---
-layout: ../../../layouts/TripPostLayout.astro
-title: Arrival
+title: Accra
 description: Last full day in Ghana
 date: 2013-06-03
 img: ../../images/ghana2013/IMG_1907.jpg

@@ -1,7 +1,9 @@
 ---
+import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 const tripEntries = await getCollection('trips');
 ---
+<Layout title="Trips">
 <ul>
   {tripEntries.map(tripPostEntry => (
     <li>
@@ -9,3 +11,4 @@ const tripEntries = await getCollection('trips');
     </li>
   ))}
 </ul>
+</Layout>

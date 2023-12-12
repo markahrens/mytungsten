@@ -8,6 +8,7 @@ const tripsCollection = defineCollection({
     description: z.string(),
     img: image().optional(),
     alt: z.string(),
+    date: z.date(),
   }),
 });
 
