@@ -4,11 +4,21 @@ import { getCollection } from 'astro:content';
 const tripEntries = await getCollection('trips');
 ---
 <Layout title="Trips">
-<ul>
-  {tripEntries.map(tripPostEntry => (
-    <li>
-      <a href={`/trip/${tripPostEntry.slug}`}>{tripPostEntry.data.title}</a>
-    </li>
-  ))}
-</ul>
+  <h1>Trips</h1>
+  <div class="content-container">
+    <h2><a href="/trips/ghana2013">Ghana 2013</a></h2>
+    <p>Based in the Winneba region.</p>
+    <h2><a href="/trips/ghana2015">Ghana 2015</a></h2>
+    <p>Based in Accra and Kumasi.</p>
+  </div>
 </Layout>
+
+<style>
+  h2 {
+    text-align: left;
+    margin: 0;
+  }
+  p {
+    margin: 8px 0 30px;
+  }
+</style>

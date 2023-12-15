@@ -9,16 +9,19 @@ const tripEntries = (await getCollection('trips', ({ id }) => {
   );
 ---
 <Layout title="Ghana 2013">
-  <div class="trip-cards">
-  {tripEntries.map(tripPostEntry => (
-    <TripCard
-      href={`/trip/${tripPostEntry.slug}`},
-      title={tripPostEntry.data.title},
-      description={tripPostEntry.data.description}
-      img={tripPostEntry.data.img}
-      alt={tripPostEntry.data.alt}
-    />
-  ))}
+  <div class="content-container">
+    <h1>Ghana 2013 Trip</h1>
+    <div class="trip-cards">
+      {tripEntries.map(tripPostEntry => (
+        <TripCard
+          href={`/trips/${tripPostEntry.slug}`},
+          title={tripPostEntry.data.title},
+          description={tripPostEntry.data.description}
+          img={tripPostEntry.data.img}
+          alt={tripPostEntry.data.alt}
+        />
+      ))}
+    </div>
   </div>
 </Layout>
 
@@ -26,6 +29,7 @@ const tripEntries = (await getCollection('trips', ({ id }) => {
   .trip-cards{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 40px;
   }
 </style>

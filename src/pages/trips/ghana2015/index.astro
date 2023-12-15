@@ -1,0 +1,35 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import TripCard from '../../../components/TripCard.astro';
+import { getCollection } from 'astro:content';
+const tripEntries = (await getCollection('trips', ({ id }) => {
+  return id.startsWith('ghana2015/');
+  })).sort(
+    (a, b) => a.data.date.valueOf() - b.data.date.valueOf()
+  );
+---
+<Layout title="Ghana 2015">
+  <div class="content-container">
+    <h1>Ghana 2015 Trip</h1>
+    <div class="trip-cards">
+      {tripEntries.map(tripPostEntry => (
+        <TripCard
+          href={`/trips/${tripPostEntry.slug}`},
+          title={tripPostEntry.data.title},
+          description={tripPostEntry.data.description}
+          img={tripPostEntry.data.img}
+          alt={tripPostEntry.data.alt}
+        />
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .trip-cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+  }
+</style>

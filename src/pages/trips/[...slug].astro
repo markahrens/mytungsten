@@ -1,5 +1,5 @@
 ---
-import { Picture } from 'astro:assets';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 // 1. Generate a new path for every collection entry
@@ -14,9 +14,9 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 <Layout title={entry.data.title}>
-	<Picture src={entry.data.img} formats={['avif', 'webp']} alt={entry.data.alt}/>
+	<Image src={entry.data.img} formats={['avif', 'webp']} alt={entry.data.alt} width="1200px"/>
 
-	<div class="blog-content">
+	<div class="blog-content content-container">
 		<h1>{entry.data.title}</h1>
 		<Content />
 	</div>
@@ -31,12 +31,11 @@ const { Content } = await entry.render();
 			font-weight: 500;
 		}
 	}
-	picture {
-		margin: 0 auto;
-	}
 	img { 
 		max-width: 90%;
 		height: auto;
-
+		margin: 0 auto;
+		display: block;
+		border-radius: 20px;
 	}
 </style>
