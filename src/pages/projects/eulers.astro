@@ -1,0 +1,171 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Projects">
+  <main>
+    <h1>
+      Euler's Identity - <math
+        ><mrow
+          ><msup><mi>e</mi><mi>πi</mi></msup><mo>-</mo><mi>1</mi><mo>=</mo><mi
+            >0</mi
+          ></mrow
+        ></math>
+    </h1>
+    <section class="content-container">
+      <h2>Introduction</h2><p>
+        <em>e<sup>πi</sup></em> + 1 = 0 is one of the more interesting
+        mathematical equations since it takes 3 different number concepts, the
+        natural log raised to pi times i, the imaginary constant. Simplifying
+        this expression leads to a simple answer of -1. Now I am pretty nerdy,
+        but this seems pretty amazing to me.
+      </p><ul>
+        <li>
+          Three of the most important numbers can be put in an expression to
+          equal -1
+        </li><li>How a number raised to a power can be a negative</li><li>
+          How the proof is done with elementary functions
+        </li>
+      </ul><p>
+        Because of all this, the concept of Math has intrigued the last few
+        days, so I thought I would put my own explanation up on here and spread
+        some math knowledge to all.
+      </p><h2>Background</h2><p>
+        First off, I am going to explain what each of the numbers involved is.
+      </p><p>
+        <em>e</em> is the base of the natural logarithm. e can be expressed two
+        different ways. The typical definition is the following:
+      </p><math display="block"
+        ><mrow
+          ><mi>e</mi><mo>=</mo><munder
+            ><mo>lim</mo><mrow><mi>x</mi><mo>→</mo><mn>∞</mn></mrow></munder
+          ><mrow
+            ><msup
+              ><mfenced
+                ><mo>(</mo><mi>1</mi><mo>+</mo><mfrac
+                  ><mi>1</mi><mi>x</mi></mfrac
+                ><mo>)</mo></mfenced
+              ><mi>x</mi></msup
+            ></mrow
+          ></mrow
+        ></math
+      ><p>However, it can also be defined as:</p><math display="block"
+        ><mrow
+          ><mi>e</mi><mo>=</mo><munderover
+            ><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi>∞</mi
+            ></munderover
+          ><mfrac><mn>1</mn><mrow><mi>k</mi><mo>!</mo></mrow></mfrac></mrow
+        ></math
+      ><p>
+        Both of these will lead to a series which goes on to infinity and will
+        lead to an irrational number:
+      </p><math display="block"
+        ><mi>e</mi><mo>=</mo><mi>2.71828182845....</mi></math
+      ><p>
+        <em>π</em> is the ratio of a circle's circumference to it's diameter.
+        This is an irrational number and is equal to:
+      </p><math display="block"
+        ><mi>π</mi><mo>=</mo><mi>3.14159265358....</mi></math
+      ><p><em>i</em> is defined as the following:</p><math display="block"
+        ><mi>i</mi><mo>=</mo><msqrt><mi>-1</mi></msqrt></math
+      ><p>
+        Because you cannot typically take the square root of a negative number,
+        the idea of i or the imaginary digit was introduced. For example, the
+        square root of -9 would then be 3i.
+      </p><h2>Proof</h2><p>Using the definition:</p><math display="block"
+        ><mrow
+          ><msup><mi>e</mi><mi>z</mi></msup><mo>=</mo><munder
+            ><mo>lim</mo><mrow><mi>x</mi><mo>→</mo><mn>∞</mn></mrow></munder
+          ><mrow
+            ><msup
+              ><mfenced
+                ><mo>(</mo><mi>1</mi><mo>+</mo><mfrac
+                  ><mi>z</mi><mi>x</mi></mfrac
+                ><mo>)</mo></mfenced
+              ><mi>x</mi></msup
+            ></mrow
+          ></mrow
+        ></math
+      ><p>we get:</p><math display="block"
+        ><mrow
+          ><msup><mi>e</mi><mi>πi</mi></msup><mo>=</mo><mi>1</mi><mo>+</mo><mi
+            >ix</mi
+          ><mo>+</mo><msup><mi>i</mi><mi>2</mi></msup><mfrac
+            ><msup><mi>x</mi><mi>2</mi></msup><mi>2!</mi></mfrac
+          ><mo>+</mo><msup><mi>i</mi><mi>3</mi></msup><mfrac
+            ><msup><mi>x</mi><mi>3</mi></msup><mi>3!</mi></mfrac
+          ><mo>+</mo><msup><mi>i</mi><mi>4</mi></msup><mfrac
+            ><msup><mi>x</mi><mi>4</mi></msup><mi>4!</mi></mfrac
+          ><mo>+</mo><msup><mi>i</mi><mi>5</mi></msup><mfrac
+            ><msup><mi>x</mi><mi>5</mi></msup><mi>5!</mi></mfrac
+          ><mo>+</mo><mi>...</mi></mrow
+        ></math
+      ><p>Now using the definition of i:</p><math display="block"
+        ><mrow
+          ><msup><mi>e</mi><mi>πi</mi></msup><mo>=</mo><mi>1</mi><mo>+</mo><mi
+            >ix</mi
+          ><mo>-</mo><mfrac><msup><mi>x</mi><mi>2</mi></msup><mi>2!</mi></mfrac
+          ><mo>-</mo><mi>i</mi><mfrac
+            ><msup><mi>x</mi><mi>3</mi></msup><mi>3!</mi></mfrac
+          ><mo>+</mo><mfrac><msup><mi>x</mi><mi>4</mi></msup><mi>4!</mi></mfrac
+          ><mo>+</mo><mi>i</mi><mfrac
+            ><msup><mi>x</mi><mi>5</mi></msup><mi>5!</mi></mfrac
+          ><mo>-</mo><mi>...</mi></mrow
+        ></math
+      ><p>Rearraning the equation, we get:</p><math display="block"
+        ><mrow
+          ><msup><mi>e</mi><mi>πi</mi></msup><mo>=</mo><mfenced
+            ><mo>(</mo><mi>1</mi><mo>-</mo><mfrac
+              ><msup><mi>x</mi><mi>2</mi></msup><mi>2!</mi></mfrac
+            ><mo>+</mo><mfrac
+              ><msup><mi>x</mi><mi>4</mi></msup><mi>4!</mi></mfrac
+            ><mo>-</mo><mi>...</mi><mo>)</mo></mfenced
+          ><mo>+</mo><mi>i</mi><mfenced
+            ><mo>(</mo><mi>x</mi><mo>+</mo><mo>-</mo><mi>i</mi><mfrac
+              ><msup><mi>x</mi><mi>3</mi></msup><mi>3!</mi></mfrac
+            ><mo>+</mo><mi>i</mi><mfrac
+              ><msup><mi>x</mi><mi>5</mi></msup><mi>5!</mi></mfrac
+            ><mo>-</mo><mi>...</mi><mo>)</mo></mfenced
+          ></mrow
+        ></math
+      ><p>Using the following substitutions, from the Taylor Series:</p><math
+        display="block"
+        ><mrow
+          ><mi>cos</mi><mi>x</mi><mo>=</mo><mi>1</mi><mo>-</mo><mfrac
+            ><msup><mi>x</mi><mi>2</mi></msup><mi>2!</mi></mfrac
+          ><mo>+</mo><mfrac><msup><mi>x</mi><mi>4</mi></msup><mi>4!</mi></mfrac
+          ><mo>-</mo><mi>...</mi></mrow
+        ></math
+      ><br /><math display="block"
+        ><mrow
+          ><mi>sin</mi><mi>x</mi><mo>=</mo><mi>x</mi><mo>+</mo><mo>-</mo><mi
+            >i</mi
+          ><mfrac><msup><mi>x</mi><mi>3</mi></msup><mi>3!</mi></mfrac><mo>+</mo
+          ><mi>i</mi><mfrac><msup><mi>x</mi><mi>5</mi></msup><mi>5!</mi></mfrac
+          ><mo>-</mo><mi>...</mi></mrow
+        ></math
+      ><p>We get:</p><math display="block"
+        ><mrow
+          ><msup><mi>e</mi><mi>ix</mi></msup><mo>=</mo><mi>cos</mi><mi>x</mi><mo
+            >+</mo
+          ><mi>i</mi><mi>sin</mi><mi>x</mi></mrow
+        ></math
+      ><br /><math display="block"
+        ><mrow
+          ><msup><mi>e</mi><mi>iπ</mi></msup><mo>=</mo><mi>cos</mi><mi>π</mi><mo
+            >+</mo
+          ><mi>i</mi><mi>sin</mi><mi>π</mi></mrow
+        ></math
+      ><br /><math display="block"
+        ><mrow
+          ><msup><mi>e</mi><mi>iπ</mi></msup><mo>=</mo><mi>-1</mi><mo>+</mo><mi
+            >i</mi
+          ><mi>0</mi></mrow
+        ></math
+      ><br /><math display="block"
+        ><mrow><msup><mi>e</mi><mi>iπ</mi></msup><mo>=</mo><mi>-1</mi></mrow
+        ></math
+      >
+    </section>
+  </main>
+</Layout>
