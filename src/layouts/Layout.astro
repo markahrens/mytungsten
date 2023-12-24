@@ -79,11 +79,17 @@ const { title } = Astro.props;
 
 	body {
 		margin: 0;
+		font-family: 'AR One Sans', sans-serif;
 	}
 
 	h1, h2, h3 {
 		font-family: 'Onest', sans-serif;
 		text-align: center;
+	}
+	.headings-left h1,
+	.headings-left h2,
+	.headings-left h3 {
+		text-align: left;
 	}
 	h1 {
 		font-weight: 700;
@@ -99,12 +105,10 @@ const { title } = Astro.props;
 		font-size: 1.6rem;
 	}
 	li {
-		font-family: 'AR One Sans', sans-serif;
 		font-size: 1.2rem;
 	}
 
-	p {
-		font-family: 'AR One Sans', sans-serif;
+	p {	
 		font-size: 1.2rem;
     line-height: 1.8rem;
 	}
