@@ -1,7 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-const tripEntries = await getCollection('trips');
 ---
 <Layout title="Trips">
   <h1>Trips</h1>
