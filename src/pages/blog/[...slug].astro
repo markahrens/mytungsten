@@ -17,13 +17,17 @@ const dateOptions: object = {
 	month: "long",
 	day: "numeric",
 };
-console.log(entry);
 ---
 <Layout title={entry.data.title}>
 	<div class="blog-content content-container">
 		<h1>{entry.data.title}</h1>
 		<p class="date">{entry.data.date.toLocaleDateString('en-US', dateOptions)}</p>
 		<Content />
+		<ul class="tags">
+			{entry.data.tags.map(tag => (
+				<li><a href={`/tags/${tag}`}>{tag}</a></li>
+			))}
+		</ul>
 	</div>
 	
 </Layout>
@@ -47,5 +51,15 @@ console.log(entry);
 		font-family: 'Onest', sans-serif;
 		font-size: 1.4rem;
 		text-align: center;
+	}
+
+	.tags {
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		& li {
+			list-style-type: none;
+		}
 	}
 </style>
