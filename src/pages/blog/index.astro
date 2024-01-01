@@ -4,7 +4,7 @@ import BlogPost from '../../components/BlogPost.astro';
 import { getCollection } from 'astro:content';
 const blogEntries = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-  ).slice(0,1);
+  ).slice(0,10);
 ---
 <Layout title="Blog">
   <h1>Blog</h1>

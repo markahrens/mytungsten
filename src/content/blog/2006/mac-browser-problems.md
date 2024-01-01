@@ -1,6 +1,6 @@
 ---
 title: Mac Browser Problems
-description: "testing"
+description: ""
 date: 2006-05-25
 tags: ["mac", "firefox", "browser", "safari", "camino"]
 ---

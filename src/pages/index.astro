@@ -1,13 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BlogPost from '../components/BlogPost.astro';
+import { getCollection } from 'astro:content';
+const lastestPost = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  ).slice(0,1);
 ---
 
 <Layout title="Home">
 	<main>
 		<h1>MyTungsten</h1>
 		<h2>The personal web site of Mark Ahrens</h2>
-		<h3>Updates</h3>
+		<h3>Newest Blog Post</h3>
+		<p class="view-all"><a href="/blog">View all posts</a></p>
+		<div class="content-container">
+			{lastestPost.map(blogPostEntry => (
+				<BlogPost
+					href={`/blog/${blogPostEntry.slug}`},
+					title={blogPostEntry.data.title},
+					description={blogPostEntry.data.description},
+					date={blogPostEntry.data.date}
+				/>
+			))}
+			
+		</div>
+		<h3>Site Updates</h3>
 		<ul class="content-container">
+			<li>1/1/2024 - Restored the blog</li>
 			<li>12/24/2023 - Updated site design, restored iPod for Windows review, added more info on About page.</li>
 			<li>2/20/2023 - Restored Euler's Identity page</li>
 			<li>2/14/2023 - Added About page</li>
@@ -16,5 +35,19 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-	
+	h3 {
+		margin-bottom: 0;
+	}
+	ul {
+		margin-top: 40px;
+	}
+	li {
+		list-style-type: none;
+		line-height: 1.8rem;
+	}
+	.view-all {
+		text-align: center;
+		margin: 10px 0 40px;
+		font-size: 1.1rem;
+	}
 </style>

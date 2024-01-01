@@ -11,11 +11,13 @@ export async function getStaticPaths() {
 // 2. For your template, you can get the entry directly from the prop
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+entry.data.date.setTime(entry.data.date.getTime() + (6*60*60*1000));
 
 const dateOptions: object = {
 	year: "numeric",
 	month: "long",
 	day: "numeric",
+	timezone: "America/Chicago"
 };
 ---
 <Layout title={entry.data.title}>
@@ -34,6 +36,7 @@ const dateOptions: object = {
 
 <style>
 	.blog-content {
+		margin-bottom: 40px;
 		& h1 {
 			font-family: 'Onest', sans-serif;
 			font-weight: 500;
