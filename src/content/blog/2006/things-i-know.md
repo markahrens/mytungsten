@@ -13,3 +13,9 @@ So I keep reading about writing blogs that you should write about things you kno
 * Life Events - Things like tornados and weddings fall under this category
 
 I am also getting closer to the new Marktopia theme, it is coming along nicely so I am hoping sometime soon for a unveiling.
+
+### 1 Comment
+
+Tornados and weddings….interesting pairing.
+
+*Comment by Scott — 6/1/2006 @ 3:55 pm*
