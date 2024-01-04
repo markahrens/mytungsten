@@ -1,0 +1,16 @@
+---
+title: Random Reviews
+description: ""
+date: 2004-12-06
+tags: ["reviews"]
+---
+
+I have been meaning to write up some reviews over the last couple of weeks, but I have been busy with the new job and holidays and have not gotten them posted. While I have a few minutes here, I figured I would use my time wisely and get them up here.
+
+[Moneyball](https://www.amazon.com/Moneyball-Art-Winning-Unfair-Game/dp/0393324818): I decided to read this after [Mattbot](http://www.asstastic.org) highly recommended it one night at Joe’s awhile back. I was going into it expecting a book mainly about numbers and how to analyze baseball by these numbers. I was pleasantly surprised to find that this is actually an easy to read book about more than just numbers. We start by learning about Billy Beane’s past. The author uses that story to move into the current day and how baseball players have been scouted for years and how a number of new, younger GMs are using new technology and a different look at the game to change the scouting process. Much of the book also revolves around Billy Beane as a person, not always in the glorious light that Joe Morgan says Beane is portrayed. If you aren’t a baseball fan, there is a lot of the book that may not interest you, but it still has a good story. If you are a baseball fan, you should really check this out to help give a different perspective on the game you think you know.
+
+[Jimmy Eat World - Futures](https://music.apple.com/us/album/futures/1454825406): I have been a fan of Jimmy Eat World since 98 and was less than impressed with Bleed American. While it did have a few good songs, the overall level of the album was a bit sub par in my opinion. Because of this, I was anxious to see which way the band would go after the commercial success of Bleed American, either further in the popular music direction, or back to their gritty emo roots. The verdict, while there are one or two pop songs on the album, overall it goes back to their core and has some really classic songs. This is definitely a darker album which will not likely get the radio play like their last album, but overall I think this is a much better effort by them. My favorite song, Night Drive, has a mysterious subtone to it that you just don’t hear in rock today. This is a top notch album.
+
+The Incredibles: This is my favorite movie of the year, hands down. It is easy to get caught up in the animation of this movie as it is just beautiful, but if you can get past that, you will find a great story as well. We start the movie with the forced retirement of a superhero family and how they are adjusting to normal life. I won’t go into too much detail about what happens after this because the story is just that good. What I will say is that the voice acting was spot on. If you were in the same boat as me in thinking that Coach’s Craig T. Nelson would be out of show business forever, you will be just as shocked as I was that he puts in this great performance. If you haven’t seen this movie, go now and see it.
+
+That is all for now, I kinda wish I had some bad reviews of things to off set all this good stuff, but I don’t so deal with it.
