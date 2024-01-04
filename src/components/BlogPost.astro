@@ -1,6 +1,6 @@
 ---
 const { href, title, date, description} = Astro.props;
-
+date.setTime(date.getTime() + (6*60*60*1000));
 const dateOptions: object = {
 	year: "numeric",
 	month: "long",
