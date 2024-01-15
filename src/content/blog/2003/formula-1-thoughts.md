@@ -2,7 +2,8 @@
 title: Formula 1 Thoughts
 description: ""
 date: 2003-07-07
-tags: ["news","sports"]
+tags: ["formula one","sports"]
+category: Personal
 ---
 
 Sunday’s Selected Quotes - French GP

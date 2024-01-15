@@ -2,7 +2,8 @@
 title: Faster, Stronger, Better
 description: ""
 date: 2003-09-09
-tags: ["news"]
+tags: ["mac"]
+category: Personal
 ---
 
 So the ITS No Help Desk got a G5 for the Demo Center today, so I thought I would take it upon myself to do some benchmarks to see how it compares against previous models. <strike>Click here</strike> See below for the results. Also, as you can see, the Cub’s Magic Number is back in business.

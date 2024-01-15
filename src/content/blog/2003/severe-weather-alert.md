@@ -2,7 +2,8 @@
 title: SEVERE WEATHER ALERT
 description: ""
 date: 2003-07-07
-tags: ["news"]
+tags: ["weather"]
+category: Personal
 ---
 
 [NOAA Home Page - Tornadoes](https://www.nssl.noaa.gov/education/svrwx101/tornadoes/)

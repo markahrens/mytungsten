@@ -3,6 +3,7 @@ title: Why Seinfeld Sucks
 description: ""
 date: 2003-08-12
 tags: ["opinion"]
+category: Personal
 ---
 
 So, for many years people have wondered why I hate the program Seinfeld so much. They are amazed how I can love the Simpsons so, but “poo-poo” Seinfeld. Well, here goes, I hate Seinfeld for the characters. If I wanted to see whiny, annoying people, I would just go to work. At least there I am getting paid to deal with that crap. Now some of you may be calling this simple flamebait, saying that I havn’t watched the show enough, I am a hater, etc. Well, I have honestly given Seinfeld a number of opportunities, forcing myself to watch it for 3 weeks straight once, and periodically watching it at 6:30 in the evening, aka the DEAD HALF HOUR. So let me go into some detail on the characters and why I hate them so:

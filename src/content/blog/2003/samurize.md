@@ -2,7 +2,8 @@
 title: Samurize.com
 description: ""
 date: 2003-07-03
-tags: ["news"]
+tags: ["customization"]
+category: Personal
 ---
 
 Samurize.com

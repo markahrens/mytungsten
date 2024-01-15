@@ -2,7 +2,8 @@
 title: The Crime Dog
 description: ""
 date: 2003-07-09
-tags: ["sports"]
+tags: ["humor,sports"]
+category: Personal
 ---
 
 [ESPN.com - Page2 - Ironman of commercials](https://www.espn.com/page2/s/caple/030709.html)

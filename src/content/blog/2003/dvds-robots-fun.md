@@ -2,7 +2,8 @@
 title: DVDs, Robots and Fun
 description: ""
 date: 2003-07-02
-tags: ["news"]
+tags: ["mytungsten"]
+category: Personal
 ---
 
 This evening was spent decoding and encoding video files to figure out how to make DVDs. I did get a test DVD made with one episode of Aqua Teen Hunger Force. I must now spend all of tomorrow encoding mp4 files into mpeg-2 format. As a backup, I am gonna try to download as many episodes online tonight, we will see how that works out.

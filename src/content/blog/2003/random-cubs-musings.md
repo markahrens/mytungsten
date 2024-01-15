@@ -2,7 +2,8 @@
 title: Cubs Boycott
 description: ""
 date: 2003-08-07
-tags: ["opinion","sports"]
+tags: ["opinion","sports","baseball"]
+category: Personal
 ---
 
 Well, there has been much discussion as of late of the choice to have Shawn Estes as the 5th starter in front of Juan Cruz. Personally, Cruz has to show me something before I can get on his bandwagon again. Good ol’ Scarface blew too many games early in the season, including my first experience at Wrigley, so to say he is the savior 5th starter bothers me. I am not claiming that Estes is great by any means, but the whole argument is about the 5th starter. Most teams would love to argue these two pitchers for their 3rd starter. Plus, if the Cubs make the playoffs, we wouldn’t see either of these guys since they would go to a 4 man rotation of Prior, Wood, Clement and Zambrano. Man that is just mean throwing that at someone.

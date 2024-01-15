@@ -2,7 +2,8 @@
 title: “They’re from the Moon, they don’t have anything!”
 description: ""
 date: 2003-08-22
-tags: ["opinion"]
+tags: ["science","opinion"]
+category: Personal
 ---
 
 [BBC NEWS | Science/Nature | Moon colony ‘within 20 years’](http://news.bbc.co.uk/2/hi/science/nature/3161695.stm)

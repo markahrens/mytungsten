@@ -2,7 +2,8 @@
 title: New Home for MyTungsten’s Webmaster
 description: ""
 date: 2003-08-05
-tags: ["news"]
+tags: ["moving","mytungsten"]
+category: Personal
 ---
 
 The move is finally complete, and I for one am pleased. The new apartment is all setup, I have Internet there and the kitchen is bigger than the old place, so pluses all around. I even have a tentitive plan on how to take the bus so I can go out Fridays, so boo-yah to that. I plan on taking some pics of the new place and post them on the MyTungsten News area later, maybe do some sort of 3-D virtual tour.
