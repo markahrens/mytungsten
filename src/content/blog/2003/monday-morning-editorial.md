@@ -1,0 +1,11 @@
+---
+title: Monday Morning Editorial
+description: ""
+date: 2003-12-15
+tags: ["opinion"]
+category: Personal
+---
+
+Well, I hate to admit it, but I did feel a little bit of happiness yesterday knowing that Saddam was caught. Ok, maybe not happiness, maybe the correct term would be “less anger.” In any case, the guy is know caught, it will be interesting to see what is done with him. Already he has supposedly been cooperative with the US officials and is proclaiming that there are no WoMD. If that is the case, GWB may have done better to not catch him as the Democrats could go to town on the WoMD topic. On the other hand, the Dems are in such disarray these days, GWB might be able have sex with his own child and still win the election. But before I rant on that, I will conclude the Saddam thing by saying capturing this guy is a good thing and Iraq is a little safer this morning. Now if only I could see Chris Berman getting all emotional about this…
+
+On to the upcoming election, I will admit that I am not a huge political person, but as an avid viewer of [the Daily Show](http://www.thedailyshow.com/), I find myself more and more caught up in it. On a side note, I am amazed that nearly all of the Democrats running have been guests on the show within the last month or two. (Also, Jon Stewart needs to stop doing the bit with his tie, it is way too Letterman-esque.) In any case, having seen the candidates, I am a bit hesitant on who to vote for. Dean has this air about him that makes me think that if he were elected, he would rip off a mask and show that he is actually GWB. He has this smirk that just says, “Come on, vote for me, I dare you to.” He now has Gore’s support, although the support of Al Gore didn’t help Al Gore too much in 2000, so we will see where that gets Dean. I also have been paying more attention to Wesley Clark. Clark seems like the Dems answer to John McCain. Get some old military person who may be mildly insane, who wants to be friendly to the youth and keeps plugging a web site that he most likely has never been to. Sounds like a recipe for success to me. In any case, we will have to see how it all plays out in the next couple of months, my guess, Dean will challenge Clark in a fight in the near future.
