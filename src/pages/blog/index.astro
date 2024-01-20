@@ -5,18 +5,41 @@ import { getCollection } from 'astro:content';
 const blogEntries = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   );
+const postYears = new Map();
+blogEntries.forEach(post => {
+    const year = post.data.date.getFullYear();
+
+    if (!postYears.get(year)) {
+        postYears.set(year, []);
+    }
+
+    postYears.get(year).push(post);
+});
+
 ---
 <Layout title="Blog">
   <h1>Blog</h1>
   <div class="content-container">
-    {blogEntries.map(blogPostEntry => (
-      <BlogPost
-        href={`/blog/${blogPostEntry.slug}`},
-        title={blogPostEntry.data.title},
-        description={blogPostEntry.data.description},
-        date={blogPostEntry.data.date}
-      />
-    ))}
+    {[...postYears.entries()].map(([year, posts]) => (
+      <h2 class="year-heading">{year}</h2>
+      <div>
+        {posts.map((blogPostEntry: { slug: any; data: { title: any; description: any; date: any; }; }) => (
+          <BlogPost
+            href={`/blog/${blogPostEntry.slug}`},
+            title={blogPostEntry.data.title},
+            description={blogPostEntry.data.description},
+            date={blogPostEntry.data.date}
+          />
+        ))}
+      </div>
+    ))
+    }
   </div>
 </Layout>
+
+<style>
+  .year-heading {
+    text-align: left;
+  }
+</style>
 

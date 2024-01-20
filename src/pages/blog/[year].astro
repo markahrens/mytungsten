@@ -6,16 +6,16 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
 
 	const posts = await getCollection('blog');
-    const postYears = new Map();
-    posts.forEach(post => {
-        const year = post.data.date.getFullYear();
+  const postYears = new Map();
+  posts.forEach(post => {
+      const year = post.data.date.getFullYear();
 
-        if (!postYears.get(year)) {
-            postYears.set(year, []);
-        }
+      if (!postYears.get(year)) {
+          postYears.set(year, []);
+      }
 
-        postYears.get(year).push(post);
-    });
+      postYears.get(year).push(post);
+  });
 
 
     return [...postYears.entries()].map(([year, posts]) => ({
