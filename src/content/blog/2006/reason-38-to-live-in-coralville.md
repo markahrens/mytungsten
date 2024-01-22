@@ -2,7 +2,7 @@
 title: Reason 38 to Live in Coralville
 description: ""
 date: 2006-07-03
-tags: [""]
+tags: ["coralville"]
 category: Music
 ---
 

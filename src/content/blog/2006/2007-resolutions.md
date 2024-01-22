@@ -2,7 +2,7 @@
 title: 2007 Resolutions
 description: ""
 date: 2006-12-26
-tags: [""]
+tags: ["mytungsten"]
 category: Personal
 ---
 
