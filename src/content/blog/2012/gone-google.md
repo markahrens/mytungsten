@@ -2,7 +2,7 @@
 title: Gone Google
 description: ""
 date: 2012-02-23
-tags: [""]
+tags: ["opinion"]
 category: Personal
 ---
 

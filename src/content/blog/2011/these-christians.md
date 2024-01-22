@@ -2,7 +2,7 @@
 title: These Christians
 description: ""
 date: 2011-11-01
-tags: [""]
+tags: ["opinion"]
 category: Personal
 ---
 

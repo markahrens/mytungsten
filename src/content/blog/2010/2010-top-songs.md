@@ -2,7 +2,7 @@
 title: 2010 Top Songs
 description: ""
 date: 2010-12-15
-tags: [""]
+tags: ["music"]
 category: Music
 ---
 

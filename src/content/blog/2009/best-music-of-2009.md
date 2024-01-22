@@ -2,7 +2,7 @@
 title: Best Music of 2009
 description: ""
 date: 2009-11-11
-tags: [""]
+tags: ["music"]
 category: Music
 ---
 

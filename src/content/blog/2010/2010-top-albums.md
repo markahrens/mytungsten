@@ -2,7 +2,7 @@
 title: 2010 Top Albums
 description: ""
 date: 2010-12-11
-tags: [""]
+tags: ["music"]
 category: Music
 ---
 

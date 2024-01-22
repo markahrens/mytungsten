@@ -2,7 +2,7 @@
 title: Absent Music
 description: ""
 date: 2008-11-14
-tags: [""]
+tags: ["music"]
 category: Music
 ---
 

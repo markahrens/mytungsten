@@ -2,7 +2,7 @@
 title: Missing Music
 description: ""
 date: 2008-10-07
-tags: [""]
+tags: ["music"]
 category: Music
 ---
 

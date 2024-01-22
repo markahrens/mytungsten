@@ -2,7 +2,7 @@
 title: Stranded and Only Music to Play
 description: ""
 date: 2008-02-28
-tags: [""]
+tags: ["music"]
 category: Music
 ---
 

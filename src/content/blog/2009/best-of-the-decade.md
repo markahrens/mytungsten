@@ -2,7 +2,7 @@
 title: Best of the Decade
 description: ""
 date: 2009-04-10
-tags: [""]
+tags: ["best of"]
 category: Music
 ---
 
