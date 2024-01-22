@@ -7,6 +7,7 @@ const blogEntries = (await getCollection('blog')).sort(
   );
 const postYears = new Map();
 blogEntries.forEach(post => {
+    post.data.date.setTime(post.data.date.getTime() + (6*60*60*1000));
     const year = post.data.date.getFullYear();
 
     if (!postYears.get(year)) {
