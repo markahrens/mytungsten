@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>A fascinating read about architecture under the Soviet regime.</p>
+A fascinating read about architecture under the Soviet regime.

@@ -7,9 +7,9 @@ category: Personal
 ---
 
 
-<p>Another year gone so it is time to review last year’s resolutions and come up with some new ones for the coming year.  First, here is the listing of last year’s resolutions and their status.  Then later this evening or tomorrow, I will be posting the 2008 resolutions.</p>
+Another year gone so it is time to review last year’s resolutions and come up with some new ones for the coming year.  First, here is the listing of last year’s resolutions and their status.  Then later this evening or tomorrow, I will be posting the 2008 resolutions.
 
-<p>Tech (Work or Home)</p>
+Tech (Work or Home)
 
 <ul>
 
@@ -33,7 +33,7 @@ category: Personal
 
 </ul>
 
-<p>Personal Life (Not that kinda personal)</p>
+Personal Life (Not that kinda personal)
 
 <ul>
 
@@ -53,7 +53,7 @@ category: Personal
 
 </ul>
 
-<p>Social Stuff</p>
+Social Stuff
 
 <ul>
 
@@ -61,7 +61,7 @@ category: Personal
 
 </ul>
 
-<p>Stuff Stuff (List of expensive things that I want)</p>
+Stuff Stuff (List of expensive things that I want)
 
 <ul>
 
@@ -81,6 +81,6 @@ category: Personal
 
 </ul>
 
-<p>Note about the Comics Database – Soon after the beginning of the year, I found a web site <a href="https://web.archive.org/web/20131211162729/http://www.stashmycomics.com/">StashMyComics</a> that did pretty much what I wanted to for free.  It isn’t perfect and can be a little slow, however it has worked for now.</p>
+Note about the Comics Database – Soon after the beginning of the year, I found a web site <a href="https://web.archive.org/web/20131211162729/http://www.stashmycomics.com/">StashMyComics</a> that did pretty much what I wanted to for free.  It isn’t perfect and can be a little slow, however it has worked for now.
 
-<p>Note about House Savings – Rebekah and I bought a house, it is that simple and that cool!</p>
+Note about House Savings – Rebekah and I bought a house, it is that simple and that cool!

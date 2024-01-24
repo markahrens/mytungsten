@@ -7,7 +7,7 @@ category: Personal
 ---
 
 
-<p>Before giving out my 2009 resolutions, I thought I would recap my 2008 ones:</p>
+Before giving out my 2009 resolutions, I thought I would recap my 2008 ones:
 
 <h3>Tech (Work or Home)</h3>
 
@@ -33,7 +33,7 @@ category: Personal
 
 <li>**Completed**! – Try and fix the backyard – It is a wreck and I would like to get some forward momentum with it</li>
 
-<li>**Not Quite <img src="https://web.archive.org/web/20131211065127im_/http://mytungsten.net/wp-includes/images/smilies/icon_sad.gif" alt=":(" class="wp-smiley"> ** – Exercise more – I don’t do much at all now for exercise so I want to start getting in better shape</li>
+<li>**Not Quite ☹️** – Exercise more – I don’t do much at all now for exercise so I want to start getting in better shape</li>
 
 </ul>
 
@@ -45,9 +45,9 @@ category: Personal
 
 </ul>
 
-<p>That is pretty good in my opinion, I guess that happens when you set reasonable goals.</p>
+That is pretty good in my opinion, I guess that happens when you set reasonable goals.
 
-<p>Now for my new resolutions.&nbsp; I have to say that with the total unknown of how my life will really change once Will is born, these are going to either be easily achievable or way over my head.</p>
+Now for my new resolutions.&nbsp; I have to say that with the total unknown of how my life will really change once Will is born, these are going to either be easily achievable or way over my head.
 
 <ul>
 
@@ -67,4 +67,4 @@ category: Personal
 
 </ul>
 
-<p>That about covers it, we will see how it goes! Happy New Year to everyone of course and hope you will keep reading throughout 2009.</p>
+That about covers it, we will see how it goes! Happy New Year to everyone of course and hope you will keep reading throughout 2009.

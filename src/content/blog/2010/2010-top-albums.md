@@ -7,7 +7,7 @@ category: Music
 ---
 
 
-<p>While I don’t have time to comment about each of these albums, I will make a general statement that I thought this year was a bit of a down year for new music compared to last year. I also threw in a few other categories as well at the end to add some variety to the list, so check those out too. Feel free to add your thoughts, including the obligatory “these are all the same genre” statement in the comments section.</p>
+While I don’t have time to comment about each of these albums, I will make a general statement that I thought this year was a bit of a down year for new music compared to last year. I also threw in a few other categories as well at the end to add some variety to the list, so check those out too. Feel free to add your thoughts, including the obligatory “these are all the same genre” statement in the comments section.
 
 <h3>Top Albums</h3>
 

@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>I can pretty much assure you that at least one or two of these will be on my list.</p>
+I can pretty much assure you that at least one or two of these will be on my list.

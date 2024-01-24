@@ -7,7 +7,7 @@ category: Web Tech
 ---
 
 
-<p>I havn’t posted much recently because I had to reload my mac and havn’t reinstalled ecto yet and I have been too lazy to go to the web interface to post.&nbsp; That is in conjunction with having about a billion things going on with the house, the kitten and softball over the last two weeks.&nbsp; That being said, I have a few comments about stuff that has happened and is noteworthy.</p>
+I havn’t posted much recently because I had to reload my mac and havn’t reinstalled ecto yet and I have been too lazy to go to the web interface to post.&nbsp; That is in conjunction with having about a billion things going on with the house, the kitten and softball over the last two weeks.&nbsp; That being said, I have a few comments about stuff that has happened and is noteworthy.
 
 <ul>
 
@@ -25,4 +25,4 @@ category: Web Tech
 
 </ul>
 
-<p>That kind of sums up the last couple of weeks.&nbsp; Posts will come faster now that my mac is up and going again and I am feeling motivated to post.</p>
+That kind of sums up the last couple of weeks.&nbsp; Posts will come faster now that my mac is up and going again and I am feeling motivated to post.

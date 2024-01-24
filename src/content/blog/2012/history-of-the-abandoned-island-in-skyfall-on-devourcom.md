@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>I have to admit that I was really curious about that island in the movie, whether it was a set or what.</p>
+I have to admit that I was really curious about that island in the movie, whether it was a set or what.

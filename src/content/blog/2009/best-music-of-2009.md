@@ -7,9 +7,9 @@ category: Music
 ---
 
 
-<p>Note: This is a bit of a repost but with more content thrown in, thanks for putting up with it</p>
+Note: This is a bit of a repost but with more content thrown in, thanks for putting up with it
 
-<p>I know this is a little early, but I know there is a best of the 2000′s list to work on as well, and history has shown me that good albums do not come out in Novembers and Decembers. This year was a pretty fantastic for music, so the choices were much tougher than last year. So here is the quick and dirty list for 2009.</p>
+I know this is a little early, but I know there is a best of the 2000′s list to work on as well, and history has shown me that good albums do not come out in Novembers and Decembers. This year was a pretty fantastic for music, so the choices were much tougher than last year. So here is the quick and dirty list for 2009.
 
 <div id="_mcePaste" style="position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow-x: hidden; overflow-y: hidden;">Merriweather Post Pavillian – Animal Collective</div>
 
@@ -87,7 +87,7 @@ Fantastic grunge album 15 years after it’s time.</li>
 
 </ol>
 
-<p>**Honorable Mention (in Alphabetical Order)**</p>
+**Honorable Mention (in Alphabetical Order)**
 
 <ul>
 

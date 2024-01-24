@@ -7,7 +7,7 @@ category: Personal
 ---
 
 
-<p>Before I go over my resolutions for the upcoming year, I thought I would revisit the ones from last year:</p>
+Before I go over my resolutions for the upcoming year, I thought I would revisit the ones from last year:
 
 <ul>
 
@@ -27,7 +27,7 @@ category: Personal
 
 </ul>
 
-<p>For 2010, I have had some difficulty in thinking of resolutions. The first reason is that I have learned over the last 9 months that you cannot anticipate what your kid is going to do next. I hate to think of a resolution that seems reasonable now, but in a month is totally unreasonable do to a change in Will’s routine or&nbsp;behaviors. That being said, here is what I have:</p>
+For 2010, I have had some difficulty in thinking of resolutions. The first reason is that I have learned over the last 9 months that you cannot anticipate what your kid is going to do next. I hate to think of a resolution that seems reasonable now, but in a month is totally unreasonable do to a change in Will’s routine or&nbsp;behaviors. That being said, here is what I have:
 
 <ul>
 

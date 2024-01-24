@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>M.G. gives a not so great review of the Surface. Not having futzed with one yet, I can’t comment on how accurate his opinions are, I can say that it is nice not to have a review that minces words out there.</p>
+M.G. gives a not so great review of the Surface. Not having futzed with one yet, I can’t comment on how accurate his opinions are, I can say that it is nice not to have a review that minces words out there.

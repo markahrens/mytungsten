@@ -10,8 +10,8 @@ So the ITS No Help Desk got a G5 for the Demo Center today, so I thought I would
 
 <table width="100%" border="0" cellpadding="3">
   <tbody><tr valign="top"> 
-    <td><p><strong>G4 Cube</strong></p>
-      <p>Results 54.14 <br>
+    <td><strong>G4 Cube</strong>
+      Results 54.14 <br>
         System Info <br>
         Xbench Version 1.1<br>
         System Version 10.2.6<br>
@@ -63,10 +63,10 @@ So the ITS No Help Desk got a G5 for the Demo Center today, so I thought I would
         Uncached Write 52.45 0.75 MB/sec [4K blocks]<br>
         Uncached Write 55.37 12.49 MB/sec [256K blocks]<br>
         Uncached Read 71.97 0.47 MB/sec [4K blocks]<br>
-        Uncached Read 69.64 14.33 MB/sec [256K blocks]</p>
+        Uncached Read 69.64 14.33 MB/sec [256K blocks]
       </td>
-    <td><p><strong>G4 Tower</strong></p>
-      <p>Results 108.80 <br>
+    <td><strong>G4 Tower</strong>
+      Results 108.80 <br>
         System Info <br>
         Xbench Version 1.1.1<br>
         System Version 10.2.6 (6L60)<br>
@@ -119,10 +119,10 @@ So the ITS No Help Desk got a G5 for the Demo Center today, so I thought I would
         Uncached Write 103.02 1.47 MB/sec [4K blocks]<br>
         Uncached Write 109.03 24.59 MB/sec [256K blocks]<br>
         Uncached Read 99.41 0.66 MB/sec [4K blocks]<br>
-        Uncached Read 105.02 21.61 MB/sec [256K blocks]</p>
+        Uncached Read 105.02 21.61 MB/sec [256K blocks]
     </td>
-    <td><p><strong>G5 Tower</strong></p>
-      <p>Results 138.60 <br>
+    <td><strong>G5 Tower</strong>
+      Results 138.60 <br>
         System Info <br>
         Xbench Version 1.1.1<br>
         System Version 10.2.7 (G5) (6S80)<br>
@@ -173,7 +173,7 @@ So the ITS No Help Desk got a G5 for the Demo Center today, so I thought I would
         Uncached Write 100.21 1.43 MB/sec [4K blocks]<br>
         Uncached Write 109.55 24.71 MB/sec [256K blocks]<br>
         Uncached Read 101.92 0.67 MB/sec [4K blocks]<br>
-        Uncached Read 116.13 23.90 MB/sec [256K blocks]</p>
+        Uncached Read 116.13 23.90 MB/sec [256K blocks]
       </td>
   </tr>
 </tbody></table>

@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>Sometimes a really simple idea executed in a clever way leads to something very very cool.</p>
+Sometimes a really simple idea executed in a clever way leads to something very very cool.

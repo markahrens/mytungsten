@@ -7,7 +7,7 @@ category: Personal
 ---
 
 
-<p>Without further ado, my top 10 albums of the year, with honorable mentions in no particular order:</p>
+Without further ado, my top 10 albums of the year, with honorable mentions in no particular order:
 
 <ol>
 
@@ -33,7 +33,7 @@ category: Personal
 
 </ol>
 
-<p>Honorable Mention</p>
+Honorable Mention
 
 <ul>
 
@@ -47,8 +47,8 @@ category: Personal
 
 </ul>
 
-<p>Overall, it was a pretty strong year for new music. Out of the 64 albums that I listened to, 25 were above average in my opinion.</p>
+Overall, it was a pretty strong year for new music. Out of the 64 albums that I listened to, 25 were above average in my opinion.
 
-<p>This list also is albums only. My top EPs for the year were Burial’s Kindred and THGHT’s self titled EP.</p>
+This list also is albums only. My top EPs for the year were Burial’s Kindred and THGHT’s self titled EP.
 
-<p>**Update**: It was pointed out that Making Mirrors was a 2011 release, which indeed it was, so it has been stricken from the list.</p>
+**Update**: It was pointed out that Making Mirrors was a 2011 release, which indeed it was, so it has been stricken from the list.

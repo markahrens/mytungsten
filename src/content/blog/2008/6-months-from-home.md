@@ -7,9 +7,9 @@ category: Music
 ---
 
 
-<p>A little halfway through the year and I thought I would give an update on albums I have listened to so far in preparations for the top 2008 albums.  Here is the list so far:</p>
+A little halfway through the year and I thought I would give an update on albums I have listened to so far in preparations for the top 2008 albums.  Here is the list so far:
 
-<p>All India Radio – Fall<br>
+All India Radio – Fall<br>
 
 Breathe Owl Breathe – Ghost Glacier EP<br>
 
@@ -55,12 +55,12 @@ Throw Me The Statue – Moonbeams<br>
 
 Vampire Weekend – Vampire Weekend<br>
 
-Weezer – Weezer (The Red Album)</p>
+Weezer – Weezer (The Red Album)
 
-<p>I already have a few albums I am aware of to listen to, listed below, but if there are other ones you think I shouldn’t miss, feel free to add them to the comments.</p>
+I already have a few albums I am aware of to listen to, listed below, but if there are other ones you think I shouldn’t miss, feel free to add them to the comments.
 
-<p>MGMT – Oracular Spectacular<br>
+MGMT – Oracular Spectacular<br>
 
 Sigur Ros – Med Sud I Eyrum Vid Spilum Endalaust<br>
 
-Santogold – Santogold </p>
+Santogold – Santogold 

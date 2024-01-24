@@ -7,7 +7,7 @@ category: Music
 ---
 
 
-<p>Here is my top ten songs of the year to follow up the <a href="https://web.archive.org/web/20131211105400/http://www.marktopia.net/best-music-of-2009">top albums</a> posted previously:</p>
+Here is my top ten songs of the year to follow up the <a href="https://web.archive.org/web/20131211105400/http://www.marktopia.net/best-music-of-2009">top albums</a> posted previously:
 
 <div id="_mcePaste" style="position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow-x: hidden; overflow-y: hidden;">My Girls – Animal Collective (Merriweather Post Pavilion)</div>
 
@@ -65,7 +65,7 @@ category: Music
 
 </ol>
 
-<p>Honorable Mention</p>
+Honorable Mention
 
 <ul>
 

@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>I can get behind all of these.</p>
+I can get behind all of these.

@@ -7,7 +7,7 @@ category: Music
 ---
 
 
-<p>Here is my top 25 albums of the 00′s, I am planning on writing more about the selections soon, but I figured I would get the list out there so people can react if you like. Here goes:</p>
+Here is my top 25 albums of the 00′s, I am planning on writing more about the selections soon, but I figured I would get the list out there so people can react if you like. Here goes:
 
 <div id="_mcePaste">
 

@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>So it is free, but decentralized. I have an account at&nbsp;https://themarkahrens.tent.is, but I have to admit the pickings are pretty bare right now. That said, I love the idea of it.</p>
+So it is free, but decentralized. I have an account at&nbsp;https://themarkahrens.tent.is, but I have to admit the pickings are pretty bare right now. That said, I love the idea of it.

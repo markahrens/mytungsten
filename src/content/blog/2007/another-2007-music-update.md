@@ -7,9 +7,9 @@ category: Music
 ---
 
 
-<p>Since each post has produced additional albums to listen to, I figured I would post again with my list and ask for other albums I have missed.  The list of albums is below with new items since the last post in bold.  A quick note, things are going well with my rankings and I already have a good idea of what the top 5 are.  Albums are falling into buckets pretty well so I could do a top 5 only or I think I could do a top 10 pretty easily as well.  If I do a top 5, I could also do a couple honorable mentions or something like that, but I wanted to let the readers help decide if it is a top 5 or top 10 list, so comment away.</p>
+Since each post has produced additional albums to listen to, I figured I would post again with my list and ask for other albums I have missed.  The list of albums is below with new items since the last post in bold.  A quick note, things are going well with my rankings and I already have a good idea of what the top 5 are.  Albums are falling into buckets pretty well so I could do a top 5 only or I think I could do a top 10 pretty easily as well.  If I do a top 5, I could also do a couple honorable mentions or something like that, but I wanted to let the readers help decide if it is a top 5 or top 10 list, so comment away.
 
-<p>List of 2007 Albums</p>
+List of 2007 Albums
 
 <ul>
 

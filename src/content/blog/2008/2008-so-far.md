@@ -7,9 +7,9 @@ category: Music
 ---
 
 
-<p>With a week left in September, I figured this would be a good time to plead for more music to listen to so I am be as well versed as possible in my best of 2008 list.&nbsp; Here is the music I have listened to so far:</p>
+With a week left in September, I figured this would be a good time to plead for more music to listen to so I am be as well versed as possible in my best of 2008 list.&nbsp; Here is the music I have listened to so far:
 
-<p>3 Na Massa – 3 Na Massa<br>
+3 Na Massa – 3 Na Massa<br>
 
 All India Radio – Fall<br>
 
@@ -79,12 +79,12 @@ The Walkmen – You &amp; Me<br>
 
 Throw Me The Statue – Moonbeams<br>
 
-Vampire Weekend – Vampire Weekend</p>
+Vampire Weekend – Vampire Weekend
 
-<p>I am planning on listening to the following already, so if you have other suggestions, please add them in the comments:</p>
+I am planning on listening to the following already, so if you have other suggestions, please add them in the comments:
 
-<p>TV on the Radio – Dear Science<br>
+TV on the Radio – Dear Science<br>
 
 Kings of Leon – Only by the Night<br>
 
-Mogwai – The Hawk is Howling</p>
+Mogwai – The Hawk is Howling

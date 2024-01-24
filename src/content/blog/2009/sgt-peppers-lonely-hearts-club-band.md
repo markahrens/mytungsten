@@ -6,5 +6,4 @@ tags: ["amazing","beatles","rock"]
 category: Albums
 ---
 
-
-<p><img class="alignleft size-full wp-image-984" title="sgtpepper" src="https://web.archive.org/web/20131211120825im_/http://mytungsten.net/wp-content//uploads/2009/09/sgtpepper.jpg" alt="sgtpepper" width="150" height="150"> With the release of the remastered Beatles albums, how could I not go with this? Probably one of the best albums, ever. I am sure you have heard it before, but the remastering really is quite amazing. If you haven’t given it a listen in awhile, you owe it to yourself to check out the remaster and fall in love with the album all over again.</p>
+With the release of the remastered Beatles albums, how could I not go with this? Probably one of the best albums, ever. I am sure you have heard it before, but the remastering really is quite amazing. If you haven’t given it a listen in awhile, you owe it to yourself to check out the remaster and fall in love with the album all over again.

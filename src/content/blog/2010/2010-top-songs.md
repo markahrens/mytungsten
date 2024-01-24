@@ -7,9 +7,9 @@ category: Music
 ---
 
 
-<p>Following up the <a href="https://web.archive.org/web/20131211172911/http://www.marktopia.net/2010-top-albums">top albums list</a>, here are my top ten songs for the year. Let me know what you think in the comments.</p>
+Following up the <a href="https://web.archive.org/web/20131211172911/http://www.marktopia.net/2010-top-albums">top albums list</a>, here are my top ten songs for the year. Let me know what you think in the comments.
 
-<p><!-- p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica} --></p>
+<!-- p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica} -->
 
 <ol>
 
@@ -35,7 +35,7 @@ category: Music
 
 </ol>
 
-<p>Honorable Mention</p>
+Honorable Mention
 
 <ul>
 

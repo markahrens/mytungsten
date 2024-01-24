@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>I love the Now I Know newsletters, but this one really stuck out as just awesome.</p>
+I love the Now I Know newsletters, but this one really stuck out as just awesome.

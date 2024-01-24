@@ -7,9 +7,9 @@ category: Personal
 ---
 
 
-<p>It has been just over 5 weeks since William was born and I realize there was a whole 2 blog posts in that time. Well, I figure it is time to start catching up with adding some content on here. I am planning on doing this three-fold. First, moving over the Guide to Soccer for Americans from hidden pages to posts. Second, catching up on Album of the Weeks (I need to figure out 6 albums to get caught up). Third, posting more about Will, which will be right now.</p>
+It has been just over 5 weeks since William was born and I realize there was a whole 2 blog posts in that time. Well, I figure it is time to start catching up with adding some content on here. I am planning on doing this three-fold. First, moving over the Guide to Soccer for Americans from hidden pages to posts. Second, catching up on Album of the Weeks (I need to figure out 6 albums to get caught up). Third, posting more about Will, which will be right now.
 
-<p>Basically there are three big things about Will:</p>
+Basically there are three big things about Will:
 
 <ol>
 
@@ -21,4 +21,4 @@ category: Personal
 
 </ol>
 
-<p>In addition, we do have plenty of <a href="https://web.archive.org/web/20131211102330/http://www.flickr.com/photos/mizidymizark/tags/william/">photos of Will</a> and are adding more all the time, so feel free to check them out.</p>
+In addition, we do have plenty of <a href="https://web.archive.org/web/20131211102330/http://www.flickr.com/photos/mizidymizark/tags/william/">photos of Will</a> and are adding more all the time, so feel free to check them out.

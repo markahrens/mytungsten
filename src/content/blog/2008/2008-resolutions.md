@@ -7,7 +7,7 @@ category: Personal
 ---
 
 
-<p>Since I did fairly well on resolutions last year, I thought I would give it another try this year.  I will be using the same categories I used last year as well.  Again, I will be adding a few more I am sure in the next couple of days, but here is a start</p>
+Since I did fairly well on resolutions last year, I thought I would give it another try this year.  I will be using the same categories I used last year as well.  Again, I will be adding a few more I am sure in the next couple of days, but here is a start
 
 <h3>Tech (Work or Home)</h3>
 
@@ -43,9 +43,9 @@ category: Personal
 
 
 
-<p>Coming Soon
+Coming Soon
 
-</p></ul>
+</ul>
 
 <h3>Stuff Stuff</h3>
 

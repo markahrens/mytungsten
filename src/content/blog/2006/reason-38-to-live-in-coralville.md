@@ -7,4 +7,4 @@ category: Music
 ---
 
 
-<p>Right now I am listening to The Charlie Daniels Band, yes THE Charlie Daniels Band, from the comfort of my own apartment.? Tomorrow it is a walk up the hill and across the street for fireworks.? All sorts of good stuff coming from Coralville this 4th.</p>
+Right now I am listening to The Charlie Daniels Band, yes THE Charlie Daniels Band, from the comfort of my own apartment.? Tomorrow it is a walk up the hill and across the street for fireworks.? All sorts of good stuff coming from Coralville this 4th.

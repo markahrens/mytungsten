@@ -7,7 +7,7 @@ category: Music
 ---
 
 
-<p>As usual this time of year, I throw out a list of albums that I have listened to from this year. This gives you all an idea of what I have been listening to in preparation for my end of the year list, and an opportunity for you to add albums that you think I should check out before making my best of list. In general, I think this year has been a pretty down year, but there are some stand outs. Here is the list, alphabetical by artist.</p>
+As usual this time of year, I throw out a list of albums that I have listened to from this year. This gives you all an idea of what I have been listening to in preparation for my end of the year list, and an opportunity for you to add albums that you think I should check out before making my best of list. In general, I think this year has been a pretty down year, but there are some stand outs. Here is the list, alphabetical by artist.
 
 <ul>
 

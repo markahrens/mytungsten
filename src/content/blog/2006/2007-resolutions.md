@@ -7,9 +7,9 @@ category: Personal
 ---
 
 
-<p>I never got into the whole yearly resolutions thing, mainly because I always got frustrated looking back at resolutions I forgot about or didn’t accomplish.  As I get older, I am beginning to realize that setting these resolutions is more for peace of mind rather than a bunch of stuff that has to get done for the year.  Yes, some of the things I really do want to do this year, but some would just be nice to get checked off the list.  I am also breaking them down by different categories since categories are so much fun to do.</p>
+I never got into the whole yearly resolutions thing, mainly because I always got frustrated looking back at resolutions I forgot about or didn’t accomplish.  As I get older, I am beginning to realize that setting these resolutions is more for peace of mind rather than a bunch of stuff that has to get done for the year.  Yes, some of the things I really do want to do this year, but some would just be nice to get checked off the list.  I am also breaking them down by different categories since categories are so much fun to do.
 
-<p>Tech (Work or Home)</p>
+Tech (Work or Home)
 
 <ul>
 
@@ -25,7 +25,7 @@ category: Personal
 
 </ul>
 
-<p>Personal Life (Not that kinda personal)</p>
+Personal Life (Not that kinda personal)
 
 <ul>
 
@@ -39,7 +39,7 @@ category: Personal
 
 </ul>
 
-<p>Social Stuff</p>
+Social Stuff
 
 <ul>
 
@@ -47,7 +47,7 @@ category: Personal
 
 </ul>
 
-<p>Stuff Stuff (List of expensive things that I want)</p>
+Stuff Stuff (List of expensive things that I want)
 
 <ul>
 
@@ -61,4 +61,4 @@ category: Personal
 
 </ul>
 
-<p>I will be adding to this list throughout the week with the plan to have this finalized by Jan 1, so check back after the 1st to see the final list.</p>
+I will be adding to this list throughout the week with the plan to have this finalized by Jan 1, so check back after the 1st to see the final list.

@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>I have been impressed from Bootstrap from day one. I am also happy with their previous announcement that they are not affiliated with Twitter anymore.</p>
+I have been impressed from Bootstrap from day one. I am also happy with their previous announcement that they are not affiliated with Twitter anymore.

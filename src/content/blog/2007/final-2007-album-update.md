@@ -7,11 +7,11 @@ category: Music
 ---
 
 
-<p>I want to thank everyone who suggested albums for me to listen to over the last month or so.  That is, everyone but <a href="https://web.archive.org/web/20131211165823/http://www.imshane.com/">Shane</a>.  Shane recommend The Fiery Furnaces, and when I didn’t include the in the last list, mentioned them again.  Well the first 3 songs on that album proved that it was not going to make the top 10 list.  In fact, it let me know that it would make the bottom 1 list.  I would rather jam cotton swabs in my ears than listen to headphones playing that music.  I would prefer to listen to Kenny G playing with Bill Shatner doing spoken word over it than listen to that album.  It is awful.</p>
+I want to thank everyone who suggested albums for me to listen to over the last month or so.  That is, everyone but <a href="https://web.archive.org/web/20131211165823/http://www.imshane.com/">Shane</a>.  Shane recommend The Fiery Furnaces, and when I didn’t include the in the last list, mentioned them again.  Well the first 3 songs on that album proved that it was not going to make the top 10 list.  In fact, it let me know that it would make the bottom 1 list.  I would rather jam cotton swabs in my ears than listen to headphones playing that music.  I would prefer to listen to Kenny G playing with Bill Shatner doing spoken word over it than listen to that album.  It is awful.
 
-<p>So on that note, you have my first comment about the 39 albums (38 and 3 tracks actually) I listened to.    Here is the final list of albums, the last 3 added in bold.  After narrowing it down, there was a wonderful cutoff right at 15 albums actually, so I am planning on counting down the top 15 starting December 3rd and doing an album each workday until the 21st where I give my top album.  Thanks for everyone’s help so far and I am anxious to get feedback on the albums as they come out.</p>
+So on that note, you have my first comment about the 39 albums (38 and 3 tracks actually) I listened to.    Here is the final list of albums, the last 3 added in bold.  After narrowing it down, there was a wonderful cutoff right at 15 albums actually, so I am planning on counting down the top 15 starting December 3rd and doing an album each workday until the 21st where I give my top album.  Thanks for everyone’s help so far and I am anxious to get feedback on the albums as they come out.
 
-<p>Final List</p>
+Final List
 
 <ul>
 

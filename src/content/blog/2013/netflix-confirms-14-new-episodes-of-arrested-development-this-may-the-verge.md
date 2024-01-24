@@ -7,4 +7,4 @@ category: Personal
 ---
 
 
-<p>Just when I was evaluating our Netflix subscription, this comes along and makes any thought of getting rid of it go away.</p>
+Just when I was evaluating our Netflix subscription, this comes along and makes any thought of getting rid of it go away.

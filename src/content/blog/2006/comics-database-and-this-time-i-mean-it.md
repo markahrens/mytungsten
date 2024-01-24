@@ -7,7 +7,7 @@ category: Personal
 ---
 
 
-<p>Ok, I have nothing else to get in my way now, with the exception of reading, the Wesley Acres web site and finishing Paper Mario, of starting and finishing my comics database program.  I am thinking it is going to take a few steps before the programming happens, such as determining what data to collect, what features I want and then designing the database.  During this time, I have lost my mind and am allowing you to determine what language I will be programming it in.? The choices are listed below:</p>
+Ok, I have nothing else to get in my way now, with the exception of reading, the Wesley Acres web site and finishing Paper Mario, of starting and finishing my comics database program.  I am thinking it is going to take a few steps before the programming happens, such as determining what data to collect, what features I want and then designing the database.  During this time, I have lost my mind and am allowing you to determine what language I will be programming it in.? The choices are listed below:
 
 <ul>
 
@@ -19,4 +19,4 @@ category: Personal
 
 </ul>
 
-<p>I am pretty open to other suggestions as well, as long as they will run on my web host.? This probably means no ASP.NET, I think.? Use the sidebar widget to vote, the polls will remain open as long as it take for me to come up with the features and database design.</p>
+I am pretty open to other suggestions as well, as long as they will run on my web host.? This probably means no ASP.NET, I think.? Use the sidebar widget to vote, the polls will remain open as long as it take for me to come up with the features and database design.

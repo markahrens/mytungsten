@@ -7,7 +7,7 @@ category: Personal
 ---
 
 
-<p>If you have seen me in the last 10 years, there is a only a small chance that you saw me clean shaven. The primary reason behind this is that I hate shaving. Particularly, I hate the most important thing involved with shaving, the razors. Rebekah has done her best to help me out, purchasing the “latest and greatest” razors every couple of years, but I would get frustrated quickly as new razors cost a fortune. So what would happen is this:</p>
+If you have seen me in the last 10 years, there is a only a small chance that you saw me clean shaven. The primary reason behind this is that I hate shaving. Particularly, I hate the most important thing involved with shaving, the razors. Rebekah has done her best to help me out, purchasing the “latest and greatest” razors every couple of years, but I would get frustrated quickly as new razors cost a fortune. So what would happen is this:
 
 <ol>
 
@@ -25,10 +25,10 @@ category: Personal
 
 </ol>
 
-<p>Using this process, I could last a month with a pack of 4 razors, with the majority of the days being, as Will says, “a scratchy face”.</p>
+Using this process, I could last a month with a pack of 4 razors, with the majority of the days being, as Will says, “a scratchy face”.
 
-<p>Then a couple of months ago, I read <a href="https://web.archive.org/web/20131211065132/http://the-magazine.org/2/the-wet-shave">an article in The Magazine</a> that gave me hope. Friedman’s description sounded eerily like my own, so I decided to add the shaving items he recommended to my wish list. This last weekend, I got the items from my mom as a Christmas gift. I can happily say that I have shaved every day this week. It is taking some getting used to using the safety razor. So far I am more likely to cut myself, but am not getting any razor burn. I am alright with that as the cuts should go away as I get more experienced with the safety razor.</p>
+Then a couple of months ago, I read <a href="https://web.archive.org/web/20131211065132/http://the-magazine.org/2/the-wet-shave">an article in The Magazine</a> that gave me hope. Friedman’s description sounded eerily like my own, so I decided to add the shaving items he recommended to my wish list. This last weekend, I got the items from my mom as a Christmas gift. I can happily say that I have shaved every day this week. It is taking some getting used to using the safety razor. So far I am more likely to cut myself, but am not getting any razor burn. I am alright with that as the cuts should go away as I get more experienced with the safety razor.
 
-<p>I have used the razor it came with all week and am ready to switch it out. Instead of getting 4 razors for 14 bucks, I ordered 100 razors for 9 bucks, easily enough to last me over a year. It may have a higher up front cost, but it should pay for itself within a couple of months, with the added bonus of being clean shaven every day and no razor burn.</p>
+I have used the razor it came with all week and am ready to switch it out. Instead of getting 4 razors for 14 bucks, I ordered 100 razors for 9 bucks, easily enough to last me over a year. It may have a higher up front cost, but it should pay for itself within a couple of months, with the added bonus of being clean shaven every day and no razor burn.
 
-<p>EDIT: Corrected straight razor to safety razor.</p>
+EDIT: Corrected straight razor to safety razor.

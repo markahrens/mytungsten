@@ -7,7 +7,7 @@ category: Music
 ---
 
 
-<p>Just over two weeks ago, I posted about doing a top 5 or 10 list for albums this year.  I solicited feedback at that point for additional albums, so I wanted to let everyone know what my list of albums looks like now and to once again ask for recommendations for albums that came out in the US in 2007.   Without further ado, the list so far (New Additions in **bold**):</p>
+Just over two weeks ago, I posted about doing a top 5 or 10 list for albums this year.  I solicited feedback at that point for additional albums, so I wanted to let everyone know what my list of albums looks like now and to once again ask for recommendations for albums that came out in the US in 2007.   Without further ado, the list so far (New Additions in **bold**):
 
 <ul>
 

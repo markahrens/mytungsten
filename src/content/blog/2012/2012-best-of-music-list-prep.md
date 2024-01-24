@@ -7,7 +7,7 @@ category: Personal
 ---
 
 
-<p>It is getting to be that time of year again, so I am looking for your help on albums I have missed that you think I need to evaluate. Here is my list so far of what I have listened to:</p>
+It is getting to be that time of year again, so I am looking for your help on albums I have missed that you think I need to evaluate. Here is my list so far of what I have listened to:
 
 <ul>
 
@@ -149,4 +149,4 @@ category: Personal
 
 </ul>
 
-<p>&nbsp;</p>
+&nbsp;

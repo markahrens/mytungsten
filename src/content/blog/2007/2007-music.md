@@ -7,7 +7,7 @@ category: Music
 ---
 
 
-<p>As the year progresses, I realized that I have listened to more music that actually came out in the current year than in the last 5 years.  Because of this, I am feeling somewhat compelled to do a top 5 or 10 list at the end of the year.  Since that is still a couple of months away, I wanted to get help from the world to make sure that I did not miss any good albums that I should check out.  To help out, here is a list of albums I have listened to:</p>
+As the year progresses, I realized that I have listened to more music that actually came out in the current year than in the last 5 years.  Because of this, I am feeling somewhat compelled to do a top 5 or 10 list at the end of the year.  Since that is still a couple of months away, I wanted to get help from the world to make sure that I did not miss any good albums that I should check out.  To help out, here is a list of albums I have listened to:
 
 <ul>
 
@@ -49,4 +49,4 @@ category: Music
 
 </ul>
 
-<p>Please add your recommendations in the comments and near the end of the year you will see my top albums.</p>
+Please add your recommendations in the comments and near the end of the year you will see my top albums.
