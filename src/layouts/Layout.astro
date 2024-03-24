@@ -13,7 +13,7 @@ const { title } = Astro.props;
 		<meta name="description" content="MyTungsten, the personal web site for Mark Ahrens" />
 		<meta name="viewport" content="width=device-width" />
 		<meta property="og:title" content="MyTungsten" />
-		<meta property="og:type" content="websitee" />
+		<meta property="og:type" content="website" />
 		<meta property="og:description" content="The personal web site for Mark Ahrens" />
 		<meta property="og:image" content="https://www.mytungsten.net/mt-icon-large.png" />
 		<link rel="icon" href="/mt-icon-large.png" type="image/png" />
@@ -32,7 +32,6 @@ const { title } = Astro.props;
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=AR+One+Sans&family=Onest:wght@500;700&display=swap" rel="stylesheet">
 	</head>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZ00BVBCXZ"></script>
@@ -78,6 +77,7 @@ const { title } = Astro.props;
 
 		</nav>
 		<slot />
+		<link href="https://fonts.googleapis.com/css2?family=AR+One+Sans&family=Onest:wght@500;700&display=swap" rel="stylesheet">
 	</body>
 </html>
 <style is:global>
