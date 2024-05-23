@@ -77,8 +77,8 @@ const { title } = Astro.props;
 
 		</nav>
 		<slot />
-		<link href="https://fonts.googleapis.com/css2?family=AR+One+Sans&family=Onest:wght@500;700&display=swap" rel="stylesheet">
-	</body>
+		<link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Radio+Canada:wdth@87.5&display=swap" rel="stylesheet">
+		</body>
 </html>
 <style is:global>
 	:root {
@@ -95,11 +95,16 @@ const { title } = Astro.props;
 
 	body {
 		margin: 0;
-		font-family: 'AR One Sans', sans-serif;
+		font-family: "Radio Canada", sans-serif;
+		font-optical-sizing: auto;
+		font-weight: 400;
+		font-style: normal;
+		font-variation-settings:
+			"wdth" 87.5;
 	}
 
 	h1, h2, h3 {
-		font-family: 'Onest', sans-serif;
+		font-family: 'Radio Canada Big', sans-serif;
 		text-align: center;
 	}
 	.headings-left h1,
@@ -108,16 +113,16 @@ const { title } = Astro.props;
 		text-align: left;
 	}
 	h1 {
-		font-weight: 700;
+		font-weight: 650;
 		font-size: 2.4rem;
 	}
 	h2 {
-		font-weight: 700;
+		font-weight: 650;
 		font-size: 2rem;
 	}
 	h3 {
 		margin-top: 40px;
-		font-weight: 500;
+		font-weight: 650;
 		font-size: 1.6rem;
 	}
 	li {
@@ -167,7 +172,7 @@ const { title } = Astro.props;
 	nav {
 		display: flex;
 		justify-content: space-between;
-		font-family: 'Onest', sans-serif;
+		font-family: 'Radio Canada Big', sans-serif;
 		font-weight: 500;
 		margin-bottom: 40px;
 		padding: 8px;
