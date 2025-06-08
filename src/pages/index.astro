@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 const lastestPost = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   ).slice(0,1);
+
 ---
 
 <Layout title="Home">
@@ -16,7 +17,7 @@ const lastestPost = (await getCollection('blog')).sort(
 		<div class="content-container">
 			{lastestPost.map(blogPostEntry => (
 				<BlogPost
-					href={`/blog/${blogPostEntry.slug}`},
+					href={`/blog/${blogPostEntry.id}`},
 					title={blogPostEntry.data.title},
 					description={blogPostEntry.data.description},
 					date={blogPostEntry.data.date}

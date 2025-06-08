@@ -24,9 +24,9 @@ blogEntries.forEach(post => {
     {[...postYears.entries()].map(([year, posts]) => (
       <h2 class="year-heading">{year}</h2>
       <div>
-        {posts.map((blogPostEntry: { slug: any; data: { title: any; description: any; date: any; }; }) => (
+        {posts.map((blogPostEntry: { id: any; data: { title: any; description: any; date: any; }; }) => (
           <BlogPost
-            href={`/blog/${blogPostEntry.slug}`},
+            href={`/blog/${blogPostEntry.id}`},
             title={blogPostEntry.data.title},
             description={blogPostEntry.data.description},
             date={blogPostEntry.data.date}

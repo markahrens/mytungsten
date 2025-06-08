@@ -31,9 +31,9 @@ const { posts } = Astro.props;
 <Layout title="Blog">
   <h1>{year} Posts</h1>
   <div class="content-container">
-    {posts.map((blogPostEntry: { slug: any; data: { title: any; description: any; date: any; }; }) => (
+    {posts.map((blogPostEntry: { id: any; data: { title: any; description: any; date: any; }; }) => (
       <BlogPost
-        href={`/blog/${blogPostEntry.slug}`},
+        href={`/blog/${blogPostEntry.id}`},
         title={blogPostEntry.data.title},
         description={blogPostEntry.data.description},
         date={blogPostEntry.data.date}

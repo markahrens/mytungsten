@@ -14,7 +14,7 @@ const tripEntries = (await getCollection('trips', ({ id }) => {
     <div class="trip-cards">
       {tripEntries.map(tripPostEntry => (
         <TripCard
-          href={`/trips/${tripPostEntry.slug}`},
+          href={`/trips/${tripPostEntry.id}`},
           title={tripPostEntry.data.title},
           description={tripPostEntry.data.description}
           img={tripPostEntry.data.img}
