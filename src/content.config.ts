@@ -1,5 +1,5 @@
 import { z, defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { glob, file } from 'astro/loaders';
 
 const tripsCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/trips" }), // v2.5.0 and later
@@ -22,8 +22,30 @@ const blogCollection = defineCollection({
   }),
 });
 
+const flightsCollection = defineCollection({
+  loader: file("src/content/flights/flights.json"),
+  schema: z.object({
+    id: z.string(),
+    number: z.string(),
+    airline: z.string(),
+    origin: z.string(),
+    originGate: z.string().optional(),
+    originCity: z.string(),
+    destination: z.string(),
+    destinationGate: z.string().optional(),
+    destinationCity: z.string(),
+    scheduledDeparture: z.coerce.date(),
+    actualDeparture: z.coerce.date(),
+    scheduledArrival: z.coerce.date(),
+    actualArrival: z.coerce.date(),
+    milesTraveled: z.number(),
+    plane: z.string().optional()
+  }),
+});
+
 
 export const collections = {
   'trips': tripsCollection,
-  'blog': blogCollection
+  'blog': blogCollection,
+  'flights': flightsCollection
 };
