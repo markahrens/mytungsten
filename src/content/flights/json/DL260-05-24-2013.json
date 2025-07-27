@@ -1,0 +1,35 @@
+{
+  "flightNumber": "DL260",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MSP",
+    "airportName": "Minneapolis-Saint Paul International Airport, MN, US",
+    "date": "2013-05-24",
+    "scheduledTime": "9:40 PM  CDT",
+    "actualTime": "9:41 PM  CDT",
+    "scheduledRunwayTime": "10:10 PM  CDT",
+    "actualRunwayTime": "9:58 PM  CDT",
+    "terminal": "1",
+    "gate": "F12",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "AMS",
+    "airportName": "Amsterdam Schiphol Airport, NL",
+    "date": "2013-05-25",
+    "scheduledTime": "1:00 PM  CEST",
+    "actualTime": "12:53 PM  CEST",
+    "scheduledRunwayTime": "12:31 PM  CEST",
+    "actualRunwayTime": "12:47 PM  CEST",
+    "terminal": "2",
+    "gate": "E7",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "A332",
+    "code": null,
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "8h 20m",
+  "actualFlightTime": "8h 12m"
+}

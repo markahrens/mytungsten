@@ -1,0 +1,35 @@
+{
+  "flightNumber": "UA407",
+  "flightStatus": "Delayed by 1h 10m | Arrived",
+  "departure": {
+    "airportCode": "MCO",
+    "airportName": "Orlando International Airport, FL, US",
+    "date": "2014-03-12",
+    "scheduledTime": "7:00 AM  EDT",
+    "actualTime": "7:51 AM  EDT",
+    "scheduledRunwayTime": "8:16 AM  EDT",
+    "actualRunwayTime": "8:16 AM  EDT",
+    "terminal": "B",
+    "gate": "46",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2014-03-12",
+    "scheduledTime": "8:59 AM  CDT",
+    "actualTime": "10:09 AM  CDT",
+    "scheduledRunwayTime": "9:42 AM  CDT",
+    "actualRunwayTime": "9:59 AM  CDT",
+    "terminal": "1",
+    "gate": "C31",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "A320",
+    "code": null,
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 59m",
+  "actualFlightTime": "3h 18m"
+}

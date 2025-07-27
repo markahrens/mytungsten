@@ -1,0 +1,35 @@
+{
+  "flightNumber": "DL3818",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "ATL",
+    "airportName": "Atlanta Hartsfield-Jackson International Airport, GA, US",
+    "date": "2016-10-12",
+    "scheduledTime": "9:51 AM  EDT",
+    "actualTime": "10:03 AM  EDT",
+    "scheduledRunwayTime": "10:03 AM  EDT",
+    "actualRunwayTime": "10:17 AM  EDT",
+    "terminal": "S",
+    "gate": "D28",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2016-10-12",
+    "scheduledTime": "10:50 AM  CDT",
+    "actualTime": "10:52 AM  CDT",
+    "scheduledRunwayTime": "10:33 AM  CDT",
+    "actualRunwayTime": "10:51 AM  CDT",
+    "terminal": null,
+    "gate": "B7",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Canadair (Bombardier) Regional Jet 900 and Challenger 890",
+    "code": "CR9",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 59m",
+  "actualFlightTime": "1h 49m"
+}

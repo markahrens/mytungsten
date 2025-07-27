@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA3701",
+  "flightStatus": "Delayed by 25m | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2023-06-04",
+    "scheduledTime": "8:40 AM  CDT",
+    "actualTime": "9:14 AM  CDT",
+    "scheduledRunwayTime": "8:57 AM  CDT",
+    "actualRunwayTime": "9:37 AM  CDT",
+    "terminal": "3",
+    "gate": "G17",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "PIT",
+    "airportName": "Pittsburgh International Airport, PA, US",
+    "date": "2023-06-04",
+    "scheduledTime": "11:16 AM  EDT",
+    "actualTime": "11:41 AM  EDT",
+    "scheduledRunwayTime": "11:10 AM  EDT",
+    "actualRunwayTime": "11:36 AM  EDT",
+    "terminal": null,
+    "gate": "B28",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer 175",
+    "code": "E75",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 36m",
+  "actualFlightTime": "1h 27m"
+}

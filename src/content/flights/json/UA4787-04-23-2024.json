@@ -1,0 +1,35 @@
+{
+  "flightNumber": "UA4787",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2024-04-23",
+    "scheduledTime": "3:52 PM  CDT",
+    "actualTime": "3:44 PM  CDT",
+    "scheduledRunwayTime": "4:12 PM  CDT",
+    "actualRunwayTime": "4:01 PM  CDT",
+    "terminal": "2",
+    "gate": "F24",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2024-04-23",
+    "scheduledTime": "4:58 PM  CDT",
+    "actualTime": "4:40 PM  CDT",
+    "scheduledRunwayTime": "4:53 PM  CDT",
+    "actualRunwayTime": "4:32 PM  CDT",
+    "terminal": null,
+    "gate": null,
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Canadair (Bombardier) Regional Jet 200",
+    "code": "CR2",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 6m",
+  "actualFlightTime": "56m"
+}

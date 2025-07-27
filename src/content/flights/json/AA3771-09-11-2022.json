@@ -1,0 +1,35 @@
+{
+  "flightNumber": null,
+  "flightStatus": "",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2022-09-11",
+    "scheduledTime": "1:45 PM  CDT",
+    "actualTime": "3:33 PM  CDT",
+    "scheduledRunwayTime": "2:19 PM  CDT",
+    "actualRunwayTime": "3:56 PM  CDT",
+    "terminal": "3",
+    "gate": "L10C",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "PVD",
+    "airportName": "Rhode Island T. F. Green International Airport, RI, US",
+    "date": "2022-09-11",
+    "scheduledTime": "5:02 PM  EDT",
+    "actualTime": "7:05 PM  EDT",
+    "scheduledRunwayTime": "5:11 PM  EDT",
+    "actualRunwayTime": "7:01 PM  EDT",
+    "terminal": null,
+    "gate": "6",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer 175",
+    "code": "E75",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 17m",
+  "actualFlightTime": "2h 32m"
+}

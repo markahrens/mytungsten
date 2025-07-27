@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA5938",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2019-02-10",
+    "scheduledTime": "7:22 AM  CST",
+    "actualTime": "7:14 AM  CST",
+    "scheduledRunwayTime": "7:49 AM  CST",
+    "actualRunwayTime": "7:41 AM  CST",
+    "terminal": null,
+    "gate": "A2",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "DFW",
+    "airportName": "Dallas Fort Worth International Airport, TX, US",
+    "date": "2019-02-10",
+    "scheduledTime": "9:55 AM  CST",
+    "actualTime": "9:58 AM  CST",
+    "scheduledRunwayTime": "9:39 AM  CST",
+    "actualRunwayTime": "9:40 AM  CST",
+    "terminal": "B",
+    "gate": "29",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Canadair (Bombardier) Regional Jet 900 and Challenger 890",
+    "code": "CR9",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 33m",
+  "actualFlightTime": "2h 44m"
+}

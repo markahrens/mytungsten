@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA2276",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "IAH",
+    "airportName": "Houston George Bush Intercontinental Airport, TX, US",
+    "date": "2019-05-16",
+    "scheduledTime": "6:24 PM  CDT",
+    "actualTime": "6:21 PM  CDT",
+    "scheduledRunwayTime": "7:14 PM  CDT",
+    "actualRunwayTime": "6:58 PM  CDT",
+    "terminal": "A",
+    "gate": "26",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "DFW",
+    "airportName": "Dallas Fort Worth International Airport, TX, US",
+    "date": "2019-05-16",
+    "scheduledTime": "7:45 PM  CDT",
+    "actualTime": "7:48 PM  CDT",
+    "scheduledRunwayTime": "8:01 PM  CDT",
+    "actualRunwayTime": "7:40 PM  CDT",
+    "terminal": "A",
+    "gate": "A20",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Boeing 737-800 (winglets) Passenger/BBJ2",
+    "code": "73H",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 21m",
+  "actualFlightTime": "1h 27m"
+}

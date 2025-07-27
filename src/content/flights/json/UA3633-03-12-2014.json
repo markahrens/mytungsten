@@ -1,0 +1,35 @@
+{
+  "flightNumber": "UA3633",
+  "flightStatus": "Delayed by 1h 23m | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2014-03-12",
+    "scheduledTime": "2:40 PM  CDT",
+    "actualTime": "4:02 PM  CDT",
+    "scheduledRunwayTime": "2:50 PM  CDT",
+    "actualRunwayTime": null,
+    "terminal": "2",
+    "gate": null,
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "CID",
+    "airportName": "The Eastern Iowa Airport, IA, US",
+    "date": "2014-03-12",
+    "scheduledTime": "3:42 PM  CDT",
+    "actualTime": "5:05 PM  CDT",
+    "scheduledRunwayTime": "3:25 PM  CDT",
+    "actualRunwayTime": null,
+    "terminal": null,
+    "gate": null,
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Canadair (Bombardier) Regional Jet 700 and Challenger 870",
+    "code": "CR7",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 2m",
+  "actualFlightTime": "1h 3m"
+}

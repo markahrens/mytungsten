@@ -1,0 +1,35 @@
+{
+  "flightNumber": "G4931",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "PGD",
+    "airportName": "Charlotte County Airport, FL, US",
+    "date": "2023-01-03",
+    "scheduledTime": "7:00 AM  EST",
+    "actualTime": "6:53 AM  EST",
+    "scheduledRunwayTime": "7:11 AM  EST",
+    "actualRunwayTime": "7:01 AM  EST",
+    "terminal": null,
+    "gate": "2",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2023-01-03",
+    "scheduledTime": "8:51 AM  CST",
+    "actualTime": "8:37 AM  CST",
+    "scheduledRunwayTime": "8:41 AM  CST",
+    "actualRunwayTime": "8:34 AM  CST",
+    "terminal": null,
+    "gate": null,
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A320 (sharklets)",
+    "code": "32A",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 51m",
+  "actualFlightTime": "2h 44m"
+}

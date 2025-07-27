@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA6153",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2023-06-04",
+    "scheduledTime": "6:10 AM  CDT",
+    "actualTime": "6:01 AM  CDT",
+    "scheduledRunwayTime": "6:28 AM  CDT",
+    "actualRunwayTime": "6:16 AM  CDT",
+    "terminal": null,
+    "gate": "A2",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2023-06-04",
+    "scheduledTime": "7:16 AM  CDT",
+    "actualTime": "6:51 AM  CDT",
+    "scheduledRunwayTime": "6:58 AM  CDT",
+    "actualRunwayTime": "6:44 AM  CDT",
+    "terminal": "3",
+    "gate": "G13",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Canadair (Bombardier) Regional Jet",
+    "code": "CRJ",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 6m",
+  "actualFlightTime": "50m"
+}

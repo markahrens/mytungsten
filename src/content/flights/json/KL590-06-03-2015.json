@@ -1,0 +1,35 @@
+{
+  "flightNumber": "KL590",
+  "flightStatus": "Delayed by 19m | Arrived",
+  "departure": {
+    "airportCode": "ACC",
+    "airportName": "Accra Kotoka International Airport, GH",
+    "date": "2015-06-03",
+    "scheduledTime": "10:10 PM  GMT",
+    "actualTime": "11:05 PM  GMT",
+    "scheduledRunwayTime": null,
+    "actualRunwayTime": null,
+    "terminal": "2",
+    "gate": null,
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "AMS",
+    "airportName": "Amsterdam Schiphol Airport, NL",
+    "date": "2015-06-04",
+    "scheduledTime": "7:00 AM  CEST",
+    "actualTime": "7:19 AM  CEST",
+    "scheduledRunwayTime": null,
+    "actualRunwayTime": null,
+    "terminal": null,
+    "gate": null,
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Boeing 777",
+    "code": "777",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "6h 50m",
+  "actualFlightTime": "6h 14m"
+}

@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA4110",
+  "flightStatus": "Delayed by 17m | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2019-02-15",
+    "scheduledTime": "8:40 PM  CST",
+    "actualTime": "8:57 PM  CST",
+    "scheduledRunwayTime": "9:04 PM  CST",
+    "actualRunwayTime": "9:23 PM  CST",
+    "terminal": "3",
+    "gate": "K2",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2019-02-15",
+    "scheduledTime": "9:39 PM  CST",
+    "actualTime": "9:56 PM  CST",
+    "scheduledRunwayTime": "9:35 PM  CST",
+    "actualRunwayTime": "9:51 PM  CST",
+    "terminal": null,
+    "gate": "A4",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer RJ145",
+    "code": "ER4",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "59m",
+  "actualFlightTime": "59m"
+}

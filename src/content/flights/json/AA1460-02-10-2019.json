@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA1460",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "DFW",
+    "airportName": "Dallas Fort Worth International Airport, TX, US",
+    "date": "2019-02-10",
+    "scheduledTime": "12:30 PM  CST",
+    "actualTime": "12:30 PM  CST",
+    "scheduledRunwayTime": "12:45 PM  CST",
+    "actualRunwayTime": "12:48 PM  CST",
+    "terminal": "A",
+    "gate": "A39",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "PDX",
+    "airportName": "Portland International Airport, OR, US",
+    "date": "2019-02-10",
+    "scheduledTime": "2:48 PM  PST",
+    "actualTime": "2:39 PM  PST",
+    "scheduledRunwayTime": "2:44 PM  PST",
+    "actualRunwayTime": "2:35 PM  PST",
+    "terminal": null,
+    "gate": "C19",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Boeing 737-800 Passenger",
+    "code": "738",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "4h 18m",
+  "actualFlightTime": "4h 9m"
+}

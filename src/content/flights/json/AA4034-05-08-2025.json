@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA4034",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "DFW",
+    "airportName": "Dallas Fort Worth International Airport, TX, US",
+    "date": "2025-05-08",
+    "scheduledTime": "7:25 PM  CDT",
+    "actualTime": "7:16 PM  CDT",
+    "scheduledRunwayTime": "7:46 PM  CDT",
+    "actualRunwayTime": "7:42 PM  CDT",
+    "terminal": "B",
+    "gate": "B30",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2025-05-08",
+    "scheduledTime": "9:24 PM  CDT",
+    "actualTime": "9:21 PM  CDT",
+    "scheduledRunwayTime": "9:19 PM  CDT",
+    "actualRunwayTime": "9:16 PM  CDT",
+    "terminal": null,
+    "gate": "A4",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer 175",
+    "code": "E75",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 59m",
+  "actualFlightTime": "2h 5m"
+}

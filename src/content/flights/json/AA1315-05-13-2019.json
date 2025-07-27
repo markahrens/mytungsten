@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA1315",
+  "flightStatus": "Delayed by 32m | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2019-05-13",
+    "scheduledTime": "1:50 PM  CDT",
+    "actualTime": "2:20 PM  CDT",
+    "scheduledRunwayTime": "2:09 PM  CDT",
+    "actualRunwayTime": "2:35 PM  CDT",
+    "terminal": "3",
+    "gate": "K9",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "IAH",
+    "airportName": "Houston George Bush Intercontinental Airport, TX, US",
+    "date": "2019-05-13",
+    "scheduledTime": "4:31 PM  CDT",
+    "actualTime": "5:03 PM  CDT",
+    "scheduledRunwayTime": "4:22 PM  CDT",
+    "actualRunwayTime": "4:50 PM  CDT",
+    "terminal": "A",
+    "gate": "29",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Boeing 737-800 Passenger",
+    "code": "738",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 41m",
+  "actualFlightTime": "2h 43m"
+}

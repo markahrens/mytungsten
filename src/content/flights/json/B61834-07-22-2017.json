@@ -1,0 +1,35 @@
+{
+  "flightNumber": "B61834",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "PAP",
+    "airportName": "Port-au-Prince Toussaint Louverture Intl Airport, HT",
+    "date": "2017-07-22",
+    "scheduledTime": "10:41 AM  EDT",
+    "actualTime": "11:07 AM  EDT",
+    "scheduledRunwayTime": "10:51 AM  EDT",
+    "actualRunwayTime": "11:23 AM  EDT",
+    "terminal": null,
+    "gate": "2",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "JFK",
+    "airportName": "New York John F. Kennedy International Airport, NY, US",
+    "date": "2017-07-22",
+    "scheduledTime": "2:33 PM  EDT",
+    "actualTime": "2:47 PM  EDT",
+    "scheduledRunwayTime": "2:04 PM  EDT",
+    "actualRunwayTime": "2:44 PM  EDT",
+    "terminal": "5",
+    "gate": "30",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A321",
+    "code": "321",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "3h 52m",
+  "actualFlightTime": "3h 40m"
+}

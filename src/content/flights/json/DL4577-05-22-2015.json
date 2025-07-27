@@ -1,0 +1,35 @@
+{
+  "flightNumber": "DL4577",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "CID",
+    "airportName": "The Eastern Iowa Airport, IA, US",
+    "date": "2015-05-22",
+    "scheduledTime": "5:45 PM  CDT",
+    "actualTime": "5:37 PM  CDT",
+    "scheduledRunwayTime": "6:04 PM  CDT",
+    "actualRunwayTime": "5:50 PM  CDT",
+    "terminal": null,
+    "gate": "C3",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MSP",
+    "airportName": "Minneapolis-Saint Paul International Airport, MN, US",
+    "date": "2015-05-22",
+    "scheduledTime": "6:52 PM  CDT",
+    "actualTime": "6:48 PM  CDT",
+    "scheduledRunwayTime": "6:37 PM  CDT",
+    "actualRunwayTime": "6:37 PM  CDT",
+    "terminal": "1",
+    "gate": "A1",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "CRJ2",
+    "code": null,
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 7m",
+  "actualFlightTime": "1h 11m"
+}

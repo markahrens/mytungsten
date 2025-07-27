@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA3492",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2019-05-13",
+    "scheduledTime": "10:11 AM  CDT",
+    "actualTime": "9:59 AM  CDT",
+    "scheduledRunwayTime": "10:25 AM  CDT",
+    "actualRunwayTime": "10:14 AM  CDT",
+    "terminal": null,
+    "gate": "B8",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2019-05-13",
+    "scheduledTime": "11:10 AM  CDT",
+    "actualTime": "11:00 AM  CDT",
+    "scheduledRunwayTime": "10:55 AM  CDT",
+    "actualRunwayTime": "10:46 AM  CDT",
+    "terminal": "3",
+    "gate": "G19",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer RJ145",
+    "code": "ER4",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "59m",
+  "actualFlightTime": "1h 1m"
+}

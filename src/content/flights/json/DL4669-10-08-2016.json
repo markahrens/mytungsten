@@ -1,0 +1,35 @@
+{
+  "flightNumber": "DL4669",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2016-10-08",
+    "scheduledTime": "8:45 AM  CDT",
+    "actualTime": "8:35 AM  CDT",
+    "scheduledRunwayTime": "8:57 AM  CDT",
+    "actualRunwayTime": null,
+    "terminal": null,
+    "gate": "A1",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "DTW",
+    "airportName": "Detroit Metropolitan Wayne County Airport, MI, US",
+    "date": "2016-10-08",
+    "scheduledTime": "11:23 AM  EDT",
+    "actualTime": "11:11 AM  EDT",
+    "scheduledRunwayTime": "11:02 AM  EDT",
+    "actualRunwayTime": null,
+    "terminal": "M",
+    "gate": "A23",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Canadair (Bombardier) Regional Jet 200",
+    "code": "CR2",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 38m",
+  "actualFlightTime": "1h 36m"
+}

@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA3655",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2022-10-24",
+    "scheduledTime": "7:00 AM  CDT",
+    "actualTime": "6:50 AM  CDT",
+    "scheduledRunwayTime": "7:15 AM  CDT",
+    "actualRunwayTime": "7:02 AM  CDT",
+    "terminal": null,
+    "gate": "A4",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "DFW",
+    "airportName": "Dallas Fort Worth International Airport, TX, US",
+    "date": "2022-10-24",
+    "scheduledTime": "9:23 AM  CDT",
+    "actualTime": "9:17 AM  CDT",
+    "scheduledRunwayTime": "9:11 AM  CDT",
+    "actualRunwayTime": "9:00 AM  CDT",
+    "terminal": "B",
+    "gate": "B43",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer 175",
+    "code": "E75",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 23m",
+  "actualFlightTime": "2h 27m"
+}

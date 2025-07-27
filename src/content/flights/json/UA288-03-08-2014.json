@@ -1,0 +1,35 @@
+{
+  "flightNumber": "UA288",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2014-03-08",
+    "scheduledTime": "2:25 PM  CST",
+    "actualTime": "2:27 PM  CST",
+    "scheduledRunwayTime": "2:44 PM  CST",
+    "actualRunwayTime": "2:48 PM  CST",
+    "terminal": "1",
+    "gate": "B8",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MCO",
+    "airportName": "Orlando International Airport, FL, US",
+    "date": "2014-03-08",
+    "scheduledTime": "6:03 PM  EST",
+    "actualTime": "6:03 PM  EST",
+    "scheduledRunwayTime": "5:54 PM  EST",
+    "actualRunwayTime": "5:55 PM  EST",
+    "terminal": "B",
+    "gate": "40",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "B752",
+    "code": null,
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 38m",
+  "actualFlightTime": "2h 36m"
+}

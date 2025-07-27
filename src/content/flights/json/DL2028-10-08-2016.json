@@ -1,0 +1,35 @@
+{
+  "flightNumber": "DL2028",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "DTW",
+    "airportName": "Detroit Metropolitan Wayne County Airport, MI, US",
+    "date": "2016-10-08",
+    "scheduledTime": "12:12 PM  EDT",
+    "actualTime": "12:21 PM  EDT",
+    "scheduledRunwayTime": "12:42 PM  EDT",
+    "actualRunwayTime": "12:41 PM  EDT",
+    "terminal": "M",
+    "gate": "A70",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MCO",
+    "airportName": "Orlando International Airport, FL, US",
+    "date": "2016-10-08",
+    "scheduledTime": "2:47 PM  EDT",
+    "actualTime": "2:59 PM  EDT",
+    "scheduledRunwayTime": "3:00 PM  EDT",
+    "actualRunwayTime": "2:49 PM  EDT",
+    "terminal": "B",
+    "gate": "73",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Boeing 757-200 Passenger",
+    "code": "752",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 35m",
+  "actualFlightTime": "2h 38m"
+}

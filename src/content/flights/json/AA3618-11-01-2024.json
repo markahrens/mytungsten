@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA3618",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MHT",
+    "airportName": "Manchester-Boston Regional Airport, NH, US",
+    "date": "2024-11-01",
+    "scheduledTime": "7:11 AM  EDT",
+    "actualTime": "7:00 AM  EDT",
+    "scheduledRunwayTime": "7:26 AM  EDT",
+    "actualRunwayTime": "7:14 AM  EDT",
+    "terminal": null,
+    "gate": "8",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "CLM",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2024-11-01",
+    "scheduledTime": "8:53 AM  CDT",
+    "actualTime": "8:48 AM  CDT",
+    "scheduledRunwayTime": "8:35 AM  CDT",
+    "actualRunwayTime": "8:35 AM  CDT",
+    "terminal": "3",
+    "gate": "L4",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer 170",
+    "code": "E70",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 42m",
+  "actualFlightTime": "2h 48m"
+}

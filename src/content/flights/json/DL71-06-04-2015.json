@@ -1,0 +1,35 @@
+{
+  "flightNumber": "DL71",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "AMS",
+    "airportName": "Amsterdam Schiphol Airport, NL",
+    "date": "2015-06-04",
+    "scheduledTime": "8:45 AM  CEST",
+    "actualTime": "8:48 AM  CEST",
+    "scheduledRunwayTime": "8:55 AM  CEST",
+    "actualRunwayTime": "9:09 AM  CEST",
+    "terminal": "2",
+    "gate": "D47",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ATL",
+    "airportName": "Atlanta Hartsfield-Jackson International Airport, GA, US",
+    "date": "2015-06-04",
+    "scheduledTime": "12:07 PM  EDT",
+    "actualTime": "12:05 PM  EDT",
+    "scheduledRunwayTime": "11:59 AM  EDT",
+    "actualRunwayTime": "11:59 AM  EDT",
+    "terminal": "I",
+    "gate": "F2",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A330-300",
+    "code": "333",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "9h 22m",
+  "actualFlightTime": "9h 17m"
+}

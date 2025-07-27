@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA3921",
+  "flightStatus": "Delayed by 21m | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2024-10-27",
+    "scheduledTime": "1:21 PM  CDT",
+    "actualTime": "1:51 PM  CDT",
+    "scheduledRunwayTime": "1:44 PM  CDT",
+    "actualRunwayTime": "2:06 PM  CDT",
+    "terminal": "3",
+    "gate": "L10A",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MHT",
+    "airportName": "Manchester-Boston Regional Airport, NH, US",
+    "date": "2024-10-27",
+    "scheduledTime": "4:39 PM  EDT",
+    "actualTime": "5:00 PM  EDT",
+    "scheduledRunwayTime": "4:33 PM  EDT",
+    "actualRunwayTime": "4:56 PM  EDT",
+    "terminal": null,
+    "gate": "8",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer 170",
+    "code": "E70",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 18m",
+  "actualFlightTime": "2h 9m"
+}

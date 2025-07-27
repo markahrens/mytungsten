@@ -1,0 +1,35 @@
+{
+  "flightNumber": "G4891",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2022-12-31",
+    "scheduledTime": "6:48 PM  CST",
+    "actualTime": "6:50 PM  CST",
+    "scheduledRunwayTime": "6:58 PM  CST",
+    "actualRunwayTime": "7:00 PM  CST",
+    "terminal": null,
+    "gate": "B10",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "PGD",
+    "airportName": "Charlotte County Airport, FL, US",
+    "date": "2022-12-31",
+    "scheduledTime": "10:34 PM  EST",
+    "actualTime": "10:33 PM  EST",
+    "scheduledRunwayTime": "10:48 PM  EST",
+    "actualRunwayTime": "10:21 PM  EST",
+    "terminal": null,
+    "gate": "5",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A320 (sharklets)",
+    "code": "32A",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 46m",
+  "actualFlightTime": "2h 43m"
+}

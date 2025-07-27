@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA3753",
+  "flightStatus": "Delayed by 2h 50m | Arrived",
+  "departure": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2022-09-11",
+    "scheduledTime": "6:35 AM  CDT",
+    "actualTime": "9:20 AM  CDT",
+    "scheduledRunwayTime": "6:50 AM  CDT",
+    "actualRunwayTime": "9:43 AM  CDT",
+    "terminal": null,
+    "gate": "A2",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2022-09-11",
+    "scheduledTime": "7:40 AM  CDT",
+    "actualTime": "10:30 AM  CDT",
+    "scheduledRunwayTime": "7:25 AM  CDT",
+    "actualRunwayTime": "10:15 AM  CDT",
+    "terminal": "3",
+    "gate": "K2",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer RJ145",
+    "code": "ER4",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 5m",
+  "actualFlightTime": "1h 10m"
+}

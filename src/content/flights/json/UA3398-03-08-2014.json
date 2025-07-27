@@ -1,0 +1,35 @@
+{
+  "flightNumber": "UA3398",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "CID",
+    "airportName": "The Eastern Iowa Airport, IA, US",
+    "date": "2014-03-08",
+    "scheduledTime": "11:23 AM  CST",
+    "actualTime": "11:23 AM  CST",
+    "scheduledRunwayTime": "11:43 AM  CST",
+    "actualRunwayTime": "11:44 AM  CST",
+    "terminal": null,
+    "gate": null,
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2014-03-08",
+    "scheduledTime": "12:27 PM  CST",
+    "actualTime": "12:36 PM  CST",
+    "scheduledRunwayTime": "12:19 PM  CST",
+    "actualRunwayTime": "12:25 PM  CST",
+    "terminal": "2",
+    "gate": null,
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "E145",
+    "code": null,
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 4m",
+  "actualFlightTime": "1h 13m"
+}

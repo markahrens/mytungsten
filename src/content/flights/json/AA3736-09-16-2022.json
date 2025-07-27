@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA3736",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MHT",
+    "airportName": "Manchester-Boston Regional Airport, NH, US",
+    "date": "2022-09-16",
+    "scheduledTime": "7:33 AM  EDT",
+    "actualTime": "7:27 AM  EDT",
+    "scheduledRunwayTime": "7:47 AM  EDT",
+    "actualRunwayTime": "7:35 AM  EDT",
+    "terminal": null,
+    "gate": "9",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2022-09-16",
+    "scheduledTime": "9:15 AM  CDT",
+    "actualTime": "8:54 AM  CDT",
+    "scheduledRunwayTime": "9:00 AM  CDT",
+    "actualRunwayTime": "8:33 AM  CDT",
+    "terminal": "3",
+    "gate": "L8",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer 170",
+    "code": "E70",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 42m",
+  "actualFlightTime": "2h 27m"
+}

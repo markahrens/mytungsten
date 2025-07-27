@@ -1,0 +1,35 @@
+{
+  "flightNumber": "B6105",
+  "flightStatus": "Delayed by 32m | Arrived",
+  "departure": {
+    "airportCode": "JFK",
+    "airportName": "New York John F. Kennedy International Airport, NY, US",
+    "date": "2017-07-22",
+    "scheduledTime": "5:59 PM  EDT",
+    "actualTime": "6:23 PM  EDT",
+    "scheduledRunwayTime": "6:22 PM  EDT",
+    "actualRunwayTime": "7:02 PM  EDT",
+    "terminal": "5",
+    "gate": "1",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2017-07-22",
+    "scheduledTime": "7:55 PM  CDT",
+    "actualTime": "8:27 PM  CDT",
+    "scheduledRunwayTime": "7:07 PM  CDT",
+    "actualRunwayTime": "8:04 PM  CDT",
+    "terminal": "3",
+    "gate": "L5",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A321",
+    "code": "321",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 56m",
+  "actualFlightTime": "3h 4m"
+}

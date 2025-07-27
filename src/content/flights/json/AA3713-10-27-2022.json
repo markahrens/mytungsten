@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA3713",
+  "flightStatus": "Delayed by 19m | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2022-10-27",
+    "scheduledTime": "1:05 PM  CDT",
+    "actualTime": "1:05 PM  CDT",
+    "scheduledRunwayTime": "1:27 PM  CDT",
+    "actualRunwayTime": "1:52 PM  CDT",
+    "terminal": "3",
+    "gate": "G3",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2022-10-27",
+    "scheduledTime": "2:08 PM  CDT",
+    "actualTime": "2:27 PM  CDT",
+    "scheduledRunwayTime": "2:03 PM  CDT",
+    "actualRunwayTime": "2:23 PM  CDT",
+    "terminal": null,
+    "gate": "A4",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer RJ145",
+    "code": "ER4",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 3m",
+  "actualFlightTime": "1h 22m"
+}

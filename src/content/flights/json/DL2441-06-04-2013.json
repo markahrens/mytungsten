@@ -1,0 +1,35 @@
+{
+  "flightNumber": "DL2441",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "DTW",
+    "airportName": "Detroit Metropolitan Wayne County Airport, MI, US",
+    "date": "2013-06-04",
+    "scheduledTime": "12:22 PM  EDT",
+    "actualTime": "12:13 PM  EDT",
+    "scheduledRunwayTime": "12:41 PM  EDT",
+    "actualRunwayTime": "12:40 PM  EDT",
+    "terminal": "M",
+    "gate": "A17",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2013-06-04",
+    "scheduledTime": "12:43 PM  CDT",
+    "actualTime": "12:30 PM  CDT",
+    "scheduledRunwayTime": "12:23 PM  CDT",
+    "actualRunwayTime": "12:25 PM  CDT",
+    "terminal": "2",
+    "gate": "E9",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "DC95",
+    "code": null,
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 21m",
+  "actualFlightTime": "1h 17m"
+}

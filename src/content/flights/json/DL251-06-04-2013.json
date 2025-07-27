@@ -1,0 +1,35 @@
+{
+  "flightNumber": "DL251",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "AMS",
+    "airportName": "Amsterdam Schiphol Airport, NL",
+    "date": "2013-06-04",
+    "scheduledTime": "8:15 AM  CEST",
+    "actualTime": "8:09 AM  CEST",
+    "scheduledRunwayTime": "8:25 AM  CEST",
+    "actualRunwayTime": "8:33 AM  CEST",
+    "terminal": "2",
+    "gate": "E22",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "DTW",
+    "airportName": "Detroit Metropolitan Wayne County Airport, MI, US",
+    "date": "2013-06-04",
+    "scheduledTime": "10:35 AM  EDT",
+    "actualTime": "10:12 AM  EDT",
+    "scheduledRunwayTime": "10:39 AM  EDT",
+    "actualRunwayTime": "10:07 AM  EDT",
+    "terminal": "M",
+    "gate": "A28",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "A333",
+    "code": null,
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "8h 20m",
+  "actualFlightTime": "8h 3m"
+}

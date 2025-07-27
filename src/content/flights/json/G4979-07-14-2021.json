@@ -1,0 +1,35 @@
+{
+  "flightNumber": "G4979",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2021-07-14",
+    "scheduledTime": "9:40 AM  CDT",
+    "actualTime": "9:32 AM  CDT",
+    "scheduledRunwayTime": "9:50 AM  CDT",
+    "actualRunwayTime": "9:43 AM  CDT",
+    "terminal": null,
+    "gate": "B10",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "PIE",
+    "airportName": "St. Pete-Clearwater International Airport, FL, US",
+    "date": "2021-07-14",
+    "scheduledTime": "1:06 PM  EDT",
+    "actualTime": "1:06 PM  EDT",
+    "scheduledRunwayTime": "1:00 PM  EDT",
+    "actualRunwayTime": "12:59 PM  EDT",
+    "terminal": null,
+    "gate": "9",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A320",
+    "code": "320",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 26m",
+  "actualFlightTime": "2h 34m"
+}

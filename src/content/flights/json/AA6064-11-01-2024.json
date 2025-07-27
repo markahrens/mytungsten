@@ -1,0 +1,35 @@
+{
+  "flightNumber": "AA6064",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2024-11-01",
+    "scheduledTime": "9:52 AM  CDT",
+    "actualTime": "9:52 AM  CDT",
+    "scheduledRunwayTime": "10:25 AM  CDT",
+    "actualRunwayTime": "10:12 AM  CDT",
+    "terminal": "3",
+    "gate": "G1B",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "date": "2024-11-01",
+    "scheduledTime": "11:01 AM  CDT",
+    "actualTime": "10:45 AM  CDT",
+    "scheduledRunwayTime": "10:56 AM  CDT",
+    "actualRunwayTime": "10:40 AM  CDT",
+    "terminal": null,
+    "gate": "A3",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Canadair (Bombardier) Regional Jet",
+    "code": "CRJ",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 9m",
+  "actualFlightTime": "53m"
+}

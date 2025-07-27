@@ -1,0 +1,35 @@
+{
+  "flightNumber": "B6563",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "date": "2017-07-15",
+    "scheduledTime": "7:00 AM  CDT",
+    "actualTime": "6:56 AM  CDT",
+    "scheduledRunwayTime": "7:19 AM  CDT",
+    "actualRunwayTime": "7:10 AM  CDT",
+    "terminal": "3",
+    "gate": "L3",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "FLL",
+    "airportName": "Fort Lauderdale-Hollywood International Airport, FL, US",
+    "date": "2017-07-15",
+    "scheduledTime": "11:12 AM  EDT",
+    "actualTime": "10:48 AM  EDT",
+    "scheduledRunwayTime": "10:55 AM  EDT",
+    "actualRunwayTime": "10:42 AM  EDT",
+    "terminal": "3",
+    "gate": "F6",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A321",
+    "code": "321",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "3h 12m",
+  "actualFlightTime": "2h 52m"
+}
