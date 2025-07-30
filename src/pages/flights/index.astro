@@ -2,22 +2,79 @@
 import Layout from '../../layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
-const flights = (await getCollection('flights'))
+const flights = (await getCollection('flights')).sort(
+    (a, b) => b.data.departure.date.valueOf() - a.data.departure.date.valueOf()
+);
+
+// Group flights by year
+const flightsByYear = flights.reduce((acc, flight) => {
+  const year = flight.data.departure.date.getFullYear();
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(flight);
+  return acc;
+}, {} as Record<number, typeof flights>);
+
+// Sort years in descending order
+const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number(a));
+
+// Type assertion to help TypeScript understand the year type
+type Year = keyof typeof flightsByYear;
 ---
 <Layout title="Flights">
   <h1>Flights</h1>
   <div class="content-container">
-    {flights.map(flight => (
-      <div class="flight-card" key={flight.id}>
-        <h2>{flight.data.flightNumber}</h2>
-        <p><strong>Date:</strong> {flight.data.departure.date}</p>
-        <p><strong>Flight Number:</strong> {flight.data.flightNumber}</p>
+    {sortedYears.map(year => (
+      <div class="year-section">
+        <h2>{year}</h2>
+        <div class="flights-grid">
+          {flightsByYear[year].map(flight => (
+            <div class="flight-card">
+              <h3>{flight.data.flightNumber}</h3>
+              <p><strong>Date:</strong> {flight.data.departure.date.toLocaleDateString()}</p>
+              <p><strong>Route:</strong> {flight.data.departure.airportCode} → {flight.data.arrival.airportCode}</p>
+            </div>
+          ))}
+        </div>
       </div>
     ))}
-    
   </div>
 </Layout>
 
 <style>
+  .content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
 
+  .year-section {
+    margin: 2rem 0;
+  }
+
+  .flights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .flight-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fff;
+        color: #2c3e50;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .flight-card h3 {
+    margin: 0 0 0.5rem 0;
+
+  }
+
+  .flight-card p {
+    margin: 0.5rem 0;
+  }
 </style>

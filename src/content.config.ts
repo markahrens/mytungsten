@@ -30,7 +30,7 @@ const flightsCollection = defineCollection({
     departure: z.object({
       airportCode: z.string(),
       airportName: z.string(),
-      date: z.string(),
+      date: z.coerce.date(),
       scheduledTime: z.string(),
       actualTime: z.string().nullable(),
       scheduledRunwayTime: z.string().nullable(),
@@ -42,7 +42,7 @@ const flightsCollection = defineCollection({
     arrival: z.object({
       airportCode: z.string(),
       airportName: z.string(),
-      date: z.string(),
+      date: z.coerce.date(),
       scheduledTime: z.string(),
       actualTime: z.string().nullable(),
       scheduledRunwayTime: z.string().nullable(),

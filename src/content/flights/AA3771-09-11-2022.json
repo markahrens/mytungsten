@@ -1,6 +1,6 @@
 {
-  "flightNumber": null,
-  "flightStatus": "",
+  "flightNumber": "AA3771",
+  "flightStatus": "Delayed by 2h 3m | Arrived",
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
