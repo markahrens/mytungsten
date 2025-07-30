@@ -1,10 +1,20 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+import { getCollection } from 'astro:content';
+const flights = (await getCollection('flights'))
 ---
 <Layout title="Flights">
   <h1>Flights</h1>
   <div class="content-container">
-    <p>Stuff</p>
+    {flights.map(flight => (
+      <div class="flight-card" key={flight.id}>
+        <h2>{flight.data.flightNumber}</h2>
+        <p><strong>Date:</strong> {flight.data.departure.date}</p>
+        <p><strong>Flight Number:</strong> {flight.data.flightNumber}</p>
+      </div>
+    ))}
+    
   </div>
 </Layout>
 
