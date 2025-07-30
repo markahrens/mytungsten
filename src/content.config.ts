@@ -23,23 +23,34 @@ const blogCollection = defineCollection({
 });
 
 const flightsCollection = defineCollection({
-  loader: file("src/content/flights/flights.json"),
+  loader: glob({ pattern: "**/*.json", base: "./src/content/flights" }),
   schema: z.object({
-    id: z.string(),
-    number: z.string(),
-    airline: z.string(),
-    origin: z.string(),
-    originGate: z.string().optional(),
-    originCity: z.string(),
-    destination: z.string(),
-    destinationGate: z.string().optional(),
-    destinationCity: z.string(),
-    scheduledDeparture: z.coerce.date(),
-    actualDeparture: z.coerce.date(),
-    scheduledArrival: z.coerce.date(),
-    actualArrival: z.coerce.date(),
-    milesTraveled: z.number(),
-    plane: z.string().optional()
+    flightNumber: z.string(),
+    flightStatus: z.string(),
+    departure: z.object({
+      airportCode: z.string(),
+      airportName: z.string(),
+      date: z.string(),
+      scheduledTime: z.string(),
+      actualTime: z.string(),
+      scheduledRunwayTime: z.string().optional(),
+      actualRunwayTime: z.string().optional(),
+      terminal: z.string().optional(),
+      gate: z.string().optional(),
+      baggageClaim: z.string().nullable()
+    }),
+    arrival: z.object({
+      airportCode: z.string(),
+      airportName: z.string(),
+      date: z.string(),
+      scheduledTime: z.string(),
+      actualTime: z.string(),
+      scheduledRunwayTime: z.string().optional(),
+      actualRunwayTime: z.string().optional(),
+      terminal: z.string().optional(),
+      gate: z.string().optional(),
+      baggageClaim: z.string().nullable()
+    })
   }),
 });
 
