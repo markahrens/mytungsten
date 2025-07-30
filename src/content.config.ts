@@ -25,18 +25,18 @@ const blogCollection = defineCollection({
 const flightsCollection = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/flights" }),
   schema: z.object({
-    flightNumber: z.string(),
+    flightNumber: z.string().nullable(),
     flightStatus: z.string(),
     departure: z.object({
       airportCode: z.string(),
       airportName: z.string(),
       date: z.string(),
       scheduledTime: z.string(),
-      actualTime: z.string(),
-      scheduledRunwayTime: z.string().optional(),
-      actualRunwayTime: z.string().optional(),
-      terminal: z.string().optional(),
-      gate: z.string().optional(),
+      actualTime: z.string().nullable(),
+      scheduledRunwayTime: z.string().nullable(),
+      actualRunwayTime: z.string().nullable(),
+      terminal: z.string().nullable(),
+      gate: z.string().nullable(),
       baggageClaim: z.string().nullable()
     }),
     arrival: z.object({
@@ -44,11 +44,11 @@ const flightsCollection = defineCollection({
       airportName: z.string(),
       date: z.string(),
       scheduledTime: z.string(),
-      actualTime: z.string(),
-      scheduledRunwayTime: z.string().optional(),
-      actualRunwayTime: z.string().optional(),
-      terminal: z.string().optional(),
-      gate: z.string().optional(),
+      actualTime: z.string().nullable(),
+      scheduledRunwayTime: z.string().nullable(),
+      actualRunwayTime: z.string().nullable(),
+      terminal: z.string().nullable(),
+      gate: z.string().nullable(),
       baggageClaim: z.string().nullable()
     })
   }),
