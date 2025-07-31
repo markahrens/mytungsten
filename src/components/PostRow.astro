@@ -1,5 +1,5 @@
 ---
-const { href, title, date, description} = Astro.props;
+const { href, title, date, description, inline = false } = Astro.props;
 date.setTime(date.getTime() + (6*60*60*1000));
 const dateOptions: object = {
 	year: "numeric",
@@ -8,16 +8,16 @@ const dateOptions: object = {
 };
 ---
 
-<div class="blog-card">
+<div class="post-row">
   <small>{date.toLocaleDateString('en-US', dateOptions)}</small>
-  <div>
+  <div class={inline ? 'inline' : ''}>
     <h2 class="card-title"><a href={href}>{title}</a></h2>
     <p>{description}</p>
   </div>
 </div>
 
 <style>
-  .blog-card {
+  .post-row {
     display: grid;
     grid-template-columns: 180px 1fr;
     gap: 20px;
@@ -31,6 +31,17 @@ const dateOptions: object = {
   .card-title {
     text-align: left;
     margin: 0;
+  }
+
+  .inline {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-end;
+    p {
+      margin: 0;
+      padding-bottom: 3px;
+    }
   }
 
 </style>

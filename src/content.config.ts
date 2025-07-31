@@ -25,7 +25,7 @@ const blogCollection = defineCollection({
 const flightsCollection = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/flights" }),
   schema: z.object({
-    flightNumber: z.string().nullable(),
+    flightNumber: z.string(),
     flightStatus: z.string(),
     departure: z.object({
       airportCode: z.string(),

@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
+import PostRow from '../../components/PostRow.astro';
 import { getCollection } from 'astro:content';
 const flights = (await getCollection('flights')).sort(
     (a, b) => b.data.departure.date.valueOf() - a.data.departure.date.valueOf()
@@ -30,11 +30,13 @@ type Year = keyof typeof flightsByYear;
         <h2>{year}</h2>
         <div class="flights-grid">
           {flightsByYear[year].map(flight => (
-            <div class="flight-card">
-              <h3>{flight.data.flightNumber}</h3>
-              <p><strong>Date:</strong> {flight.data.departure.date.toLocaleDateString()}</p>
-              <p><strong>Route:</strong> {flight.data.departure.airportCode} → {flight.data.arrival.airportCode}</p>
-            </div>
+            <PostRow
+              href={`/flights/${flight.id}`},
+              title={flight.data.flightNumber},
+              description={`${flight.data.departure.airportCode} → ${flight.data.arrival.airportCode}`},
+              date={flight.data.departure.date},
+              inline={true}
+            />
           ))}
         </div>
       </div>
@@ -43,38 +45,13 @@ type Year = keyof typeof flightsByYear;
 </Layout>
 
 <style>
-  .content-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
 
   .year-section {
     margin: 2rem 0;
   }
 
-  .flights-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+  .year-section h2 {
+    text-align: left;
   }
 
-  .flight-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    background-color: #fff;
-        color: #2c3e50;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .flight-card h3 {
-    margin: 0 0 0.5rem 0;
-
-  }
-
-  .flight-card p {
-    margin: 0.5rem 0;
-  }
 </style>
