@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2023-06-07",
-    "scheduledTime": "12:51 PM  CDT",
-    "actualTime": "12:47 PM  CDT",
-    "scheduledRunwayTime": "1:27 PM  CDT",
-    "actualRunwayTime": "1:00 PM  CDT",
+    "scheduledTime": "2023-06-07T12:51:00-05:00",
+    "actualTime": "2023-06-07T12:47:00-05:00",
+    "scheduledRunwayTime": "2023-06-07T13:27:00-05:00",
+    "actualRunwayTime": "2023-06-07T13:00:00-05:00",
     "terminal": "3",
     "gate": "G18",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MLI",
     "airportName": "Quad Cities International Airport, IL, US",
-    "date": "2023-06-07",
-    "scheduledTime": "1:47 PM  CDT",
-    "actualTime": "1:32 PM  CDT",
-    "scheduledRunwayTime": "1:42 PM  CDT",
-    "actualRunwayTime": "1:29 PM  CDT",
+    "scheduledTime": "2023-06-07T13:47:00-05:00",
+    "actualTime": "2023-06-07T13:32:00-05:00",
+    "scheduledRunwayTime": "2023-06-07T13:42:00-05:00",
+    "actualRunwayTime": "2023-06-07T13:29:00-05:00",
     "terminal": null,
     "gate": "A2",
     "baggageClaim": null

@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "PIE",
     "airportName": "St. Pete-Clearwater International Airport, FL, US",
-    "date": "2021-07-17",
-    "scheduledTime": "5:48 PM  EDT",
-    "actualTime": "8:41 PM  EDT",
-    "scheduledRunwayTime": "5:59 PM  EDT",
-    "actualRunwayTime": "8:57 PM  EDT",
+    "scheduledTime": "2021-07-17T17:48:00-04:00",
+    "actualTime": "2021-07-17T20:41:00-04:00",
+    "scheduledRunwayTime": "2021-07-17T17:59:00-04:00",
+    "actualRunwayTime": "2021-07-17T20:57:00-04:00",
     "terminal": null,
     "gate": "9",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MLI",
     "airportName": "Quad Cities International Airport, IL, US",
-    "date": "2021-07-17",
-    "scheduledTime": "7:18 PM  CDT",
-    "actualTime": "10:40 PM  CDT",
-    "scheduledRunwayTime": "7:11 PM  CDT",
-    "actualRunwayTime": "10:16 PM  CDT",
+    "scheduledTime": "2021-07-17T19:18:00-05:00",
+    "actualTime": "2021-07-17T22:40:00-05:00",
+    "scheduledRunwayTime": "2021-07-17T19:11:00-05:00",
+    "actualRunwayTime": "2021-07-17T22:16:00-05:00",
     "terminal": null,
     "gate": "B10",
     "baggageClaim": null

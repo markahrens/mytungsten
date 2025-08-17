@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "PDX",
     "airportName": "Portland International Airport, OR, US",
-    "date": "2019-02-15",
-    "scheduledTime": "1:27 PM  PST",
-    "actualTime": "1:22 PM  PST",
-    "scheduledRunwayTime": "1:42 PM  PST",
-    "actualRunwayTime": "1:36 PM  PST",
+    "scheduledTime": "2019-02-15T13:27:00-08:00",
+    "actualTime": "2019-02-15T13:22:00-08:00",
+    "scheduledRunwayTime": "2019-02-15T13:42:00-08:00",
+    "actualRunwayTime": "2019-02-15T13:36:00-08:00",
     "terminal": null,
     "gate": "C17",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2019-02-15",
-    "scheduledTime": "7:32 PM  CST",
-    "actualTime": "7:18 PM  CST",
-    "scheduledRunwayTime": "7:12 PM  CST",
-    "actualRunwayTime": "7:02 PM  CST",
+    "scheduledTime": "2019-02-15T19:32:00-06:00",
+    "actualTime": "2019-02-15T19:18:00-06:00",
+    "scheduledRunwayTime": "2019-02-15T19:12:00-06:00",
+    "actualRunwayTime": "2019-02-15T19:02:00-06:00",
     "terminal": "3",
     "gate": "K20",
     "baggageClaim": null

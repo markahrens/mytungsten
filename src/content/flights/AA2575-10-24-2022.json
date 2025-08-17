@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "DFW",
     "airportName": "Dallas Fort Worth International Airport, TX, US",
-    "date": "2022-10-24",
-    "scheduledTime": "10:34 AM  CDT",
-    "actualTime": "10:36 AM  CDT",
-    "scheduledRunwayTime": "10:56 AM  CDT",
-    "actualRunwayTime": "10:59 AM  CDT",
+    "scheduledTime": "2022-10-24T10:34:00-05:00",
+    "actualTime": "2022-10-24T10:36:00-05:00",
+    "scheduledRunwayTime": "2022-10-24T10:56:00-05:00",
+    "actualRunwayTime": "2022-10-24T10:59:00-05:00",
     "terminal": "C",
     "gate": "C15",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MIA",
     "airportName": "Miami International Airport, FL, US",
-    "date": "2022-10-24",
-    "scheduledTime": "2:25 PM  EDT",
-    "actualTime": "2:23 PM  EDT",
-    "scheduledRunwayTime": "2:16 PM  EDT",
-    "actualRunwayTime": "2:15 PM  EDT",
+    "scheduledTime": "2022-10-24T14:25:00-04:00",
+    "actualTime": "2022-10-24T14:23:00-04:00",
+    "scheduledRunwayTime": "2022-10-24T14:16:00-04:00",
+    "actualRunwayTime": "2022-10-24T14:15:00-04:00",
     "terminal": "N",
     "gate": "D24",
     "baggageClaim": null

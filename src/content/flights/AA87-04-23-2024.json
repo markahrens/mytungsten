@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "LHR",
     "airportName": "London Heathrow Airport, EN, GB",
-    "date": "2024-04-23",
-    "scheduledTime": "10:05 AM  BST",
-    "actualTime": "10:04 AM  BST",
-    "scheduledRunwayTime": "10:36 AM  BST",
-    "actualRunwayTime": "10:31 AM  BST",
+    "scheduledTime": "2024-04-23T10:05:00+01:00",
+    "actualTime": "2024-04-23T10:04:00+01:00",
+    "scheduledRunwayTime": "2024-04-23T10:36:00+01:00",
+    "actualRunwayTime": "2024-04-23T10:31:00+01:00",
     "terminal": "3",
     "gate": "25",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2024-04-23",
-    "scheduledTime": "12:45 PM  CDT",
-    "actualTime": "12:22 PM  CDT",
-    "scheduledRunwayTime": "12:25 PM  CDT",
-    "actualRunwayTime": "12:13 PM  CDT",
+    "scheduledTime": "2024-04-23T12:45:00-05:00",
+    "actualTime": "2024-04-23T12:22:00-05:00",
+    "scheduledRunwayTime": "2024-04-23T12:25:00-05:00",
+    "actualRunwayTime": "2024-04-23T12:13:00-05:00",
     "terminal": "5",
     "gate": "M18",
     "baggageClaim": null

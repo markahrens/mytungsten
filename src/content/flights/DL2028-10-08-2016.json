@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "DTW",
     "airportName": "Detroit Metropolitan Wayne County Airport, MI, US",
-    "date": "2016-10-08",
-    "scheduledTime": "12:12 PM  EDT",
-    "actualTime": "12:21 PM  EDT",
-    "scheduledRunwayTime": "12:42 PM  EDT",
-    "actualRunwayTime": "12:41 PM  EDT",
+    "scheduledTime": "2016-10-08T12:12:00-04:00",
+    "actualTime": "2016-10-08T12:21:00-04:00",
+    "scheduledRunwayTime": "2016-10-08T12:42:00-04:00",
+    "actualRunwayTime": "2016-10-08T12:41:00-04:00",
     "terminal": "M",
     "gate": "A70",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MCO",
     "airportName": "Orlando International Airport, FL, US",
-    "date": "2016-10-08",
-    "scheduledTime": "2:47 PM  EDT",
-    "actualTime": "2:59 PM  EDT",
-    "scheduledRunwayTime": "3:00 PM  EDT",
-    "actualRunwayTime": "2:49 PM  EDT",
+    "scheduledTime": "2016-10-08T14:47:00-04:00",
+    "actualTime": "2016-10-08T14:59:00-04:00",
+    "scheduledRunwayTime": "2016-10-08T15:00:00-04:00",
+    "actualRunwayTime": "2016-10-08T14:49:00-04:00",
     "terminal": "B",
     "gate": "73",
     "baggageClaim": null

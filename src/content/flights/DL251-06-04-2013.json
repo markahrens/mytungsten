@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "AMS",
     "airportName": "Amsterdam Schiphol Airport, NL",
-    "date": "2013-06-04",
-    "scheduledTime": "8:15 AM  CEST",
-    "actualTime": "8:09 AM  CEST",
-    "scheduledRunwayTime": "8:25 AM  CEST",
-    "actualRunwayTime": "8:33 AM  CEST",
+    "scheduledTime": "2013-06-04T08:15:00+02:00",
+    "actualTime": "2013-06-04T08:09:00+02:00",
+    "scheduledRunwayTime": "2013-06-04T08:25:00+02:00",
+    "actualRunwayTime": "2013-06-04T08:33:00+02:00",
     "terminal": "2",
     "gate": "E22",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "DTW",
     "airportName": "Detroit Metropolitan Wayne County Airport, MI, US",
-    "date": "2013-06-04",
-    "scheduledTime": "10:35 AM  EDT",
-    "actualTime": "10:12 AM  EDT",
-    "scheduledRunwayTime": "10:39 AM  EDT",
-    "actualRunwayTime": "10:07 AM  EDT",
+    "scheduledTime": "2013-06-04T10:35:00-04:00",
+    "actualTime": "2013-06-04T10:12:00-04:00",
+    "scheduledRunwayTime": "2013-06-04T10:39:00-04:00",
+    "actualRunwayTime": "2013-06-04T10:07:00-04:00",
     "terminal": "M",
     "gate": "A28",
     "baggageClaim": null

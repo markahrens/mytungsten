@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2014-03-08",
-    "scheduledTime": "2:25 PM  CST",
-    "actualTime": "2:27 PM  CST",
-    "scheduledRunwayTime": "2:44 PM  CST",
-    "actualRunwayTime": "2:48 PM  CST",
+    "scheduledTime": "2014-03-08T14:25:00-06:00",
+    "actualTime": "2014-03-08T14:27:00-06:00",
+    "scheduledRunwayTime": "2014-03-08T14:44:00-06:00",
+    "actualRunwayTime": "2014-03-08T14:48:00-06:00",
     "terminal": "1",
     "gate": "B8",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MCO",
     "airportName": "Orlando International Airport, FL, US",
-    "date": "2014-03-08",
-    "scheduledTime": "6:03 PM  EST",
-    "actualTime": "6:03 PM  EST",
-    "scheduledRunwayTime": "5:54 PM  EST",
-    "actualRunwayTime": "5:55 PM  EST",
+    "scheduledTime": "2014-03-08T18:03:00-05:00",
+    "actualTime": "2014-03-08T18:03:00-05:00",
+    "scheduledRunwayTime": "2014-03-08T17:54:00-05:00",
+    "actualRunwayTime": "2014-03-08T17:55:00-05:00",
     "terminal": "B",
     "gate": "40",
     "baggageClaim": null

@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "FLL",
     "airportName": "Fort Lauderdale-Hollywood International Airport, FL, US",
-    "date": "2017-07-15",
-    "scheduledTime": "5:58 AM  EDT",
-    "actualTime": "6:00 AM  EDT",
-    "scheduledRunwayTime": "6:11 AM  EDT",
-    "actualRunwayTime": "6:12 AM  EDT",
+    "scheduledTime": "2017-07-15T05:58:00-04:00",
+    "actualTime": "2017-07-15T06:00:00-04:00",
+    "scheduledRunwayTime": "2017-07-15T06:11:00-04:00",
+    "actualRunwayTime": "2017-07-15T06:12:00-04:00",
     "terminal": "3",
     "gate": "F4",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "PAP",
     "airportName": "Port-au-Prince Toussaint Louverture Intl Airport, HT",
-    "date": "2017-07-15",
-    "scheduledTime": "7:49 AM  EDT",
-    "actualTime": "7:46 AM  EDT",
-    "scheduledRunwayTime": "7:46 AM  EDT",
-    "actualRunwayTime": "7:44 AM  EDT",
+    "scheduledTime": "2017-07-15T07:49:00-04:00",
+    "actualTime": "2017-07-15T07:46:00-04:00",
+    "scheduledRunwayTime": "2017-07-15T07:46:00-04:00",
+    "actualRunwayTime": "2017-07-15T07:44:00-04:00",
     "terminal": null,
     "gate": null,
     "baggageClaim": null

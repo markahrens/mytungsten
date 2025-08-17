@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "MSP",
     "airportName": "Minneapolis-Saint Paul International Airport, MN, US",
-    "date": "2013-05-24",
-    "scheduledTime": "9:40 PM  CDT",
-    "actualTime": "9:41 PM  CDT",
-    "scheduledRunwayTime": "10:10 PM  CDT",
-    "actualRunwayTime": "9:58 PM  CDT",
+    "scheduledTime": "2013-05-24T21:40:00-05:00",
+    "actualTime": "2013-05-24T21:41:00-05:00",
+    "scheduledRunwayTime": "2013-05-24T22:10:00-05:00",
+    "actualRunwayTime": "2013-05-24T21:58:00-05:00",
     "terminal": "1",
     "gate": "F12",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "AMS",
     "airportName": "Amsterdam Schiphol Airport, NL",
-    "date": "2013-05-25",
-    "scheduledTime": "1:00 PM  CEST",
-    "actualTime": "12:53 PM  CEST",
-    "scheduledRunwayTime": "12:31 PM  CEST",
-    "actualRunwayTime": "12:47 PM  CEST",
+    "scheduledTime": "2013-05-25T13:00:00+02:00",
+    "actualTime": "2013-05-25T12:53:00+02:00",
+    "scheduledRunwayTime": "2013-05-25T12:31:00+02:00",
+    "actualRunwayTime": "2013-05-25T12:47:00+02:00",
     "terminal": "2",
     "gate": "E7",
     "baggageClaim": null

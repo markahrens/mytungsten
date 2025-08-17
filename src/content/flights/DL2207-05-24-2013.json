@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2013-05-24",
-    "scheduledTime": "7:20 PM  CDT",
-    "actualTime": "7:28 PM  CDT",
-    "scheduledRunwayTime": "7:35 PM  CDT",
-    "actualRunwayTime": "7:53 PM  CDT",
+    "scheduledTime": "2013-05-24T19:20:00-05:00",
+    "actualTime": "2013-05-24T19:28:00-05:00",
+    "scheduledRunwayTime": "2013-05-24T19:35:00-05:00",
+    "actualRunwayTime": "2013-05-24T19:53:00-05:00",
     "terminal": "2",
     "gate": "E15",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MSP",
     "airportName": "Minneapolis-Saint Paul International Airport, MN, US",
-    "date": "2013-05-24",
-    "scheduledTime": "8:51 PM  CDT",
-    "actualTime": "9:13 PM  CDT",
-    "scheduledRunwayTime": "8:28 PM  CDT",
-    "actualRunwayTime": "9:04 PM  CDT",
+    "scheduledTime": "2013-05-24T20:51:00-05:00",
+    "actualTime": "2013-05-24T21:13:00-05:00",
+    "scheduledRunwayTime": "2013-05-24T20:28:00-05:00",
+    "actualRunwayTime": "2013-05-24T21:04:00-05:00",
     "terminal": "1",
     "gate": "G19",
     "baggageClaim": null

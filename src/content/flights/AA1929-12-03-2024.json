@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2024-12-03",
-    "scheduledTime": "8:25 AM  CST",
-    "actualTime": "9:34 AM  CST",
-    "scheduledRunwayTime": "9:42 AM  CST",
-    "actualRunwayTime": "9:55 AM  CST",
+    "scheduledTime": "2024-12-03T08:25:00-06:00",
+    "actualTime": "2024-12-03T09:34:00-06:00",
+    "scheduledRunwayTime": "2024-12-03T09:42:00-06:00",
+    "actualRunwayTime": "2024-12-03T09:55:00-06:00",
     "terminal": "3",
     "gate": "K9",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "RSW",
     "airportName": "Southwest Florida International Airport, FL, US",
-    "date": "2024-12-03",
-    "scheduledTime": "12:15 PM  EST",
-    "actualTime": "1:19 PM  EST",
-    "scheduledRunwayTime": "1:08 PM  EST",
-    "actualRunwayTime": "1:04 PM  EST",
+    "scheduledTime": "2024-12-03T12:15:00-05:00",
+    "actualTime": "2024-12-03T13:19:00-05:00",
+    "scheduledRunwayTime": "2024-12-03T13:08:00-05:00",
+    "actualRunwayTime": "2024-12-03T13:04:00-05:00",
     "terminal": null,
     "gate": "D3",
     "baggageClaim": null

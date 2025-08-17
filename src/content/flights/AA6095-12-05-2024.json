@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2024-12-05",
-    "scheduledTime": "5:12 PM  CST",
-    "actualTime": "5:02 PM  CST",
-    "scheduledRunwayTime": "5:33 PM  CST",
-    "actualRunwayTime": "5:23 PM  CST",
+    "scheduledTime": "2024-12-05T17:12:00-06:00",
+    "actualTime": "2024-12-05T17:02:00-06:00",
+    "scheduledRunwayTime": "2024-12-05T17:33:00-06:00",
+    "actualRunwayTime": "2024-12-05T17:23:00-06:00",
     "terminal": "3",
     "gate": "G7",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MLI",
     "airportName": "Quad Cities International Airport, IL, US",
-    "date": "2024-12-05",
-    "scheduledTime": "6:07 PM  CST",
-    "actualTime": "5:56 PM  CST",
-    "scheduledRunwayTime": "5:55 PM  CST",
-    "actualRunwayTime": "5:51 PM  CST",
+    "scheduledTime": "2024-12-05T18:07:00-06:00",
+    "actualTime": "2024-12-05T17:56:00-06:00",
+    "scheduledRunwayTime": "2024-12-05T17:55:00-06:00",
+    "actualRunwayTime": "2024-12-05T17:51:00-06:00",
     "terminal": null,
     "gate": "A3",
     "baggageClaim": null

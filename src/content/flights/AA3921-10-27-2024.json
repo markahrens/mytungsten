@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2024-10-27",
-    "scheduledTime": "1:21 PM  CDT",
-    "actualTime": "1:51 PM  CDT",
-    "scheduledRunwayTime": "1:44 PM  CDT",
-    "actualRunwayTime": "2:06 PM  CDT",
+    "scheduledTime": "2024-10-27T13:21:00-05:00",
+    "actualTime": "2024-10-27T13:51:00-05:00",
+    "scheduledRunwayTime": "2024-10-27T13:44:00-05:00",
+    "actualRunwayTime": "2024-10-27T14:06:00-05:00",
     "terminal": "3",
     "gate": "L10A",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MHT",
     "airportName": "Manchester-Boston Regional Airport, NH, US",
-    "date": "2024-10-27",
-    "scheduledTime": "4:39 PM  EDT",
-    "actualTime": "5:00 PM  EDT",
-    "scheduledRunwayTime": "4:33 PM  EDT",
-    "actualRunwayTime": "4:56 PM  EDT",
+    "scheduledTime": "2024-10-27T16:39:00-04:00",
+    "actualTime": "2024-10-27T17:00:00-04:00",
+    "scheduledRunwayTime": "2024-10-27T16:33:00-04:00",
+    "actualRunwayTime": "2024-10-27T16:56:00-04:00",
     "terminal": null,
     "gate": "8",
     "baggageClaim": null

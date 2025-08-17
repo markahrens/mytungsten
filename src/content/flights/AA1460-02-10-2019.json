@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "DFW",
     "airportName": "Dallas Fort Worth International Airport, TX, US",
-    "date": "2019-02-10",
-    "scheduledTime": "12:30 PM  CST",
-    "actualTime": "12:30 PM  CST",
-    "scheduledRunwayTime": "12:45 PM  CST",
-    "actualRunwayTime": "12:48 PM  CST",
+    "scheduledTime": "2019-02-10T12:30:00-06:00",
+    "actualTime": "2019-02-10T12:30:00-06:00",
+    "scheduledRunwayTime": "2019-02-10T12:45:00-06:00",
+    "actualRunwayTime": "2019-02-10T12:48:00-06:00",
     "terminal": "A",
     "gate": "A39",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "PDX",
     "airportName": "Portland International Airport, OR, US",
-    "date": "2019-02-10",
-    "scheduledTime": "2:48 PM  PST",
-    "actualTime": "2:39 PM  PST",
-    "scheduledRunwayTime": "2:44 PM  PST",
-    "actualRunwayTime": "2:35 PM  PST",
+    "scheduledTime": "2019-02-10T14:48:00-08:00",
+    "actualTime": "2019-02-10T14:39:00-08:00",
+    "scheduledRunwayTime": "2019-02-10T14:44:00-08:00",
+    "actualRunwayTime": "2019-02-10T14:35:00-08:00",
     "terminal": null,
     "gate": "C19",
     "baggageClaim": null

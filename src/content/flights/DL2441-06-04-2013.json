@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "DTW",
     "airportName": "Detroit Metropolitan Wayne County Airport, MI, US",
-    "date": "2013-06-04",
-    "scheduledTime": "12:22 PM  EDT",
-    "actualTime": "12:13 PM  EDT",
-    "scheduledRunwayTime": "12:41 PM  EDT",
-    "actualRunwayTime": "12:40 PM  EDT",
+    "scheduledTime": "2013-06-04T12:22:00-04:00",
+    "actualTime": "2013-06-04T12:13:00-04:00",
+    "scheduledRunwayTime": "2013-06-04T12:41:00-04:00",
+    "actualRunwayTime": "2013-06-04T12:40:00-04:00",
     "terminal": "M",
     "gate": "A17",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2013-06-04",
-    "scheduledTime": "12:43 PM  CDT",
-    "actualTime": "12:30 PM  CDT",
-    "scheduledRunwayTime": "12:23 PM  CDT",
-    "actualRunwayTime": "12:25 PM  CDT",
+    "scheduledTime": "2013-06-04T12:43:00-05:00",
+    "actualTime": "2013-06-04T12:30:00-05:00",
+    "scheduledRunwayTime": "2013-06-04T12:23:00-05:00",
+    "actualRunwayTime": "2013-06-04T12:25:00-05:00",
     "terminal": "2",
     "gate": "E9",
     "baggageClaim": null

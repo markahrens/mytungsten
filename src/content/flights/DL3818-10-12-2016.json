@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ATL",
     "airportName": "Atlanta Hartsfield-Jackson International Airport, GA, US",
-    "date": "2016-10-12",
-    "scheduledTime": "9:51 AM  EDT",
-    "actualTime": "10:03 AM  EDT",
-    "scheduledRunwayTime": "10:03 AM  EDT",
-    "actualRunwayTime": "10:17 AM  EDT",
+    "scheduledTime": "2016-10-12T09:51:00-04:00",
+    "actualTime": "2016-10-12T10:03:00-04:00",
+    "scheduledRunwayTime": "2016-10-12T10:03:00-04:00",
+    "actualRunwayTime": "2016-10-12T10:17:00-04:00",
     "terminal": "S",
     "gate": "D28",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MLI",
     "airportName": "Quad Cities International Airport, IL, US",
-    "date": "2016-10-12",
-    "scheduledTime": "10:50 AM  CDT",
-    "actualTime": "10:52 AM  CDT",
-    "scheduledRunwayTime": "10:33 AM  CDT",
-    "actualRunwayTime": "10:51 AM  CDT",
+    "scheduledTime": "2016-10-12T10:50:00-05:00",
+    "actualTime": "2016-10-12T10:52:00-05:00",
+    "scheduledRunwayTime": "2016-10-12T10:33:00-05:00",
+    "actualRunwayTime": "2016-10-12T10:51:00-05:00",
     "terminal": null,
     "gate": "B7",
     "baggageClaim": null

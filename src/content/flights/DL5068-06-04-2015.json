@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ATL",
     "airportName": "Atlanta Hartsfield-Jackson International Airport, GA, US",
-    "date": "2015-06-04",
-    "scheduledTime": "2:44 PM  EDT",
-    "actualTime": "2:46 PM  EDT",
-    "scheduledRunwayTime": "2:59 PM  EDT",
-    "actualRunwayTime": "2:58 PM  EDT",
+    "scheduledTime": "2015-06-04T14:44:00-04:00",
+    "actualTime": "2015-06-04T14:46:00-04:00",
+    "scheduledRunwayTime": "2015-06-04T14:59:00-04:00",
+    "actualRunwayTime": "2015-06-04T14:58:00-04:00",
     "terminal": "N",
     "gate": "D26",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "CID",
     "airportName": "The Eastern Iowa Airport, IA, US",
-    "date": "2015-06-04",
-    "scheduledTime": "3:52 PM  CDT",
-    "actualTime": "3:35 PM  CDT",
-    "scheduledRunwayTime": "3:29 PM  CDT",
-    "actualRunwayTime": "3:31 PM  CDT",
+    "scheduledTime": "2015-06-04T15:52:00-05:00",
+    "actualTime": "2015-06-04T15:35:00-05:00",
+    "scheduledRunwayTime": "2015-06-04T15:29:00-05:00",
+    "actualRunwayTime": "2015-06-04T15:31:00-05:00",
     "terminal": null,
     "gate": "C3",
     "baggageClaim": null

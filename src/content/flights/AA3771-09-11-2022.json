@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2022-09-11",
-    "scheduledTime": "1:45 PM  CDT",
-    "actualTime": "3:33 PM  CDT",
-    "scheduledRunwayTime": "2:19 PM  CDT",
-    "actualRunwayTime": "3:56 PM  CDT",
+    "scheduledTime": "2022-09-11T13:45:00-05:00",
+    "actualTime": "2022-09-11T15:33:00-05:00",
+    "scheduledRunwayTime": "2022-09-11T14:19:00-05:00",
+    "actualRunwayTime": "2022-09-11T15:56:00-05:00",
     "terminal": "3",
     "gate": "L10C",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "PVD",
     "airportName": "Rhode Island T. F. Green International Airport, RI, US",
-    "date": "2022-09-11",
-    "scheduledTime": "5:02 PM  EDT",
-    "actualTime": "7:05 PM  EDT",
-    "scheduledRunwayTime": "5:11 PM  EDT",
-    "actualRunwayTime": "7:01 PM  EDT",
+    "scheduledTime": "2022-09-11T17:02:00-04:00",
+    "actualTime": "2022-09-11T19:05:00-04:00",
+    "scheduledRunwayTime": "2022-09-11T17:11:00-04:00",
+    "actualRunwayTime": "2022-09-11T19:01:00-04:00",
     "terminal": null,
     "gate": "6",
     "baggageClaim": null

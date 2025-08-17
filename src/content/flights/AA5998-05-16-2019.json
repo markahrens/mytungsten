@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "DFW",
     "airportName": "Dallas Fort Worth International Airport, TX, US",
-    "date": "2019-05-16",
-    "scheduledTime": "8:45 PM  CDT",
-    "actualTime": "10:06 PM  CDT",
-    "scheduledRunwayTime": "9:09 PM  CDT",
-    "actualRunwayTime": "10:18 PM  CDT",
+    "scheduledTime": "2019-05-16T20:45:00-05:00",
+    "actualTime": "2019-05-16T22:06:00-05:00",
+    "scheduledRunwayTime": "2019-05-16T21:09:00-05:00",
+    "actualRunwayTime": "2019-05-16T22:18:00-05:00",
     "terminal": "B",
     "gate": "33",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "MLI",
     "airportName": "Quad Cities International Airport, IL, US",
-    "date": "2019-05-16",
-    "scheduledTime": "10:42 PM  CDT",
-    "actualTime": "12:01 AM  CDT",
-    "scheduledRunwayTime": "10:37 PM  CDT",
-    "actualRunwayTime": "11:54 PM  CDT",
+    "scheduledTime": "2019-05-16T22:42:00-05:00",
+    "actualTime": "2019-05-17T00:01:00-05:00",
+    "scheduledRunwayTime": "2019-05-16T22:37:00-05:00",
+    "actualRunwayTime": "2019-05-16T23:54:00-05:00",
     "terminal": null,
     "gate": "B8",
     "baggageClaim": null

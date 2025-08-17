@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "MIA",
     "airportName": "Miami International Airport, FL, US",
-    "date": "2022-10-27",
-    "scheduledTime": "10:00 AM  EDT",
-    "actualTime": "9:57 AM  EDT",
-    "scheduledRunwayTime": "10:19 AM  EDT",
-    "actualRunwayTime": "10:09 AM  EDT",
+    "scheduledTime": "2022-10-27T10:00:00-04:00",
+    "actualTime": "2022-10-27T09:57:00-04:00",
+    "scheduledRunwayTime": "2022-10-27T10:19:00-04:00",
+    "actualRunwayTime": "2022-10-27T10:09:00-04:00",
     "terminal": "N",
     "gate": "D44",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2022-10-27",
-    "scheduledTime": "12:20 PM  CDT",
-    "actualTime": "12:05 PM  CDT",
-    "scheduledRunwayTime": "12:04 PM  CDT",
-    "actualRunwayTime": "11:54 AM  CDT",
+    "scheduledTime": "2022-10-27T12:20:00-05:00",
+    "actualTime": "2022-10-27T12:05:00-05:00",
+    "scheduledRunwayTime": "2022-10-27T12:04:00-05:00",
+    "actualRunwayTime": "2022-10-27T11:54:00-05:00",
     "terminal": "3",
     "gate": "H10",
     "baggageClaim": null

@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "CID",
     "airportName": "The Eastern Iowa Airport, IA, US",
-    "date": "2014-03-08",
-    "scheduledTime": "11:23 AM  CST",
-    "actualTime": "11:23 AM  CST",
-    "scheduledRunwayTime": "11:43 AM  CST",
-    "actualRunwayTime": "11:44 AM  CST",
+    "scheduledTime": "2014-03-08T11:23:00-06:00",
+    "actualTime": "2014-03-08T11:23:00-06:00",
+    "scheduledRunwayTime": "2014-03-08T11:43:00-06:00",
+    "actualRunwayTime": "2014-03-08T11:44:00-06:00",
     "terminal": null,
     "gate": null,
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2014-03-08",
-    "scheduledTime": "12:27 PM  CST",
-    "actualTime": "12:36 PM  CST",
-    "scheduledRunwayTime": "12:19 PM  CST",
-    "actualRunwayTime": "12:25 PM  CST",
+    "scheduledTime": "2014-03-08T12:27:00-06:00",
+    "actualTime": "2014-03-08T12:36:00-06:00",
+    "scheduledRunwayTime": "2014-03-08T12:19:00-06:00",
+    "actualRunwayTime": "2014-03-08T12:25:00-06:00",
     "terminal": "2",
     "gate": null,
     "baggageClaim": null

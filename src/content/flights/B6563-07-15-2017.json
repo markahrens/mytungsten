@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "ORD",
     "airportName": "Chicago O'Hare International Airport, IL, US",
-    "date": "2017-07-15",
-    "scheduledTime": "7:00 AM  CDT",
-    "actualTime": "6:56 AM  CDT",
-    "scheduledRunwayTime": "7:19 AM  CDT",
-    "actualRunwayTime": "7:10 AM  CDT",
+    "scheduledTime": "2017-07-15T07:00:00-05:00",
+    "actualTime": "2017-07-15T06:56:00-05:00",
+    "scheduledRunwayTime": "2017-07-15T07:19:00-05:00",
+    "actualRunwayTime": "2017-07-15T07:10:00-05:00",
     "terminal": "3",
     "gate": "L3",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "FLL",
     "airportName": "Fort Lauderdale-Hollywood International Airport, FL, US",
-    "date": "2017-07-15",
-    "scheduledTime": "11:12 AM  EDT",
-    "actualTime": "10:48 AM  EDT",
-    "scheduledRunwayTime": "10:55 AM  EDT",
-    "actualRunwayTime": "10:42 AM  EDT",
+    "scheduledTime": "2017-07-15T11:12:00-04:00",
+    "actualTime": "2017-07-15T10:48:00-04:00",
+    "scheduledRunwayTime": "2017-07-15T10:55:00-04:00",
+    "actualRunwayTime": "2017-07-15T10:42:00-04:00",
     "terminal": "3",
     "gate": "F6",
     "baggageClaim": null

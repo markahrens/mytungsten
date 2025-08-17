@@ -4,11 +4,10 @@
   "departure": {
     "airportCode": "IAH",
     "airportName": "Houston George Bush Intercontinental Airport, TX, US",
-    "date": "2019-05-16",
-    "scheduledTime": "6:24 PM  CDT",
-    "actualTime": "6:21 PM  CDT",
-    "scheduledRunwayTime": "7:14 PM  CDT",
-    "actualRunwayTime": "6:58 PM  CDT",
+    "scheduledTime": "2019-05-16T18:24:00-05:00",
+    "actualTime": "2019-05-16T18:21:00-05:00",
+    "scheduledRunwayTime": "2019-05-16T19:14:00-05:00",
+    "actualRunwayTime": "2019-05-16T18:58:00-05:00",
     "terminal": "A",
     "gate": "26",
     "baggageClaim": null
@@ -16,11 +15,10 @@
   "arrival": {
     "airportCode": "DFW",
     "airportName": "Dallas Fort Worth International Airport, TX, US",
-    "date": "2019-05-16",
-    "scheduledTime": "7:45 PM  CDT",
-    "actualTime": "7:48 PM  CDT",
-    "scheduledRunwayTime": "8:01 PM  CDT",
-    "actualRunwayTime": "7:40 PM  CDT",
+    "scheduledTime": "2019-05-16T19:45:00-05:00",
+    "actualTime": "2019-05-16T19:48:00-05:00",
+    "scheduledRunwayTime": "2019-05-16T20:01:00-05:00",
+    "actualRunwayTime": "2019-05-16T19:40:00-05:00",
     "terminal": "A",
     "gate": "A20",
     "baggageClaim": null
