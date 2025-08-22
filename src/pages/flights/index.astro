@@ -3,37 +3,13 @@ import Layout from '../../layouts/Layout.astro';
 import PostRow from '../../components/PostRow.astro';
 import { getCollection } from 'astro:content';
 const flights = (await getCollection('flights')).sort((a, b) => {
-    // First compare by date
-    const dateComparison = b.data.departure.date.valueOf() - a.data.departure.date.valueOf();
-    if (dateComparison !== 0) return dateComparison;
+  return new Date(b.data.departure.scheduledTime).getTime() - new Date(a.data.departure.scheduledTime).getTime()
     
-    // Helper function to convert time and timezone to UTC minutes since midnight
-    const timeToUTCMinutes = (timeStr: string, date: Date) => {
-        const [time, period, timezone] = timeStr.trim().split(/\s+/);
-        let [hours, minutes] = time.split(':').map(Number);
-        if (period === 'PM' && hours !== 12) hours += 12;
-        if (period === 'AM' && hours === 12) hours = 0;
-
-        // Create a date object with the time
-        const dateObj = new Date(date);
-        dateObj.setHours(hours, minutes, 0, 0);
-
-        // Adjust for timezone
-        const offset = timezone === 'EST' ? 5 : timezone === 'CST' ? 6 : 0;
-        return dateObj.getHours() * 60 + dateObj.getMinutes() + (offset * 60);
-    };
-    
-    // Get the actual or scheduled time for each flight
-    const aTime = a.data.departure.actualTime || a.data.departure.scheduledTime || '12:00 AM EST';
-    const bTime = b.data.departure.actualTime || b.data.departure.scheduledTime || '12:00 AM EST';
-    
-    // Compare the times in UTC minutes
-    return timeToUTCMinutes(aTime, a.data.departure.date) - timeToUTCMinutes(bTime, b.data.departure.date);
 });
 
 // Group flights by year
 const flightsByYear = flights.reduce((acc, flight) => {
-  const year = flight.data.departure.date.getFullYear();
+  const year = new Date(flight.data.departure.scheduledTime).getFullYear();
   if (!acc[year]) {
     acc[year] = [];
   }
@@ -59,7 +35,7 @@ type Year = keyof typeof flightsByYear;
               href={`/flights/${flight.id}`},
               title={flight.data.flightNumber},
               description={`${flight.data.departure.airportCode} → ${flight.data.arrival.airportCode}`},
-              date={flight.data.departure.date},
+              date={flight.data.departure.scheduledTime},
               inline={true}
             />
           ))}

@@ -1,6 +1,7 @@
 ---
 const { href, title, date, description, inline = false } = Astro.props;
-date.setTime(date.getTime() + (6*60*60*1000));
+const newDate = new Date(date);
+newDate.setTime(newDate.getTime() + (6*60*60*1000));
 const dateOptions: object = {
 	year: "numeric",
 	month: "long",
@@ -9,7 +10,7 @@ const dateOptions: object = {
 ---
 
 <div class="post-row">
-  <small>{date.toLocaleDateString('en-US', dateOptions)}</small>
+  <small>{newDate.toLocaleDateString('en-US', dateOptions)}</small>
   <div class={inline ? 'inline' : ''}>
     <h2 class="card-title"><a href={href}>{title}</a></h2>
     <p>{description}</p>

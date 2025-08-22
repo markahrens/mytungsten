@@ -4,16 +4,17 @@ import Layout from '../../layouts/Layout.astro';
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const flights = await getCollection('flights');
-  return flights.map(entry => ({
-    params: { id: entry.id }, props: { entry },
+  return flights.map(flight => ({
+    params: { id: flight.id }, props: { flight },
   }));
 }
 
-const { entry } = Astro.props;
+const { flight } = Astro.props;
 ---
 
-<Layout title={entry.data.flightNumber}>
+<Layout title={flight.data.flightNumber}>
 	<div class="blog-content content-container">
-    <h1>{entry.data.flightNumber}</h1>
+    <h1>{flight.data.flightNumber}</h1>
+    <p>{flight.data.flightStatus}</p>
   </div>
 </Layout>

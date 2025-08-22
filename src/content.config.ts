@@ -30,11 +30,10 @@ const flightsCollection = defineCollection({
     departure: z.object({
       airportCode: z.string(),
       airportName: z.string(),
-      date: z.coerce.date(),
-      scheduledTime: z.string(),
-      actualTime: z.string().nullable(),
-      scheduledRunwayTime: z.string().nullable(),
-      actualRunwayTime: z.string().nullable(),
+      scheduledTime: z.string().datetime({ offset: true }),
+      actualTime: z.string().datetime({ offset: true }).nullable(),
+      scheduledRunwayTime: z.string().datetime({ offset: true }).nullable(),
+      actualRunwayTime: z.string().datetime({ offset: true }).nullable(),
       terminal: z.string().nullable(),
       gate: z.string().nullable(),
       baggageClaim: z.string().nullable()
@@ -42,11 +41,10 @@ const flightsCollection = defineCollection({
     arrival: z.object({
       airportCode: z.string(),
       airportName: z.string(),
-      date: z.coerce.date(),
-      scheduledTime: z.string(),
-      actualTime: z.string().nullable(),
-      scheduledRunwayTime: z.string().nullable(),
-      actualRunwayTime: z.string().nullable(),
+      scheduledTime: z.string().datetime({ offset: true }),
+      actualTime: z.string().datetime({ offset: true }).nullable(),
+      scheduledRunwayTime: z.string().datetime({ offset: true }).nullable(),
+      actualRunwayTime: z.string().datetime({ offset: true }).nullable(),
       terminal: z.string().nullable(),
       gate: z.string().nullable(),
       baggageClaim: z.string().nullable()
