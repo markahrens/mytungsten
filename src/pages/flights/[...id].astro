@@ -1,4 +1,5 @@
 ---
+import { DateTime } from "luxon";
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 // 1. Generate a new path for every collection entry
@@ -29,8 +30,8 @@ const dateOptions: object = {
         <div class="flight">
           <h2>{flight.data.departure.airportCode}</h2>
           <p>{flight.data.departure.airportName}</p>
-          <div><span>Scheduled Time</span><span>{new Date(flight.data.departure.scheduledTime).toLocaleString('en-US')}</span></div>
-          <div><span>Actual Time</span><span>{new Date(flight.data.departure.actualTime).toLocaleString('en-US')}</span></div>
+          <div><span>Scheduled Time</span><span>{DateTime.fromISO(flight.data.departure.scheduledTime, { setZone: true }).toFormat("ff")}</span></div>
+          <div><span>Actual Time</span><span>{DateTime.fromISO(flight.data.departure.actualTime, { setZone: true }).toFormat("ff")}</span></div>
           {flight.data.departure.terminal && (
             <div><span>Terminal</span><span>{flight.data.departure.terminal}</span></div>
           )}
@@ -42,8 +43,8 @@ const dateOptions: object = {
         <div class="flight">
           <h2>{flight.data.arrival.airportCode}</h2>
           <p>{flight.data.arrival.airportName}</p>
-          <div><span>Scheduled Time</span><span>{new Date(flight.data.arrival.scheduledTime).toLocaleString('en-US')}</span></div>
-          <div><span>Actual Time</span><span>{new Date(flight.data.arrival.actualTime).toLocaleString('en-US')}</span></div>
+          <div><span>Scheduled Time</span><span>{DateTime.fromISO(flight.data.arrival.scheduledTime, { setZone: true }).toFormat("ff")}</span></div>
+          <div><span>Actual Time</span><span>{DateTime.fromISO(flight.data.arrival.actualTime, { setZone: true }).toFormat("ff")}</span></div>
           {flight.data.arrival.terminal && (
             <div><span>Terminal</span><span>{flight.data.arrival.terminal}</span></div>
           )}
