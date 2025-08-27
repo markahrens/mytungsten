@@ -1,0 +1,33 @@
+{
+  "flightNumber": "G4858",
+  "flightStatus": "Delayed by 3h 22m | Arrived",
+  "departure": {
+    "airportCode": "PIE",
+    "airportName": "St. Pete-Clearwater International Airport, FL, US",
+    "scheduledTime": "2021-07-17T17:48:00-04:00",
+    "actualTime": "2021-07-17T20:41:00-04:00",
+    "scheduledRunwayTime": "2021-07-17T17:59:00-04:00",
+    "actualRunwayTime": "2021-07-17T20:57:00-04:00",
+    "terminal": null,
+    "gate": "9",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "scheduledTime": "2021-07-17T19:18:00-05:00",
+    "actualTime": "2021-07-17T22:40:00-05:00",
+    "scheduledRunwayTime": "2021-07-17T19:11:00-05:00",
+    "actualRunwayTime": "2021-07-17T22:16:00-05:00",
+    "terminal": null,
+    "gate": "B10",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A320",
+    "code": "320",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 30m",
+  "actualFlightTime": "2h 59m"
+}

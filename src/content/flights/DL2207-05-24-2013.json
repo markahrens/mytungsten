@@ -1,0 +1,33 @@
+{
+  "flightNumber": "DL2207",
+  "flightStatus": "Delayed by 22m | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "scheduledTime": "2013-05-24T19:20:00-05:00",
+    "actualTime": "2013-05-24T19:28:00-05:00",
+    "scheduledRunwayTime": "2013-05-24T19:35:00-05:00",
+    "actualRunwayTime": "2013-05-24T19:53:00-05:00",
+    "terminal": "2",
+    "gate": "E15",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MSP",
+    "airportName": "Minneapolis-Saint Paul International Airport, MN, US",
+    "scheduledTime": "2013-05-24T20:51:00-05:00",
+    "actualTime": "2013-05-24T21:13:00-05:00",
+    "scheduledRunwayTime": "2013-05-24T20:28:00-05:00",
+    "actualRunwayTime": "2013-05-24T21:04:00-05:00",
+    "terminal": "1",
+    "gate": "G19",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "MD90",
+    "code": null,
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 31m",
+  "actualFlightTime": "1h 45m"
+}

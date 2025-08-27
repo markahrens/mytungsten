@@ -1,0 +1,33 @@
+{
+  "flightNumber": "AA98",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "scheduledTime": "2024-04-18T22:35:00-05:00",
+    "actualTime": "2024-04-18T22:37:00-05:00",
+    "scheduledRunwayTime": "2024-04-18T22:55:00-05:00",
+    "actualRunwayTime": "2024-04-18T22:54:00-05:00",
+    "terminal": "3",
+    "gate": "K15",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "LHR",
+    "airportName": "London Heathrow Airport, EN, GB",
+    "scheduledTime": "2024-04-19T12:15:00+01:00",
+    "actualTime": "2024-04-19T12:17:00+01:00",
+    "scheduledRunwayTime": "2024-04-19T12:04:00+01:00",
+    "actualRunwayTime": "2024-04-19T11:54:00+01:00",
+    "terminal": "3",
+    "gate": "40",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Boeing 787-9",
+    "code": "789",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "7h 40m",
+  "actualFlightTime": "7h 40m"
+}

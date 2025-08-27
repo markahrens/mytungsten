@@ -1,0 +1,33 @@
+{
+  "flightNumber": "AA3771",
+  "flightStatus": "Delayed by 2h 3m | Arrived",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "scheduledTime": "2022-09-11T13:45:00-05:00",
+    "actualTime": "2022-09-11T15:33:00-05:00",
+    "scheduledRunwayTime": "2022-09-11T14:19:00-05:00",
+    "actualRunwayTime": "2022-09-11T15:56:00-05:00",
+    "terminal": "3",
+    "gate": "L10C",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "PVD",
+    "airportName": "Rhode Island T. F. Green International Airport, RI, US",
+    "scheduledTime": "2022-09-11T17:02:00-04:00",
+    "actualTime": "2022-09-11T19:05:00-04:00",
+    "scheduledRunwayTime": "2022-09-11T17:11:00-04:00",
+    "actualRunwayTime": "2022-09-11T19:01:00-04:00",
+    "terminal": null,
+    "gate": "6",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer 175",
+    "code": "E75",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "2h 17m",
+  "actualFlightTime": "2h 32m"
+}

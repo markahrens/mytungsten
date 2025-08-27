@@ -72,40 +72,43 @@ const { title } = Astro.props;
 				<li><a href="/blog">Blog</a></li>
 				<li><a href="/trips">Trips</a></li>
 				<li><a href="/projects">Projects</a></li>
+				<li><a href="/flights">Flights</a></li>
 				<li><a href="/about">About</a></li>
 			</ul>
 
 		</nav>
 		<slot />
-		<link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Radio+Canada:wdth@87.5&display=swap" rel="stylesheet">
-		</body>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wdth,wght@75..100,100..700&display=swap" rel="stylesheet">
+	</body>
 </html>
 <style is:global>
 	:root {
 		--lightColor: #F1FAFB;
-		--lightColorAlt: #A0E4F1;
-		--darkColor: #4A4DE7;
-		--darkColorAlt: #7EA6F4
+		--lightColorAlt: #d3e0ea;
+		--darkColor: #2b3a6b;
+		--darkColorAlt: #3A70B7;
+		--bodyLink: #1E88E5;
 	}
 	html {
 		font-family: system-ui, sans-serif;
-		color: var(--lightColor);
-			background-color: var(--darkColor);
+		color: var(--darkColor);
 	}
 
 	body {
 		margin: 0;
-		font-family: "Radio Canada", sans-serif;
+		font-family: "IBM Plex Sans", sans-serif;
 		font-optical-sizing: auto;
 		font-weight: 400;
 		font-style: normal;
 		font-variation-settings:
-			"wdth" 87.5;
+			"wdth" 100;
 	}
 
 	h1, h2, h3 {
-		font-family: 'Radio Canada Big', sans-serif;
+		font-family: 'IBM Plex Sans', sans-serif;
 		text-align: center;
+		font-variation-settings:
+			"wdth" 85;
 	}
 	.headings-left h1,
 	.headings-left h2,
@@ -136,13 +139,13 @@ const { title } = Astro.props;
 
 
 	a {
-		color: var(--lightColorAlt);
+		color: var(--darkColorAlt);
 		text-decoration: none;
 		position: relative;
 	}
 
 	a:hover {
-		color: var(--lightColorAlt);
+		color: var(--darkColorAlt);
 	}
 
 	a::before {
@@ -153,7 +156,7 @@ const { title } = Astro.props;
 		height: 1.5px;
 		bottom: 0;
 		left: 0;
-		background-color: var(--lightColorAlt);
+		background-color: var(--darkColorAlt);
 		transform: scaleX(0);
 		transform-origin: top left;
 		transition: transform 0.3s ease;
@@ -172,13 +175,20 @@ const { title } = Astro.props;
 	nav {
 		display: flex;
 		justify-content: space-between;
-		font-family: 'Radio Canada Big', sans-serif;
 		font-weight: 500;
 		margin-bottom: 40px;
 		padding: 8px;
+		
+		background-color: var(--darkColor);
 		& a {
 			color: var(--lightColor);
 			text-decoration: none;
+		}
+		& a:hover {
+			color: var(--lightColorAlt);
+		}
+		& a::before {
+			background-color: var(--lightColorAlt);
 		}
 		& a.site-logo-container:hover {
 			color: var(--lightColor);

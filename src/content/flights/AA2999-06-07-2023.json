@@ -1,0 +1,33 @@
+{
+  "flightNumber": "AA2999",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "PIT",
+    "airportName": "Pittsburgh International Airport, PA, US",
+    "scheduledTime": "2023-06-07T06:35:00-04:00",
+    "actualTime": "2023-06-07T06:29:00-04:00",
+    "scheduledRunwayTime": "2023-06-07T06:50:00-04:00",
+    "actualRunwayTime": "2023-06-07T06:42:00-04:00",
+    "terminal": null,
+    "gate": "B30",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "scheduledTime": "2023-06-07T07:15:00-05:00",
+    "actualTime": "2023-06-07T07:00:00-05:00",
+    "scheduledRunwayTime": "2023-06-07T06:59:00-05:00",
+    "actualRunwayTime": "2023-06-07T06:52:00-05:00",
+    "terminal": "3",
+    "gate": "H16",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Boeing 737-800 Passenger",
+    "code": "738",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 40m",
+  "actualFlightTime": "1h 31m"
+}

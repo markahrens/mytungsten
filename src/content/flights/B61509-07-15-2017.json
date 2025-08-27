@@ -1,0 +1,33 @@
+{
+  "flightNumber": "B61509",
+  "flightStatus": "On time | Arrived",
+  "departure": {
+    "airportCode": "FLL",
+    "airportName": "Fort Lauderdale-Hollywood International Airport, FL, US",
+    "scheduledTime": "2017-07-15T05:58:00-04:00",
+    "actualTime": "2017-07-15T06:00:00-04:00",
+    "scheduledRunwayTime": "2017-07-15T06:11:00-04:00",
+    "actualRunwayTime": "2017-07-15T06:12:00-04:00",
+    "terminal": "3",
+    "gate": "F4",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "PAP",
+    "airportName": "Port-au-Prince Toussaint Louverture Intl Airport, HT",
+    "scheduledTime": "2017-07-15T07:49:00-04:00",
+    "actualTime": "2017-07-15T07:46:00-04:00",
+    "scheduledRunwayTime": "2017-07-15T07:46:00-04:00",
+    "actualRunwayTime": "2017-07-15T07:44:00-04:00",
+    "terminal": null,
+    "gate": null,
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Airbus A321",
+    "code": "321",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 51m",
+  "actualFlightTime": "1h 46m"
+}

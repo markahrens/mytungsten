@@ -1,0 +1,33 @@
+{
+  "flightNumber": "AA5998",
+  "flightStatus": "Delayed by 1h 19m | Arrived",
+  "departure": {
+    "airportCode": "DFW",
+    "airportName": "Dallas Fort Worth International Airport, TX, US",
+    "scheduledTime": "2019-05-16T20:45:00-05:00",
+    "actualTime": "2019-05-16T22:06:00-05:00",
+    "scheduledRunwayTime": "2019-05-16T21:09:00-05:00",
+    "actualRunwayTime": "2019-05-16T22:18:00-05:00",
+    "terminal": "B",
+    "gate": "33",
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "MLI",
+    "airportName": "Quad Cities International Airport, IL, US",
+    "scheduledTime": "2019-05-16T22:42:00-05:00",
+    "actualTime": "2019-05-17T00:01:00-05:00",
+    "scheduledRunwayTime": "2019-05-16T22:37:00-05:00",
+    "actualRunwayTime": "2019-05-16T23:54:00-05:00",
+    "terminal": null,
+    "gate": "B8",
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Canadair (Bombardier) Regional Jet 900 and Challenger 890",
+    "code": "CR9",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 57m",
+  "actualFlightTime": "1h 55m"
+}

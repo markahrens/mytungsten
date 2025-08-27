@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from '../../layouts/Layout.astro';
-import BlogPost from "../../components/BlogPost.astro";
+import PostRow from "../../components/PostRow.astro";
 
 export async function getStaticPaths() {
   const allPosts = await getCollection("blog");
@@ -25,7 +25,7 @@ const { posts } = Astro.props;
 <Layout title={tag}>
     <h1>Posts tagged with <em>{tag}</em></h1>
     <div class="content-container">
-      { posts.map((post) => <BlogPost href={`/blog/${post.slug}/`} title={post.data.title} description={post.data.description}
+      { posts.map((post) => <PostRow href={`/blog/${post.slug}/`} title={post.data.title} description={post.data.description}
       date={post.data.date}/>) }
     </div>
   </Layout>

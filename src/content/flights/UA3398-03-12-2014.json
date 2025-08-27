@@ -1,0 +1,33 @@
+{
+  "flightNumber": "UA3398",
+  "flightStatus": "Cancelled",
+  "departure": {
+    "airportCode": "ORD",
+    "airportName": "Chicago O'Hare International Airport, IL, US",
+    "scheduledTime": "2014-03-12T09:51:00-05:00",
+    "actualTime": null,
+    "scheduledRunwayTime": "2014-03-12T10:05:00-05:00",
+    "actualRunwayTime": null,
+    "terminal": "1",
+    "gate": null,
+    "baggageClaim": null
+  },
+  "arrival": {
+    "airportCode": "CID",
+    "airportName": "The Eastern Iowa Airport, IA, US",
+    "scheduledTime": "2014-03-12T10:53:00-05:00",
+    "actualTime": null,
+    "scheduledRunwayTime": "2014-03-12T10:40:00-05:00",
+    "actualRunwayTime": null,
+    "terminal": null,
+    "gate": null,
+    "baggageClaim": null
+  },
+  "aircraft": {
+    "type": "Embraer RJ145",
+    "code": "ER4",
+    "tailNumber": null
+  },
+  "scheduledFlightTime": "1h 2m",
+  "actualFlightTime": null
+}
