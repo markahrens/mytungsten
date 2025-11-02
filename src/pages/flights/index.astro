@@ -1,15 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PostRow from '../../components/PostRow.astro';
-import { getCollection } from 'astro:content';
-const flights = (await getCollection('flights')).sort((a, b) => {
-  return new Date(b.data.departure.scheduledTime).getTime() - new Date(a.data.departure.scheduledTime).getTime()
-    
-});
+import { getAllFlights } from '../../lib/db';
+
+const flights = getAllFlights();
 
 // Group flights by year
 const flightsByYear = flights.reduce((acc, flight) => {
-  const year = new Date(flight.data.departure.scheduledTime).getFullYear();
+  const year = new Date(flight.date).getFullYear();
   if (!acc[year]) {
     acc[year] = [];
   }
@@ -22,7 +20,9 @@ const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number
 
 // Type assertion to help TypeScript understand the year type
 type Year = keyof typeof flightsByYear;
+
 ---
+
 <Layout title="Flights">
   <h1>Flights</h1>
   <div class="content-container">
@@ -32,10 +32,10 @@ type Year = keyof typeof flightsByYear;
         <div class="flights-grid">
           {flightsByYear[year].map(flight => (
             <PostRow
-              href={`/flights/${flight.id}`},
-              title={flight.data.flightNumber},
-              description={`${flight.data.departure.airportCode} → ${flight.data.arrival.airportCode}`},
-              date={flight.data.departure.scheduledTime},
+              href={`/flights/${flight.number}-${flight.date}`},
+              title={flight.number},
+              description={`${flight.dept_airport} → ${flight.arrival_airport}`},
+              date={flight.date},
               inline={true}
             />
           ))}
@@ -56,3 +56,11 @@ type Year = keyof typeof flightsByYear;
   }
 
 </style>
+
+<div>
+  {flights.map(flight => (
+    <div>
+      <a href={`/flights/${flight.number}-${flight.date}`}>{flight.number} - {flight.date}</a>
+    </div>
+  ))}
+</div>

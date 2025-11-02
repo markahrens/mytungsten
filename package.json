@@ -14,7 +14,8 @@
     "@astrojs/sitemap": "^3.4.0",
     "astro": "^5.8.0",
     "astro-meta-tags": "^0.3.1",
-    "luxon": "^3.7.1",
+    "better-sqlite3": "^12.4.1",
+    "luxon": "^3.7.2",
     "markdown-it": "^14.0.0",
     "sanitize-html": "^2.11.0"
   },

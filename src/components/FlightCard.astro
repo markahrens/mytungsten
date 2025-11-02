@@ -1,0 +1,77 @@
+---
+import { DateTime, Duration } from "luxon";
+interface Props {
+	airport_name: string;
+	airport_code: string;
+	scheduled_time: DateTime;
+  actual_time: DateTime;
+  terminal?: string;
+  gate?: string;
+}
+
+const { airport_name, airport_code, scheduled_time, actual_time, terminal, gate } = Astro.props;
+---
+
+
+<div class="flight">
+  <p class="airport-name">{airport_name ? airport_name : "Unknown airport"}</p>
+  <h2>{airport_code}</h2>
+  <div class="times">
+    <div class="time">
+      <p>{scheduled_time.toFormat("h:mm a ZZZZ")}</p><p>Scheduled</p>
+    </div>
+    <div class="time">
+      <p>{actual_time.toFormat("h:mm a ZZZZ")}</p><p>Actual</p>
+    </div>
+  </div>
+
+  {
+    terminal && (
+      <div>
+          <span>Terminal</span>
+          <span>{terminal}</span>
+      </div>
+    )
+  }
+  {
+    gate && (
+      <div>
+          <span>Gate</span>
+          <span>{gate}</span>
+      </div>
+    )
+  }
+</div>
+
+<style>
+
+  .flight {
+    width: 300px;
+    h2 {
+      text-align: center;
+      margin: 0;
+      font-size: 3.4rem;
+    }
+    .airport-name {
+      font-size: 1rem;
+      margin-bottom: 0;
+      color: var(--darkColorAlt);
+      text-align: center;
+    }
+    .times {
+      display: flex;
+      gap: 2rem;
+      margin: 1rem 0;
+      .time {
+        text-align: center;
+        p {
+          margin: 0;
+          font-size: 1rem;
+        }
+        p:first-child {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+</style>
