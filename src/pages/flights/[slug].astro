@@ -95,76 +95,59 @@ if (actual_time && scheduled_time) {
 }
 ---
 
-<Layout title={flight.number}>
+<Layout title={`${flight.number} - ${dept_gate_scheduled.toFormat("M/d/yyyy")}`}>
   <div class="blog-content content-container">
-    <h1>{flight.number}</h1>
-    <h2>{flight.status}</h2>
 
     <div class="flights-container">
-      <div class="airline-header">{airline.name}</div>
+      <h1 class="airline-header"><span>{airline.name} - {flight.number}</span><span>{dept_gate_scheduled.toFormat("M/d/yyyy")}</span></h1>
       <div class="flights">
-      <div class="departure">
-        <FlightCard
-          airport_name={dept_airport.name}
-          ,
-          airport_code={flight.dept_airport}
-          ,
-          scheduled_time={dept_gate_scheduled}
-          ,
-          actual_time={dept_gate_actual}
-          ,
-          terminal={flight.dept_terminal}
-          ,
-          gate={flight.dept_gate}
-        />
-      </div>
-      <div class="flight-line-container">
-        <div class="flight-line"></div>
-        <div class="plane-icon">✈️</div>
-      </div>
-      <div class="arrival">
-        <FlightCard
-          airport_name={arrival_airport.name}
-          ,
-          airport_code={flight.arrival_airport}
-          ,
-          scheduled_time={arrival_gate_scheduled}
-          ,
-          actual_time={arrival_gate_actual}
-          ,
-          terminal={flight.arrival_terminal}
-          ,
-          gate={flight.arrival_gate}
-        />
-      </div>
+        <div class="departure">
+          <FlightCard
+            airport_name={dept_airport.name},
+            airport_code={flight.dept_airport},
+            scheduled_time={dept_gate_scheduled},
+            actual_time={dept_gate_actual},
+            terminal={flight.dept_terminal},
+            gate={flight.dept_gate}
+          />
+        </div>
+        <div class="flight-line-container">
+          <div class="flight-line"></div>
+          <div class="plane-icon">✈️</div>
+        </div>
+        <div class="arrival">
+          <FlightCard
+            airport_name={arrival_airport.name},
+            airport_code={flight.arrival_airport},
+            scheduled_time={arrival_gate_scheduled},
+            actual_time={arrival_gate_actual},
+            terminal={flight.arrival_terminal},
+            gate={flight.arrival_gate}
+          />
+        </div>
       </div>
       <div class="stripe-container"></div>
 
     </div>
-    {
-      scheduled_time && (
-        <div class="duration">
-          <p>
-            <strong>Scheduled Duration</strong>
-          </p>
-          <p>
-            {scheduled_time.hours}h {scheduled_time.minutes}m
-          </p>
+
+    <div class="details-container">
+      
+      <p class="details--status">Status: {flight.status}</>
+      <div class="details-times">
+        <div class="scheduled">
+          <h3>Scheduled</h3>
+          <p>Gate Departure: {dept_gate_scheduled.toFormat("h:mm a ZZZZ")}</p>
+          <p>Gate Arrival: {arrival_gate_scheduled.toFormat("h:mm a ZZZZ")}</p>
+          { scheduled_time && (<p>Duration: {scheduled_time.hours}h {scheduled_time.minutes}m </p>)}
         </div>
-      )
-    }
-    {
-      actual_time && (
-        <div class="duration">
-          <p>
-            <strong>Actual Duration</strong>
-          </p>
-          <p>
-            {actual_time.hours}h {actual_time.minutes}m
-          </p>
+        <div class="actual">
+          <h3>Actual</h3>
+          <p>Gate Departure: {dept_gate_actual.toFormat("h:mm a ZZZZ")}</p>
+          <p>Gate Arrival: {arrival_gate_actual.toFormat("h:mm a ZZZZ")}</p>
+          { actual_time && (<p>Duration: {actual_time.hours}h {actual_time.minutes}m </p>)}
         </div>
-      )
-    }
+      </div>
+    </div>
   </div>
 </Layout>
 
@@ -173,6 +156,7 @@ if (actual_time && scheduled_time) {
     max-width: 900px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 0 auto;
   }
   .airline-header {
     background: var(--brandColor1);
@@ -180,6 +164,10 @@ if (actual_time && scheduled_time) {
     padding: 20px 30px;
     border-radius: 12px 12px 0 0;
     font-size: 24px;
+    font-weight: normal;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
   }
   .flights {
     display: flex;
@@ -187,40 +175,40 @@ if (actual_time && scheduled_time) {
     align-items: center;
     justify-content: space-between;
     margin: 20px auto;
+    gap: 40px;
     padding: 0 30px;
     @media (width >= 700px) {
       flex-direction: row;
     }
   }
   .flight-line-container {
-    display: none;
+    display: block;
     flex: 1;
     position: relative;
     margin: 0 30px;
     height: 40px;
-    @media (width >= 700px) {
-      display: block;
+
+    .flight-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #333;
     }
-  }
 
-  .flight-line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #333;
-    transform: translateY(-50%);
-  }
-
-  .plane-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    font-size: 24px;
-    background: white;
-    padding: 0 8px;
+    .plane-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(135deg);
+      font-size: 24px;
+      background: white;
+      padding: 0 8px;
+          @media (width >= 700px) {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
   }
 
   .stripe-container {
@@ -254,5 +242,29 @@ if (actual_time && scheduled_time) {
         white 55px,
         white 60px
     );
-}
+  } 
+
+  .details-container {
+    max-width: 900px;
+    margin: 40px auto;
+    p {
+      font-size: 1rem;
+    }
+
+    .details-times {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      @media (width >= 700px) {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      div {
+        flex: 1;
+      }
+      h3 {
+        text-align: left;
+      }
+    }
+  }
 </style>
