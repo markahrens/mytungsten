@@ -56,11 +56,3 @@ type Year = keyof typeof flightsByYear;
   }
 
 </style>
-
-<div>
-  {flights.map(flight => (
-    <div>
-      <a href={`/flights/${flight.number}-${flight.date}`}>{flight.number} - {flight.date}</a>
-    </div>
-  ))}
-</div>
