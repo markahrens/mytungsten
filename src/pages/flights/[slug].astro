@@ -50,19 +50,19 @@ if (flight.arrival_airport) {
 }
 
 let dept_gate_scheduled = DateTime.fromISO(flight.dept_gate_scheduled, {
-  zone: flight.dept_timezone,
+  zone: dept_airport?.timezone,
 });
 
 let dept_gate_actual = DateTime.fromISO(flight.dept_gate_actual, {
-  zone: flight.dept_timezone,
+  zone: dept_airport?.timezone,
 });
 
 let arrival_gate_scheduled = DateTime.fromISO(flight.arrival_gate_scheduled, {
-  zone: flight.arrival_timezone,
+  zone: arrival_airport?.timezone,
 });
 
 let arrival_gate_actual = DateTime.fromISO(flight.arrival_gate_actual, {
-  zone: flight.arrival_timezone,
+  zone: arrival_airport?.timezone
 });
 
 if (dept_gate_scheduled && arrival_gate_scheduled) {

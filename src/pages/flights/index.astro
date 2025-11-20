@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import PostRow from '../../components/PostRow.astro';
+import FlightRow from '../../components/FlightRow.astro';
 import { getAllFlights } from '../../lib/db';
 
 const flights = getAllFlights();
@@ -31,12 +31,13 @@ type Year = keyof typeof flightsByYear;
         <h2>{year}</h2>
         <div class="flights-grid">
           {flightsByYear[year].map(flight => (
-            <PostRow
+            <FlightRow
               href={`/flights/${flight.number}-${flight.date}`},
-              title={flight.number},
-              description={`${flight.dept_airport} → ${flight.arrival_airport}`},
-              date={flight.date},
-              inline={true}
+              number={flight.number},
+              airline={flight.airline_code},
+              dept_airport={flight.dept_airport},
+              arrival_airport={flight.arrival_airport},
+              date={flight.date}
             />
           ))}
         </div>
