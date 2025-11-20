@@ -1,0 +1,82 @@
+---
+const { href, number, date, dept_airport, arrival_airport, airline, distance} = Astro.props;
+const newDate = new Date(date);
+newDate.setTime(newDate.getTime() + (6*60*60*1000));
+
+import {
+  getAirlineInfo,
+} from "../lib/db";
+
+const dateOptions: object = {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+};
+
+let airline_info = null;
+
+if (airline) {
+  airline_info = getAirlineInfo(airline);
+}
+
+---
+
+<div class="flight-row">
+  <a href={href}>
+    <div class="locations">
+      <div>{dept_airport} <span class="locations_arrow">→</span> {arrival_airport}</div>
+      <div class="distance">{distance ? Math.round(distance) + ' mi' : 'N/A'}</div>
+      
+    </div>
+    <div class="info">
+      <div class="airline">{airline_info.name}</div>
+      <div class="number">{number}</div>
+    </div>
+    <div class="date">
+      {newDate.toLocaleDateString('en-US', dateOptions)}
+    </div>
+  </a>
+</div>
+
+<style>
+  .flight-row {
+    border-bottom: 1px solid var(--lightColorAlt);
+    margin-bottom: 20px;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    align-items: center;
+    > div {
+      flex: 1;
+    }
+    &:before {
+      display: none;
+    }
+  }
+  .locations {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-right: 1px solid var(--darkColor);
+    span {
+      color: var(--darkColorAlt);
+      font-weight: normal;
+    }
+    .distance {
+      font-size: 0.9rem;
+      color: var(--darkColorAlt);
+      margin-top: 4px;
+      font-weight: normal;
+    } 
+    
+  }
+  .airline {
+    font-weight: 600;
+  }
+  .date {
+    text-align: right;
+  }
+</style>

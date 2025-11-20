@@ -1,15 +1,48 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import PostRow from '../../components/PostRow.astro';
-import { getCollection } from 'astro:content';
-const flights = (await getCollection('flights')).sort((a, b) => {
-  return new Date(b.data.departure.scheduledTime).getTime() - new Date(a.data.departure.scheduledTime).getTime()
-    
+import FlightRow from '../../components/FlightRow.astro';
+import { getAllFlights, getAirportInfo } from '../../lib/db';
+
+const flights = getAllFlights();
+let flightDistances = 0;
+let airports = [];
+
+function haversineDistance(lat1: number, lon1: number, lat2:number, lon2: number) {
+    const R = 3959; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+flights.forEach(flight => {
+  if (!airports.includes(flight.dept_airport)) {
+    airports.push(flight.dept_airport);
+  }
+  if (!airports.includes(flight.arrival_airport)) {
+    airports.push(flight.arrival_airport);
+  }
+  const deptAirport = getAirportInfo(flight.dept_airport);
+  const arrivalAirport = getAirportInfo(flight.arrival_airport);
+  if (deptAirport && arrivalAirport) {
+    flight.distance = haversineDistance(
+      deptAirport.lat,
+      deptAirport.long,
+      arrivalAirport.lat,
+      arrivalAirport.long
+    );
+  } else {
+    flight.distance = null;
+  }
+  flightDistances += flight.distance || 0;
 });
 
 // Group flights by year
 const flightsByYear = flights.reduce((acc, flight) => {
-  const year = new Date(flight.data.departure.scheduledTime).getFullYear();
+  const year = new Date(flight.date).getFullYear();
   if (!acc[year]) {
     acc[year] = [];
   }
@@ -22,21 +55,30 @@ const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number
 
 // Type assertion to help TypeScript understand the year type
 type Year = keyof typeof flightsByYear;
+
 ---
+
 <Layout title="Flights">
   <h1>Flights</h1>
   <div class="content-container">
+    <div class="summary">
+      <div class="count"><p class="stat">{flights.length}</p><p>Total Flights</p></div>
+      <div class="distance"><p class="stat">{Math.round(flightDistances)}</p><p>Total Miles</p></div>
+      <div class="airports"><p class="stat">{airports.length}</p><p>Airports</p></div>
+    </div>
     {sortedYears.map(year => (
       <div class="year-section">
         <h2>{year}</h2>
         <div class="flights-grid">
           {flightsByYear[year].map(flight => (
-            <PostRow
-              href={`/flights/${flight.id}`},
-              title={flight.data.flightNumber},
-              description={`${flight.data.departure.airportCode} → ${flight.data.arrival.airportCode}`},
-              date={flight.data.departure.scheduledTime},
-              inline={true}
+            <FlightRow
+              href={`/flights/${flight.number}-${flight.date}`},
+              number={flight.number},
+              airline={flight.airline_code},
+              dept_airport={flight.dept_airport},
+              arrival_airport={flight.arrival_airport},
+              date={flight.date}
+              distance={flight.distance}
             />
           ))}
         </div>
@@ -46,6 +88,42 @@ type Year = keyof typeof flightsByYear;
 </Layout>
 
 <style>
+
+  .summary {
+    display: flex;
+    flex-direction: column; /* Stack vertically on mobile */
+
+    > div {
+      padding: 1rem;
+      border-bottom: 1px solid var(--lightColorAlt); /* Border between items on mobile */
+      &:last-child {
+        border-bottom: none; /* Remove border from last item */
+      }
+      p {
+        font-size: 1.1rem;
+        margin: 10px;
+      }
+      .stat {
+        font-size: 2.0rem;
+        font-weight: bold;
+      }
+    }
+
+    @media (width > 600px) {
+      flex-direction: row; /* Row layout on larger screens */
+      justify-content: space-around;
+
+      > div {
+        flex: 1;
+        border-bottom: none; /* Remove bottom border on larger screens */
+        border-right: 1px solid var(--lightColorAlt); /* Add right border between items */
+        text-align: center;
+        &:last-child {
+          border-right: none; /* Remove border from last item */
+        }
+      }
+    }
+  }
 
   .year-section {
     margin: 2rem 0;
