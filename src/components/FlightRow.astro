@@ -1,5 +1,5 @@
 ---
-const { href, number, date, dept_airport, arrival_airport, airline} = Astro.props;
+const { href, number, date, dept_airport, arrival_airport, airline, distance} = Astro.props;
 const newDate = new Date(date);
 newDate.setTime(newDate.getTime() + (6*60*60*1000));
 
@@ -24,7 +24,9 @@ if (airline) {
 <div class="flight-row">
   <a href={href}>
     <div class="locations">
-      {dept_airport} <span class="locations_arrow">→</span> {arrival_airport}
+      <div>{dept_airport} <span class="locations_arrow">→</span> {arrival_airport}</div>
+      <div class="distance">{distance ? Math.round(distance) + ' mi' : 'N/A'}</div>
+      
     </div>
     <div class="info">
       <div class="airline">{airline_info.name}</div>
@@ -56,13 +58,20 @@ if (airline) {
     }
   }
   .locations {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    border-right: 1px solid var(--darkColor);
     span {
-      color: #888;
+      color: var(--darkColorAlt);
       font-weight: normal;
     }
-    border-right: 1px solid var(--darkColor);
+    .distance {
+      font-size: 0.9rem;
+      color: var(--darkColorAlt);
+      margin-top: 4px;
+      font-weight: normal;
+    } 
+    
   }
   .airline {
     font-weight: 600;
