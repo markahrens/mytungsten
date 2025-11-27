@@ -2,12 +2,7 @@
 import { DateTime, Duration } from "luxon";
 import Layout from "../../layouts/Layout.astro";
 import FlightCard from "../../components/FlightCard.astro";
-import {
-  getAllFlights,
-  slugForFlight,
-  getAirlineInfo,
-  getAirportInfo,
-} from "../../lib/db";
+import { getAllFlights, slugForFlight, getAirlineInfo, getAirportInfo } from "../../lib/db";
 
 export async function getStaticPaths() {
   const flights = getAllFlights();
@@ -22,8 +17,14 @@ let flight,
   airline,
   dept_airport,
   arrival_airport,
+  dept_difference,
+  dept_difference_class,
+  arrival_difference,
+  arrival_difference_class,
   scheduled_time,
-  actual_time = null;
+  actual_time,
+  status,
+  status_class = null;
 // try to find by matching prefix number and suffix date by scanning flights
 const all = getAllFlights();
 for (const f of all) {
@@ -62,52 +63,67 @@ let arrival_gate_scheduled = DateTime.fromISO(flight.arrival_gate_scheduled, {
 });
 
 let arrival_gate_actual = DateTime.fromISO(flight.arrival_gate_actual, {
-  zone: arrival_airport?.timezone
+  zone: arrival_airport?.timezone,
 });
+
+if (dept_gate_scheduled && dept_gate_actual) {
+  // both times are valid
+  dept_difference = dept_gate_actual.diff(dept_gate_scheduled, ["minutes"]);
+  if(dept_difference.minutes <= 15) {
+    dept_difference_class = "on-time";
+  } else {
+    dept_difference_class = "delayed";
+  }
+}
+
+if (arrival_gate_scheduled && arrival_gate_actual) {
+  arrival_difference = arrival_gate_actual.diff(arrival_gate_scheduled , ["minutes"]);
+  if(arrival_difference.minutes <= 15) {
+    arrival_difference_class = "on-time";
+  } else {
+    arrival_difference_class = "delayed";
+  }
+}
 
 if (dept_gate_scheduled && arrival_gate_scheduled) {
   // both times are valid
-  scheduled_time = arrival_gate_scheduled.diff(dept_gate_scheduled, [
-    "hours",
-    "minutes",
-  ]);
+  scheduled_time = arrival_gate_scheduled.diff(dept_gate_scheduled, ["hours", "minutes"]);
 }
 
 if (dept_gate_actual && arrival_gate_actual) {
   // both times are valid
-  actual_time = arrival_gate_actual.diff(dept_gate_actual, [
-    "hours",
-    "minutes",
-  ]);
+  actual_time = arrival_gate_actual.diff(dept_gate_actual, ["hours", "minutes"]);
 }
 
 if (actual_time && scheduled_time) {
   // both times are valid
-  if (actual_time < scheduled_time) {
-    console.log(
-      Duration.fromMillis(actual_time - scheduled_time).toFormat("h m")
-    );
-  } else if (actual_time > scheduled_time) {
-    console.log("Flight was slower than scheduled");
+  if (actual_time <= scheduled_time) {
+    status_class = "on-time";
   } else {
-    console.log("Flight was on time as scheduled");
+    status_class = "on-time";
   }
 }
 ---
 
 <Layout title={`${flight.number} - ${dept_gate_scheduled.toFormat("M/d/yyyy")}`}>
   <div class="blog-content content-container">
-
     <div class="flights-container">
-      <h1 class="airline-header"><span>{airline.name} - {flight.number}</span><span>{dept_gate_scheduled.toFormat("M/d/yyyy")}</span></h1>
+      <h1 class="airline-header">
+        <span>{airline.name} - {flight.number}</span><span>{dept_gate_scheduled.toFormat("M/d/yyyy")}</span>
+      </h1>
       <div class="flights">
         <div class="departure">
           <FlightCard
-            airport_name={dept_airport.name},
-            airport_code={flight.dept_airport},
-            scheduled_time={dept_gate_scheduled},
-            actual_time={dept_gate_actual},
-            terminal={flight.dept_terminal},
+            airport_name={dept_airport.name}
+            ,
+            airport_code={flight.dept_airport}
+            ,
+            scheduled_time={dept_gate_scheduled}
+            ,
+            actual_time={dept_gate_actual}
+            ,
+            terminal={flight.dept_terminal}
+            ,
             gate={flight.dept_gate}
           />
         </div>
@@ -117,52 +133,117 @@ if (actual_time && scheduled_time) {
         </div>
         <div class="arrival">
           <FlightCard
-            airport_name={arrival_airport.name},
-            airport_code={flight.arrival_airport},
-            scheduled_time={arrival_gate_scheduled},
-            actual_time={arrival_gate_actual},
-            terminal={flight.arrival_terminal},
+            airport_name={arrival_airport.name}
+            ,
+            airport_code={flight.arrival_airport}
+            ,
+            scheduled_time={arrival_gate_scheduled}
+            ,
+            actual_time={arrival_gate_actual}
+            ,
+            terminal={flight.arrival_terminal}
+            ,
             gate={flight.arrival_gate}
           />
         </div>
       </div>
       <div class="stripe-container"></div>
-
     </div>
 
     <div class="details-container">
-      
-      <p class="details--status">Status: {flight.status}</>
+      <div class={`${arrival_difference_class} status-header`}>{flight.status}</div>
       <div class="details-times">
-        <div class="scheduled">
+        <div class="times">
           <h3>Scheduled</h3>
-          <p>Gate Departure: {dept_gate_scheduled.toFormat("h:mm a ZZZZ")}</p>
-          <p>Gate Arrival: {arrival_gate_scheduled.toFormat("h:mm a ZZZZ")}</p>
-          { scheduled_time && (<p>Duration: {scheduled_time.hours}h {scheduled_time.minutes}m </p>)}
+          <div class="detail-item">
+            <div class="icon">🛫</div>
+            <div class="detail-content">
+              <div class="detail-label">Gate Departure</div>
+              <div class="detail-value">
+                {dept_gate_scheduled.toFormat("h:mm a ZZZZ")} 
+              </div>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="icon">🛬</div>
+            <div class="detail-content">
+              <div class="detail-label">Gate Arrival</div>
+              <div class="detail-value">
+                {arrival_gate_scheduled.toFormat("h:mm a ZZZZ")}
+              </div>
+            </div>
+          </div>
+          {
+            scheduled_time && (
+              <div class="detail-item">
+                <div class="icon">⏱️</div>
+                <div class="detail-content">
+                  <div class="detail-label">Duration</div>
+                  <div class="detail-value">
+                    {scheduled_time.hours}h {scheduled_time.minutes}m{" "}
+                  </div>
+                </div>
+              </div>
+            )
+          }
         </div>
-        <div class="actual">
+        <div class="times">
           <h3>Actual</h3>
-          <p>Gate Departure: {dept_gate_actual.toFormat("h:mm a ZZZZ")}</p>
-          <p>Gate Arrival: {arrival_gate_actual.toFormat("h:mm a ZZZZ")}</p>
-          { actual_time && (<p>Duration: {actual_time.hours}h {actual_time.minutes}m </p>)}
+          <div class="detail-item">
+            <div class="icon">🛫</div>
+            <div class="detail-content">
+              <div class="detail-label">Gate Departure</div>
+              <div class="detail-value">
+                <span>{dept_gate_actual.toFormat("h:mm a ZZZZ")}</span>
+                <span class={`${dept_difference_class} time-saved`}>{dept_difference.minutes} minutes</span>
+              </div>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="icon">🛬</div>
+            <div class="detail-content">
+              <div class="detail-label">Gate Arrival</div>
+              <div class="detail-value">
+                <span>{arrival_gate_actual.toFormat("h:mm a ZZZZ")}</span>
+                <span class={`${arrival_difference_class} time-saved`}>{arrival_difference.minutes} minutes</span>
+              </div>
+            </div>
+          </div>
+          {
+            actual_time && (
+              <div class="detail-item">
+                <div class="icon">⏱️</div>
+                <div class="detail-content">
+                  <div class="detail-label">Duration</div>
+                  <div class="detail-value">
+                    {actual_time.hours}h {actual_time.minutes}m{" "}
+                  </div>
+                </div>
+              </div>
+            )
+          }
         </div>
       </div>
     </div>
   </div>
 </Layout>
 
-<style define:vars={{ brandColor1: airline.brand_color1, brandColor2: airline.brand_color2 , brandColor3: airline.brand_color3}}>
+<style
+  define:vars={{
+    brandColor1: airline?.brand_color1,
+    brandColor2: airline?.brand_color2,
+    brandColor3: airline?.brand_color3,
+  }}
+>
   .flights-container {
     max-width: 900px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
   }
   .airline-header {
     background: var(--brandColor1);
     color: white;
     padding: 20px 30px;
-    border-radius: 12px 12px 0 0;
     font-size: 24px;
     font-weight: normal;
     text-align: left;
@@ -205,7 +286,7 @@ if (actual_time && scheduled_time) {
       font-size: 24px;
       background: white;
       padding: 0 8px;
-          @media (width >= 700px) {
+      @media (width >= 700px) {
         transform: translate(-50%, -50%) rotate(45deg);
       }
     }
@@ -216,54 +297,123 @@ if (actual_time && scheduled_time) {
     border-radius: 0 0 12px 12px;
     overflow: hidden;
     background-image: repeating-linear-gradient(
-        45deg,
-        var(--brandColor1) 0px,
-        var(--brandColor1) 5px,
-        white 5px,
-        white 10px,
-        var(--brandColor1) 10px,
-        var(--brandColor1) 15px,
-        white 15px,
-        white 20px,
-        var(--brandColor2) 20px,
-        var(--brandColor2) 25px,
-        white 25px,
-        white 30px,
-        var(--brandColor2) 30px,
-        var(--brandColor2) 35px,
-        white 35px,
-        white 40px,
-        var(--brandColor3) 40px,
-        var(--brandColor3) 45px,
-        white 45px,
-        white 50px,
-        var(--brandColor3) 50px,
-        var(--brandColor3)55px,
-        white 55px,
-        white 60px
+      45deg,
+      var(--brandColor1) 0px,
+      var(--brandColor1) 5px,
+      white 5px,
+      white 10px,
+      var(--brandColor1) 10px,
+      var(--brandColor1) 15px,
+      white 15px,
+      white 20px,
+      var(--brandColor2) 20px,
+      var(--brandColor2) 25px,
+      white 25px,
+      white 30px,
+      var(--brandColor2) 30px,
+      var(--brandColor2) 35px,
+      white 35px,
+      white 40px,
+      var(--brandColor3) 40px,
+      var(--brandColor3) 45px,
+      white 45px,
+      white 50px,
+      var(--brandColor3) 50px,
+      var(--brandColor3) 55px,
+      white 55px,
+      white 60px
     );
-  } 
+  }
 
   .details-container {
     max-width: 900px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin: 40px auto;
-    p {
-      font-size: 1rem;
+    overflow: hidden;
+
+    .status-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      padding: 20px 32px;
+      font-weight: 600;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+
+      &.on-time {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+      }
+      &.delayed {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+      }
     }
 
     .details-times {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      @media (width >= 700px) {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-      div {
-        flex: 1;
-      }
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      padding: 24px 32px;
+
       h3 {
         text-align: left;
+        margin: 0;
+      }
+
+      .detail-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-top: 16px;
+
+        .icon {
+          font-size: 24px;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #f3f4f6;
+          border-radius: 10px;
+          flex-shrink: 0;
+        }
+
+        .detail-content {
+          flex: 1;
+        }
+
+        .detail-label {
+          font-size: 12px;
+          color: #6b7280;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+
+        .detail-value {
+          font-size: 20px;
+          color: #1f2937;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .time-saved {
+          color: white;
+          padding: 4px 10px;
+          border-radius: 12px;
+          font-size: 12px;
+          &.on-time {
+            background-color: #10b981;
+          }
+          &.delayed {
+            background: #f59e0b;
+          }
+        }
       }
     }
   }
