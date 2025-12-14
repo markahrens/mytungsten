@@ -26,7 +26,7 @@ export type Airline = {
 };
 
 export function getAllFlights(): Flight[] {
-  const stmt = db.prepare('select * from flights');
+  const stmt = db.prepare('select * from flights order by dept_gate_scheduled desc');
   return stmt.all() as Flight[];
 }
 
