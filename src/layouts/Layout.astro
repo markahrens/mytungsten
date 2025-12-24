@@ -32,6 +32,7 @@ const { title } = Astro.props;
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,95,400..700;1,95,400..700&display=swap" rel="stylesheet">
 	</head>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZ00BVBCXZ"></script>
@@ -78,7 +79,6 @@ const { title } = Astro.props;
 
 		</nav>
 		<slot />
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wdth,wght@75..100,100..700&display=swap" rel="stylesheet">
 	</body>
 </html>
 <style is:global>
@@ -96,19 +96,19 @@ const { title } = Astro.props;
 
 	body {
 		margin: 0;
-		font-family: "IBM Plex Sans", sans-serif;
+		font-family: "Instrument Sans", sans-serif;
 		font-optical-sizing: auto;
 		font-weight: 400;
 		font-style: normal;
 		font-variation-settings:
-			"wdth" 100;
+			"wdth" 95;
 	}
 
 	h1, h2, h3 {
-		font-family: 'IBM Plex Sans', sans-serif;
+		font-family: 'Instrument Sans', sans-serif;
 		text-align: center;
 		font-variation-settings:
-			"wdth" 85;
+			"wdth" 92.5;
 	}
 	.headings-left h1,
 	.headings-left h2,
@@ -116,16 +116,16 @@ const { title } = Astro.props;
 		text-align: left;
 	}
 	h1 {
-		font-weight: 650;
+		font-weight: 600;
 		font-size: 2.4rem;
 	}
 	h2 {
-		font-weight: 650;
+		font-weight: 600;
 		font-size: 2rem;
 	}
 	h3 {
 		margin-top: 40px;
-		font-weight: 650;
+		font-weight: 600;
 		font-size: 1.6rem;
 	}
 	li {
