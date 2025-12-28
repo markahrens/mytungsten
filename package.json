@@ -10,13 +10,19 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.0",
     "astro-meta-tags": "^0.3.1",
     "better-sqlite3": "^12.4.1",
+    "leaflet": "^1.9.4",
+    "leaflet-arc": "^1.0.2",
     "luxon": "^3.7.2",
     "markdown-it": "^14.0.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-leaflet": "^5.0.0",
     "sanitize-html": "^2.11.0"
   },
   "devDependencies": {

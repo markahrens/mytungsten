@@ -2,6 +2,7 @@
 import { DateTime, Duration } from "luxon";
 import Layout from "../../layouts/Layout.astro";
 import FlightCard from "../../components/FlightCard.astro";
+import TripMap from '../../components/LeafletTrip.jsx';
 import { getAllFlights, slugForFlight, getAirlineInfo, getAirportInfo } from "../../lib/db";
 
 export async function getStaticPaths() {
@@ -24,7 +25,8 @@ let flight,
   scheduled_time,
   actual_time,
   status,
-  status_class = null;
+  status_class = null,
+  stops = [];
 // try to find by matching prefix number and suffix date by scanning flights
 const all = getAllFlights();
 for (const f of all) {
@@ -44,11 +46,16 @@ if (flight.airline_code) {
 
 if (flight.dept_airport) {
   dept_airport = getAirportInfo(flight.dept_airport);
+  stops.push({name:dept_airport.name, abbr: dept_airport.abbreviation, lat: dept_airport.lat, lng: dept_airport.long})
 }
+
+
 
 if (flight.arrival_airport) {
   arrival_airport = getAirportInfo(flight.arrival_airport);
+  stops.push({name:arrival_airport.name, abbr: arrival_airport.abbreviation, lat: arrival_airport.lat, lng: arrival_airport.long})
 }
+
 
 let dept_gate_scheduled = DateTime.fromISO(flight.dept_gate_scheduled, {
   zone: dept_airport?.timezone,
@@ -106,6 +113,7 @@ if (actual_time && scheduled_time) {
 ---
 
 <Layout title={`${flight.number} - ${dept_gate_scheduled.toFormat("M/d/yyyy")}`}>
+  <link slot="head" rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' integrity='sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==' crossorigin='' />
   <div class="blog-content content-container">
     <div class="flights-container">
       <h1 class="airline-header">
@@ -225,6 +233,10 @@ if (actual_time && scheduled_time) {
         </div>
       </div>
     </div>
+    <div class="map-container">
+      <TripMap client:only="react" stops={stops} />
+    </div>
+    
   </div>
 </Layout>
 
@@ -234,6 +246,8 @@ if (actual_time && scheduled_time) {
     brandColor2: airline?.brand_color2,
     brandColor3: airline?.brand_color3,
   }}
+
+  is:global
 >
   .flights-container {
     max-width: 900px;
@@ -324,6 +338,7 @@ if (actual_time && scheduled_time) {
       white 60px
     );
   }
+
 
   .details-container {
     max-width: 900px;
@@ -417,4 +432,16 @@ if (actual_time && scheduled_time) {
       }
     }
   }
+
+  .map-container {
+    max-width: 900px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+
+    .map {
+      width: 100%;
+      height: 500px;
+    }
+  }
+
 </style>
