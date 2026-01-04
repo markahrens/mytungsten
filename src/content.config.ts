@@ -22,39 +22,9 @@ const blogCollection = defineCollection({
   }),
 });
 
-const flightsCollection = defineCollection({
-  loader: glob({ pattern: "**/*.json", base: "./src/content/flights" }),
-  schema: z.object({
-    flightNumber: z.string(),
-    flightStatus: z.string(),
-    departure: z.object({
-      airportCode: z.string(),
-      airportName: z.string(),
-      scheduledTime: z.string().datetime({ offset: true }),
-      actualTime: z.string().datetime({ offset: true }).nullable(),
-      scheduledRunwayTime: z.string().datetime({ offset: true }).nullable(),
-      actualRunwayTime: z.string().datetime({ offset: true }).nullable(),
-      terminal: z.string().nullable(),
-      gate: z.string().nullable(),
-      baggageClaim: z.string().nullable()
-    }),
-    arrival: z.object({
-      airportCode: z.string(),
-      airportName: z.string(),
-      scheduledTime: z.string().datetime({ offset: true }),
-      actualTime: z.string().datetime({ offset: true }).nullable(),
-      scheduledRunwayTime: z.string().datetime({ offset: true }).nullable(),
-      actualRunwayTime: z.string().datetime({ offset: true }).nullable(),
-      terminal: z.string().nullable(),
-      gate: z.string().nullable(),
-      baggageClaim: z.string().nullable()
-    })
-  }),
-});
 
 
 export const collections = {
   'trips': tripsCollection,
   'blog': blogCollection,
-  'flights': flightsCollection
 };
