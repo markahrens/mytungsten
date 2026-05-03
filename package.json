@@ -14,7 +14,6 @@
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "astro": "^6.2.1",
-    "astro-meta-tags": "^0.3.1",
     "better-sqlite3": "^12.4.1",
     "leaflet": "^1.9.4",
     "leaflet-arc": "^1.0.2",
