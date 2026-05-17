@@ -21,10 +21,13 @@ const dateOptions: object = {
 };
 ---
 <Layout title={entry.data.title}>
-	<div class="blog-content content-container">
+	<div class="content-container">
 		<h1>{entry.data.title}</h1>
 		<p class="date">{entry.data.date.toLocaleDateString('en-US', dateOptions)}</p>
-		<Content />
+		<div class="blog-content">
+			<Content />
+		</div>
+		
 		<ul class="tags">
 			{entry.data.tags.map(tag => (
 				<li><a href={`/tags/${tag}`}>{tag}</a></li>
@@ -36,10 +39,8 @@ const dateOptions: object = {
 
 <style>
 	.blog-content {
-		margin-bottom: 40px;
-		& h1 {
-			font-weight: 650;
-		}
+		max-width: 800px;
+		margin: 0 auto;
 		a {
 			color: var(--bodyLink);
 		}
@@ -53,8 +54,8 @@ const dateOptions: object = {
 	}
 	
 	.date {
-		font-size: 1.4rem;
-		text-align: center;
+		font-size: 1rem;
+		margin: 0;
 	}
 
 	.tags {

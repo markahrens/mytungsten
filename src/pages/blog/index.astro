@@ -19,8 +19,9 @@ blogEntries.forEach(post => {
 
 ---
 <Layout title="Blog">
-  <h1>Blog</h1>
+  
   <div class="content-container">
+    <h1>Blog</h1>
     {[...postYears.entries()].map(([year, posts]) => (
       <h2 class="year-heading">{year}</h2>
       <div>
@@ -39,8 +40,10 @@ blogEntries.forEach(post => {
 </Layout>
 
 <style>
+
   .year-heading {
-    text-align: left;
+    color: var(--color-metallic);
+    padding: 10px 0;
   }
 </style>
 
