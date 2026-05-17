@@ -24,7 +24,7 @@ const dateOptions: object = {
 	<div class="content-container">
 		<h1>{entry.data.title}</h1>
 		<p class="date">{entry.data.date.toLocaleDateString('en-US', dateOptions)}</p>
-		<div class="blog-content">
+		<div class="text-container">
 			<Content />
 		</div>
 		
@@ -38,13 +38,7 @@ const dateOptions: object = {
 </Layout>
 
 <style>
-	.blog-content {
-		max-width: 800px;
-		margin: 0 auto;
-		a {
-			color: var(--bodyLink);
-		}
-	}
+
 	img { 
 		max-width: 90%;
 		height: auto;

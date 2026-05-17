@@ -76,12 +76,7 @@ const { title } = Astro.props;
 </html>
 <style is:global>
 	:root {
-		--lightColor: #F1FAFB;
-		--lightColorAlt: #d3e0ea;
-		--darkColor: #2b3a6b;
-		--darkColorAlt: #3A70B7;
-		--bodyLink: #1E88E5;
-		
+
 		--color-bg: #f8fafc;
 		--color-text: #1e293b;
 		--color-metallic: #64748b;
@@ -135,7 +130,7 @@ const { title } = Astro.props;
 	}
 
 	a:hover {
-		color: var(--darkColorAlt);
+		color: var(--color-text);
 	}
 
 	a::before {
@@ -146,7 +141,7 @@ const { title } = Astro.props;
 		height: 1.5px;
 		bottom: 0;
 		left: 0;
-		background-color: var(--darkColorAlt);
+		background-color: var(--color-text);
 		transform: scaleX(0);
 		transform-origin: top left;
 		transition: transform 0.3s ease;
@@ -160,6 +155,11 @@ const { title } = Astro.props;
 		max-width: 1136px;
 		margin: 0 auto;
 		padding: 0 20px;
+	}
+
+	.text-container {
+				max-width: 800px;
+		margin: 0 auto;
 	}
 
 	.eyebrow {

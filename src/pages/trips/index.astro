@@ -1,22 +1,60 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
 ---
+
 <Layout title="Trips">
-  <h1>Trips</h1>
   <div class="content-container">
-    <h2><a href="/trips/ghana2013">Ghana 2013</a></h2>
-    <p>Based in the Winneba region.</p>
-    <h2><a href="/trips/ghana2015">Ghana 2015</a></h2>
-    <p>Based in Accra and Kumasi.</p>
+    <h1>Trips</h1>
+    <p>Extended travel — mission work, exploration, and time spent abroad.</p>
+    <div class="trips-container">
+      <div class="trip">
+        <div class="trip-header">
+          <h2><a href="/trips/ghana2013">Ghana 2013</a></h2>
+          <p class="location">Winneba Region</p>
+        </div>
+        <p class="trip-detail">Two weeks based in the Winneba region, working on community development and infrastructure projects.</p>
+      </div>
+      <div class="trip">
+        <div class="trip-header">
+          <h2><a href="/trips/ghana2015">Ghana 2015</a></h2>
+          <p class="location">Accra & Kumasi</p>
+      </div>
+        <p class="trip-detail">Returned to Ghana, this time based between Accra and Kumasi — two of the country's largest cities.</p>
+      </div>
+    </div>
   </div>
 </Layout>
 
 <style>
-  h2 {
-    text-align: left;
-    margin: 0;
+  h1 {
+    padding-bottom: 0;
   }
-  p {
-    margin: 8px 0 30px;
+  .trips-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 40px;
   }
+  .trip {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    width: 400px;
+    
+  
+    .trip-header {
+      background-color: hsl(from var(--color-bg) h s calc(l - 10));
+      padding: 20px;
+    }
+    .trip-detail {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+    p {
+      margin: 8px 0;
+    }
+  }
+    
+  
+
 </style>

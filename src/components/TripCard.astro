@@ -5,35 +5,29 @@ const { href, title, description, img, alt } = Astro.props;
 
 <div class="trip-card">
   <a href={href}>
-    <Image src={img} alt={alt} width="300" />
-    <p class="card-title">{title}</p>
+    <Image src={img} alt={alt} width="340" />
+    <h2 class="card-title">{title}</h2>
     <p>{description}</p>
   </a>
 
   <style>
     .trip-card {
-      width: 300px;
+      width: 340px;
       margin-bottom: 20px;
-      text-align: center;
+      border: 1px solid var(--color-border);
+      background-color: var(--color-white);
+
+      h2 {
+        padding: 10px 20px 0;
+      }
+      p {
+        color: var(--color-text);
+        margin: 0;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+      }
     }
-    img {
-      border-radius: 10px;
-    }
-    a {
-      color: var(--darkColorAlt);
-    }
-    a::before {
-      display: none;
-    }
-    p {
-      margin: 10px 0;
-      font-size: 1.1rem;
-      line-height: 1.6rem;
-    }
-    .card-title {
-      font-weight: 500;
-      font-size: 1.5rem;
-      margin-top: 14px;
-    }
+
   </style>
 </div>

@@ -1,12 +1,13 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
-  const tripEntries = await getCollection('trips');
-  return tripEntries.map(entry => ({
-    params: { id: entry.id }, props: { entry },
+  const tripEntries = await getCollection("trips");
+  return tripEntries.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
   }));
 }
 // 2. For your template, you can get the entry directly from the prop
@@ -14,38 +15,44 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 const dateOptions: object = {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
 };
 ---
-<Layout title={entry.data.title}>
-	<Image src={entry.data.img} formats={['avif', 'webp']} alt={entry.data.alt} width="1200px"/>
 
-	<div class="blog-content content-container">
-		<h1>{entry.data.title}</h1>
-		<p class="date">{entry.data.date.toLocaleDateString('en-US', dateOptions)}</p>
-		<Content />
-	</div>
-	
+<Layout title={entry.data.title}>
+ 
+
+  <div class="content-container">
+    <h1>{entry.data.title}</h1>
+		<p class="date">{entry.data.date.toLocaleDateString("en-US", dateOptions)}</p>
+		<Image src={entry.data.img} formats={["avif", "webp"]} alt={entry.data.alt} width="1200px" />
+    
+    <div class="text-container">
+      <Content />
+    </div>
+  </div>
 </Layout>
 
 <style>
-	.blog-content {
-		& h1 {
-			font-weight: 500;
-		}
-	}
-	img { 
-		max-width: 90%;
-		height: auto;
-		margin: 0 auto;
-		display: block;
-		border-radius: 20px;
-	}
-	
-	.date {
-		font-size: 1.4rem;
-		text-align: center;
+  .blog-content {
+    & h1 {
+      font-weight: 500;
+    }
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+		@media (width <= 600px) { 
+			max-width: 90%;
+		};
+  }
+
+  .date {
+		font-size: 1rem;
+		margin: 0;
 	}
 </style>
