@@ -5,50 +5,142 @@ import { getCollection } from 'astro:content';
 const lastestPost = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   ).slice(0,1);
-
+const recentPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  ).slice(1,4);
+const dateOptions: object = {
+	year: "numeric",
+	month: "short",
+	day: "numeric",
+};
 ---
 
 <Layout title="Home">
 	<main>
-		<h1>MyTungsten</h1>
-		<h2>The personal web site of Mark Ahrens</h2>
-		<h3>Newest Blog Post</h3>
-		<p class="view-all"><a href="/blog">View all posts</a></p>
-		<div class="content-container">
-			{lastestPost.map(blogPostEntry => (
-				<BlogPost
-					href={`/blog/${blogPostEntry.id}`},
-					title={blogPostEntry.data.title},
-					description={blogPostEntry.data.description},
-					date={blogPostEntry.data.date}
-				/>
-			))}
-			
+		<div class="content-container masthead">
+			<h1>My<span>Tungsten</span></h1>
+			<h2>The personal web site of Mark Ahrens — web technologist, farmer, soccer fan, and tinkerer since the early internet.</h2>
 		</div>
-		<h3>Site Updates</h3>
-		<ul class="content-container">
-			<li>1/1/2024 - Restored the blog</li>
-			<li>12/24/2023 - Updated site design, restored iPod for Windows review, added more info on About page.</li>
-			<li>2/20/2023 - Restored Euler's Identity page</li>
-			<li>2/14/2023 - Added About page</li>
-		</ul>
+
+		<div class="bg-container">
+			<div class="content-container">
+				<div class="blog-container">
+					<h3 class="eyebrow">Latest Post</h3>
+					{lastestPost.map(blogPostEntry => (
+						<BlogPost
+							href={`/blog/${blogPostEntry.id}`},
+							title={blogPostEntry.data.title},
+							description={blogPostEntry.data.description},
+							date={blogPostEntry.data.date}
+						/>
+					))}
+					<div class="recent-posts">
+						<p class="eyebrow">Recent Posts</p>
+						{recentPosts.map(blogPostEntry => (
+							<div class="recent-posts-post">
+								<span>{blogPostEntry.data.date.toLocaleDateString('en-US', dateOptions)}</span>
+								<a href={`/blog/${blogPostEntry.id}`}>{blogPostEntry.data.title}</a>
+							</div>
+							
+						))}
+					</div>
+					
+					<p class="view-all"><a href="/blog">View all posts</a></p>
+				</div>
+
+				<div class="sidebar-container">
+
+					<h3 class="eyebrow">Site Updates</h3>
+						<ul>
+							<li><span>1/1/2024 </span><span>Restored the blog</span></li>
+							<li><span>12/24/2023</span><span>Updated site design, restored iPod for Windows review, added more info on About page.</span></li>
+							<li><span>2/20/2023</span><span>Restored Euler's Identity page</span></li>
+							<li><span>2/14/2023</span><span>Added About page</span></li>
+						</ul>
+					
+				</div>
+		
+		
 	</main>
 </Layout>
 
 <style>
-	h3 {
-		margin-bottom: 0;
+	.masthead {
+		display: flex;
+		flex-direction: column;
+		padding: 120px 0;
+		gap: 20px;
+		h1 {
+			font-size: 5rem;
+			text-box-edge: cap alphabetic;
+			text-box-trim: both;
+			span {
+				color: var(--color-metallic);
+			}
+		}
+
+		h2 {
+			max-width: 600px;
+			font-size: 1.6rem;
+			font-weight: 400;
+			font-family: var(--font-zalando-sans);
+		}
 	}
-	ul {
-		margin-top: 40px;
-	}
-	li {
-		list-style-type: none;
-		line-height: 1.8rem;
-	}
-	.view-all {
-		text-align: center;
-		margin: 10px 0 40px;
-		font-size: 1.1rem;
+
+	.bg-container {
+		background-color: hsl(from var(--color-bg) h s calc(l - 10));
+		border-top: 1px solid var(--color-border);
+
+		.content-container {
+			@media screen and (width >= 600px) {
+				display: flex;
+				flex-direction: row;
+
+				.blog-container {
+					flex: 1;
+					padding: 20px;
+
+					.recent-posts {
+						.recent-posts-post {
+							display: flex;
+							flex-direction: row;
+							gap: 20px;
+							padding-bottom: 10px;
+							margin-bottom: 10px;
+							border-bottom: 1px solid var(--color-border);
+							align-items: center;
+							span {
+								flex: 0 0 120px;
+								color: var(--color-metallic);
+								font-size: 0.7rem;
+							}
+						}
+					}
+
+					.view-all {
+						font-size: 0.8rem;
+					}
+				}
+
+				.sidebar-container {
+					padding: 20px;
+					flex: 0 0 200px;
+					border-left: 1px solid var(--color-border);
+
+					ul {
+						padding: 0;
+
+						li {
+							list-style-type: none;
+							display: flex;
+							flex-direction: column;
+							gap: 4px;
+							font-size: 0.8rem;
+							margin-bottom: 10px;
+						}
+					}
+				}	
+			}
+		}
 	}
 </style>

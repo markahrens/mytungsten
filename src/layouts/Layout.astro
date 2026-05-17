@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 interface Props {
 	title: string;
 }
@@ -25,9 +26,8 @@ const { title } = Astro.props;
 		<title>{title} | MyTungsten</title>
 		<link rel="alternate" type="application/rss+xml" title="RSS Feed for MyTungsten" href="/feed.xml" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,95,400..700;1,95,400..700&display=swap" rel="stylesheet">
+		<Font cssVariable="--font-geom" />
+		<Font cssVariable="--font-zalando-sans" />
 		<slot name="head" />
 	</head>
 	<!-- Google tag (gtag.js) -->
@@ -47,12 +47,9 @@ const { title } = Astro.props;
 				<style>
 					.st0 {
 						fill:none;
-						stroke:#FFFFFF;
+						stroke:#1e293b;
 						stroke-width:120;
 						stroke-miterlimit:10;
-						@media (prefers-color-scheme: dark) {
-							stroke:#f1fef6
-						}
 					}
 				</style>
 					<path class="st0" d="M128.2,642c0-71,57.5-128.5,128.5-128.5S385.2,571.1,385.2,642"/>
@@ -84,32 +81,29 @@ const { title } = Astro.props;
 		--darkColor: #2b3a6b;
 		--darkColorAlt: #3A70B7;
 		--bodyLink: #1E88E5;
+		
+		--color-bg: #f8fafc;
+		--color-text: #1e293b;
+		--color-metallic: #64748b;
+		--color-link: #0369a1;
+		--color-border: #cbd5e1;
+		--color-white: #ffffff;
 	}
 	html {
-		font-family: system-ui, sans-serif;
-		color: var(--darkColor);
+		font-family: var(--font-zalando-sans);
+		color: var(--color-text);
 	}
 
 	body {
 		margin: 0;
-		font-family: "Instrument Sans", sans-serif;
-		font-optical-sizing: auto;
+		background-color: var(--color-bg);
 		font-weight: 400;
-		font-style: normal;
-		font-variation-settings:
-			"wdth" 95;
 	}
 
 	h1, h2, h3 {
-		font-family: 'Instrument Sans', sans-serif;
-		text-align: center;
-		font-variation-settings:
-			"wdth" 92.5;
-	}
-	.headings-left h1,
-	.headings-left h2,
-	.headings-left h3 {
-		text-align: left;
+		font-family: var(--font-geom);
+		padding: 0;
+		margin: 0;
 	}
 	h1 {
 		font-weight: 600;
@@ -120,7 +114,6 @@ const { title } = Astro.props;
 		font-size: 2rem;
 	}
 	h3 {
-		margin-top: 40px;
 		font-weight: 600;
 		font-size: 1.6rem;
 	}
@@ -135,7 +128,7 @@ const { title } = Astro.props;
 
 
 	a {
-		color: var(--darkColorAlt);
+		color: var(--color-link);
 		text-decoration: none;
 		position: relative;
 	}
@@ -163,21 +156,29 @@ const { title } = Astro.props;
 	}
 
 	.content-container {
-		max-width: 980px;
+		max-width: 1136px;
 		margin: 0 auto;
 		padding: 0 20px;
+	}
+
+	.eyebrow {
+		font-family: var(--font-geom);
+		text-transform: uppercase;
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: var(--color-metallic);
+		margin: 0 0 8px 0;
 	}
 
 	nav {
 		display: flex;
 		justify-content: space-between;
+		font-family: var(--font-geom);
 		font-weight: 500;
-		margin-bottom: 40px;
 		padding: 8px;
-		
-		background-color: var(--darkColor);
+		border-bottom: 1px solid var(--color-border);
 		& a {
-			color: var(--lightColor);
+			color: var(--color-text);
 			text-decoration: none;
 		}
 		& a:hover {
@@ -187,7 +188,7 @@ const { title } = Astro.props;
 			background-color: var(--lightColorAlt);
 		}
 		& a.site-logo-container:hover {
-			color: var(--lightColor);
+			color: var(--color-text);
 		}
 		& a.site-logo-container::before {
 			display: none;
@@ -207,9 +208,8 @@ const { title } = Astro.props;
 			display: inline;
 		}
 		& .st0{
-			@media (prefers-color-scheme: dark) {
-				stroke:var(--lightColor)
-			}
+				stroke:var(--color-text)
+			
 		}
 		& ul {
 			padding: 0;
