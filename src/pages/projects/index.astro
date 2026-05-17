@@ -1,38 +1,51 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
 ---
 
 <Layout title="Projects">
-	<main>
-		<h1>Projects</h1>
-		<ul class="content-container">
-			<li>
-        <h2><a href="https://bowls.mytungsten.net">Bowl Report</a></h2>
-        <p>A project collecting the history of college football bowl game results.</p>
-      </li>
-      <li>
-        <h2><a href="/projects/eulers">Euler's Identity</a></h2>
+  <main>
+    <div class="content-container">
+      <h1>Web Projects</h1>
+      <div class="projects-container">
+        <div class="project">
+          <h2><a href="https://bowls.mytungsten.net">Bowl Report</a></h2>
+          <p>A project collecting the history of college football bowl game results.</p>
+        </div>
+        <div class="project">
+          <h2><a href="/projects/eulers">Euler's Identity</a></h2>
         <p>One of the original pages I posted on MyTungsten.</p>
-      </li>
-      <li>
-        <h2><a href="/projects/ipod-for-windows">iPod for Windows Review</a></h2>
+        </div>
+        <div class="project">
+          <h2><a href="/projects/ipod-for-windows">iPod for Windows Review</a></h2>
         <p>Review from February 2003</p>
-      </li>
-      
-		</ul>
-	</main>
+        </div>
+      </div>
+    </div>
+  </main>
 </Layout>
 
 <style>
-	li {
-    list-style-type: none;
-  }
-  li h2 {
-    text-align: left;
-    margin: 0;
-  }
-  li p {
-    margin-top:4px;
-    margin-bottom: 30px;
+  .projects-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 40px;
+
+    .project {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-border);
+      flex: 0 1 520px;
+      h2 {
+        background-color: hsl(from var(--color-bg) h s calc(l - 10));
+      padding: 20px;
+      }
+
+      p {
+        padding: 10px 20px;
+      font-size: 0.9rem;
+      margin: 8px 0;
+    }
+    }
   }
 </style>
