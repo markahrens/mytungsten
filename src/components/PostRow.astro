@@ -9,9 +9,9 @@ const dateOptions: object = {
 };
 ---
 
-<div class="post-row">
+<div class="post-row clickable-card">
   <small>{newDate.toLocaleDateString('en-US', dateOptions)}</small>
-    <h2 class="card-title"><a href={href}>{title}</a></h2>
+    <h2 class="card-title"><a href={href} class="stretched-link card-link">{title}</a></h2>
     <p>{description}</p>
 </div>
 
@@ -22,13 +22,15 @@ const dateOptions: object = {
     gap: 10px;
     align-items: baseline;
     margin-bottom: 20px;
-    background-color: var(--color-white);
     padding: 20px;
   }
+
   small {
     font-weight: 500;
     font-size: 0.8rem;
+    color: var(--color-metallic);
   }
+
   .card-title {
     text-align: left;
     margin: 0;
@@ -38,4 +40,5 @@ const dateOptions: object = {
     font-size: 1rem; 
     margin: 0;
   }
+</style>
 </style>

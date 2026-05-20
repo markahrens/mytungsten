@@ -171,6 +171,50 @@ const { title } = Astro.props;
     margin: 0 auto;
   }
 
+  .clickable-card {
+    position: relative;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    border-radius: 0;
+  }
+
+  .clickable-card:hover {
+    border-color: var(--color-metallic);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background-color: #f1f5f9;
+  }
+
+  .clickable-card .stretched-link {
+    position: static;
+  }
+
+  .clickable-card .stretched-link::before {
+    display: none;
+  }
+
+  .clickable-card .stretched-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .clickable-card .card-link {
+    color: var(--color-link);
+    text-decoration: none;
+    background-image: linear-gradient(var(--color-text), var(--color-text));
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1.5px;
+    transition: background-size 0.3s ease, color 0.3s ease;
+  }
+
+  .clickable-card:hover .card-link {
+    color: var(--color-text);
+    background-size: 100% 1.5px;
+  }
+
   .eyebrow {
     font-family: var(--font-geom);
     text-transform: uppercase;

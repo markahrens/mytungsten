@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BlogPost from '../components/PostRow.astro';
+import TungstenCard from '../components/TungstenCard.astro';
 import { getCollection } from 'astro:content';
 const lastestPost = (await getCollection('blog')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -49,7 +50,7 @@ const dateOptions: object = {
 				</div>
 
 				<div class="sidebar-container">
-
+					<TungstenCard />
 					<h3 class="eyebrow">Site Updates</h3>
 						<ul>
 							<li><span>1/1/2024 </span><span>Restored the blog</span></li>

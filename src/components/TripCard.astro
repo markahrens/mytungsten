@@ -3,30 +3,35 @@ import { Image } from "astro:assets";
 const { href, title, description, img, alt } = Astro.props;
 ---
 
-<div class="trip-card">
-  <a href={href}>
-    <Image src={img} alt={alt} width="340" />
-    <h2 class="card-title">{title}</h2>
-    <p>{description}</p>
-  </a>
-
-  <style>
-    .trip-card {
-      width: 340px;
-      margin-bottom: 20px;
-      border: 1px solid var(--color-border);
-      background-color: var(--color-white);
-
-      h2 {
-        padding: 10px 20px 0;
-      }
-      p {
-        color: var(--color-text);
-        margin: 0;
-        padding: 10px 20px;
-        font-size: 0.9rem;
-        line-height: 1.2rem;
-      }
-    }
-  </style>
+<div class="trip-card clickable-card">
+  <Image src={img} alt={alt} width="340" />
+  <h2 class="card-title"><a href={href} class="stretched-link card-link">{title}</a></h2>
+  <p>{description}</p>
 </div>
+
+<style>
+  .trip-card {
+    width: 340px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    h2 {
+      padding: 20px 20px 0;
+      font-size: 1.4rem;
+    }
+    p {
+      color: var(--color-text);
+      margin: 0;
+      padding: 10px 20px 20px;
+      font-size: 0.9rem;
+      line-height: 1.4rem;
+    }
+  }
+</style>

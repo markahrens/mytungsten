@@ -7,16 +7,16 @@ import Layout from "../../layouts/Layout.astro";
     <h1>Trips</h1>
     <p>Extended travel — mission work, exploration, and time spent abroad.</p>
     <div class="trips-container">
-      <div class="trip">
+      <div class="trip clickable-card">
         <div class="trip-header">
-          <h2><a href="/trips/ghana2013">Ghana 2013</a></h2>
+          <h2><a href="/trips/ghana2013" class="stretched-link card-link">Ghana 2013</a></h2>
           <p class="location">Winneba Region</p>
         </div>
         <p class="trip-detail">Two weeks based in the Winneba region, working on community development and infrastructure projects.</p>
       </div>
-      <div class="trip">
+      <div class="trip clickable-card">
         <div class="trip-header">
-          <h2><a href="/trips/ghana2015">Ghana 2015</a></h2>
+          <h2><a href="/trips/ghana2015" class="stretched-link card-link">Ghana 2015</a></h2>
           <p class="location">Accra & Kumasi</p>
       </div>
         <p class="trip-detail">Returned to Ghana, this time based between Accra and Kumasi — two of the country's largest cities.</p>
@@ -37,24 +37,20 @@ import Layout from "../../layouts/Layout.astro";
     margin-top: 40px;
   }
   .trip {
-    background-color: var(--color-white);
-    border: 1px solid var(--color-border);
     flex: 0 1 520px;
-    
-  
-    .trip-header {
-      background-color: hsl(from var(--color-bg) h s calc(l - 10));
-      padding: 20px;
-    }
-    .trip-detail {
-      padding: 10px 20px;
-      font-size: 0.9rem;
-    }
-    p {
-      margin: 8px 0;
-    }
   }
-    
-  
 
+  .trip-header {
+    background-color: hsl(from var(--color-bg) h s calc(l - 10));
+    padding: 20px;
+  }
+
+  .trip-detail {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  p {
+    margin: 8px 0;
+  }
 </style>

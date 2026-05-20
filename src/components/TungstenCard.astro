@@ -1,0 +1,117 @@
+---
+---
+
+<div class="tungsten-card">
+  <div class="element-tile">
+    <span class="atomic-number">74</span>
+    <span class="symbol">W</span>
+    <span class="atomic-mass">183.84</span>
+  </div>
+
+  <div class="details-pane">
+    <div class="property">
+      <span class="prop-label">Melting Point</span>
+      <span class="prop-value">3,422°C</span>
+    </div>
+    <div class="property">
+      <span class="prop-label">Boiling Point</span>
+      <span class="prop-value">5,930°C</span>
+    </div>
+    <div class="element-category">Transition Metal</div>
+  </div>
+</div>
+
+<style>
+  .tungsten-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    padding: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .element-tile {
+    width: 80px;
+    height: 80px;
+    background: var(--color-metallic);
+    color: white;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    font-family: var(--font-geom);
+  }
+
+  .atomic-number {
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.9;
+  }
+
+  .symbol {
+    font-size: 2.8rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    margin: -2px 0;
+  }
+
+  .atomic-mass {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0.9;
+  }
+
+  .details-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .property {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prop-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-metallic);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .prop-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    font-family: var(--font-geom);
+    line-height: 1.2;
+  }
+
+  .element-category {
+    font-size: 0.65rem;
+    color: var(--color-metallic);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-top: 2px;
+    opacity: 0.7;
+  }
+</style>
+
+
+
