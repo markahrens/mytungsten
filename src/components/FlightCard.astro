@@ -11,60 +11,104 @@ interface Props {
 const { airport_name, airport_code, scheduled_time, terminal, gate } = Astro.props;
 ---
 
-
-<div class="flight">
-  <p class="airport-name">{airport_name ? airport_name : "Unknown airport"}</p>
-  <h2>{airport_code}</h2>
-  <div class="info">
-    <div class="time">
-      <p>{scheduled_time.toFormat("h:mm a")}</p>
+<div class="flight-card">
+  <div class="airport-info">
+    <p class="airport-name">{airport_name ? airport_name : "Unknown airport"}</p>
+    <h2 class="airport-code">{airport_code}</h2>
+  </div>
+  
+  <div class="flight-details">
+    <div class="time-block">
+      <span class="label">Scheduled</span>
+      <p class="time">{scheduled_time.toFormat("h:mm a")}</p>
     </div>
-    <div class="details">
-    {
-      terminal && (
-        <div>
-            <span>Terminal</span>
-            <span>{terminal}</span>
+    
+    <div class="gate-info">
+      {terminal && (
+        <div class="info-item">
+          <span class="label">Terminal</span>
+          <span class="value">{terminal}</span>
         </div>
-      )
-    }
-    {
-      gate && (
-        <div>
-            <span>Gate</span>
-            <span>{gate}</span>
+      )}
+      {gate && (
+        <div class="info-item">
+          <span class="label">Gate</span>
+          <span class="value">{gate}</span>
         </div>
-      )
-    }
+      )}
     </div>
   </div>
 </div>
 
 <style>
-
-  .flight {
-    width: 260px;
-    h2 {
-      text-align: left;
-      margin: 0;
-      font-size: 4.6rem;
-      font-variation-settings: "wdth" 80;
-      font-feature-settings: "ss05" 1;
-    }
+  .flight-card {
+    min-width: 280px;
+    background: transparent;
+    
     .airport-name {
-      font-size: 1rem;
-      margin-bottom: 0;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      color: var(--color-metallic);
+      margin: 0 0 4px 0;
     }
-    .info {
+    
+    .airport-code {
+      font-family: var(--font-geom);
+      font-size: 5rem;
+      font-weight: 700;
+      line-height: 0.9;
+      color: var(--color-text);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    
+    .flight-details {
       display: flex;
       justify-content: space-between;
-      align-items: top;
-      margin-top: 10px;
-      font-size: 1rem;
+      align-items: flex-end;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-border);
     }
-    .time p{
-          margin: 0;
-          font-size: 1.4rem;
+    
+    .label {
+      display: block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--color-metallic);
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    
+    .time {
+      font-family: var(--font-geom);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin: 0;
+    }
+    
+    .gate-info {
+      display: flex;
+      gap: 16px;
+      text-align: right;
+      
+      .value {
+        font-family: var(--font-geom);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-text);
       }
+    }
+  }
+
+  @media (max-width: 700px) {
+    .flight-card {
+      min-width: 100%;
+      .airport-code { font-size: 4rem; }
+    }
   }
 </style>

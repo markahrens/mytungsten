@@ -24,35 +24,45 @@ const dateOptions: object = {
 <Layout title={entry.data.title}>
  
 
-  <div class="content-container">
-    <h1>{entry.data.title}</h1>
-		<p class="date">{entry.data.date.toLocaleDateString("en-US", dateOptions)}</p>
-		<Image src={entry.data.img} formats={["avif", "webp"]} alt={entry.data.alt} width="1200px" />
-    
-    <div class="text-container">
-      <Content />
+  <main>
+    <div class="content-container masthead">
+      <span class="eyebrow">{entry.data.date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+      <h1>{entry.data.title}</h1>
     </div>
-  </div>
+
+    <div class="content-container">
+      <div class="hero-image-wrapper">
+        <Image src={entry.data.img} formats={["avif", "webp"]} alt={entry.data.alt} width={1200} class="trip-hero-image" />
+      </div>
+      
+      <div class="text-container">
+        <Content />
+      </div>
+    </div>
+  </main>
 </Layout>
 
 <style>
-  .blog-content {
-    & h1 {
-      font-weight: 500;
-    }
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-    margin: 20px auto;
-    display: block;
-		@media (width <= 600px) { 
-			max-width: 90%;
-		};
+  .hero-image-wrapper {
+    margin: 0 0 80px 0;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    background: var(--color-white);
   }
 
-  .date {
-		font-size: 1rem;
-		margin: 0;
-	}
+  .trip-hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .text-container {
+    padding-bottom: 120px;
+  }
+
+  :global(.text-container p) {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
 </style>

@@ -4,20 +4,31 @@ import Layout from "../../layouts/Layout.astro";
 
 <Layout title="Projects">
   <main>
-    <div class="content-container">
+    <div class="content-container masthead">
+      <span class="eyebrow">Work & Experiments</span>
       <h1>Web Projects</h1>
-      <div class="projects-container">
-        <div class="project">
-          <h2><a href="https://bowls.mytungsten.net">Bowl Report</a></h2>
-          <p>A project collecting the history of college football bowl game results.</p>
-        </div>
-        <div class="project">
-          <h2><a href="/projects/eulers">Euler's Identity</a></h2>
-        <p>One of the original pages I posted on MyTungsten.</p>
-        </div>
-        <div class="project">
-          <h2><a href="/projects/ipod-for-windows">iPod for Windows Review</a></h2>
-        <p>Review from February 2003</p>
+    </div>
+
+    <div class="bg-container">
+      <div class="content-container">
+        <div class="projects-grid">
+          <div class="project-card clickable-card">
+            <h3 class="eyebrow">Application</h3>
+            <h2><a href="https://bowls.mytungsten.net" class="stretched-link">Bowl Report</a></h2>
+            <p>A comprehensive project collecting and displaying the history of college football bowl game results.</p>
+          </div>
+
+          <div class="project-card clickable-card">
+            <h3 class="eyebrow">Archive</h3>
+            <h2><a href="/projects/eulers" class="stretched-link">Euler's Identity</a></h2>
+            <p>One of the original pages from the 2001 version of MyTungsten, restored for the modern web.</p>
+          </div>
+
+          <div class="project-card clickable-card">
+            <h3 class="eyebrow">Review</h3>
+            <h2><a href="/projects/ipod-for-windows" class="stretched-link">iPod for Windows</a></h2>
+            <p>A nostalgic review from February 2003, detailing the early days of Apple's iconic music player on PC.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -25,27 +36,40 @@ import Layout from "../../layouts/Layout.astro";
 </Layout>
 
 <style>
-  .projects-container {
+  .bg-container {
+    background-color: hsl(from var(--color-bg) h s calc(l - 5));
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: 80px 0;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+  }
+
+  .project-card {
+    padding: 32px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin-top: 40px;
+    flex-direction: column;
+    gap: 8px;
 
-    .project {
-      background-color: var(--color-white);
-      border: 1px solid var(--color-border);
-      flex: 0 1 520px;
-      h2 {
-        background-color: hsl(from var(--color-bg) h s calc(l - 10));
-      padding: 20px;
-      }
-
-      p {
-        padding: 10px 20px;
-      font-size: 0.9rem;
-      margin: 8px 0;
+    h2 {
+      font-size: 1.8rem;
+      margin: 0;
+      color: var(--color-text);
     }
+
+    p {
+      font-size: 1rem;
+      color: var(--color-metallic);
+      line-height: 1.5;
+      margin: 8px 0 0 0;
+    }
+
+    .eyebrow {
+      margin-bottom: 4px;
     }
   }
 </style>

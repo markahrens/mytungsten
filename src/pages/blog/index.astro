@@ -20,22 +20,27 @@ blogEntries.forEach(post => {
 ---
 <Layout title="Blog">
   
-  <div class="content-container">
+  <div class="content-container masthead">
+    <span class="eyebrow">Journal</span>
     <h1>Blog</h1>
+  </div>
+  
+  <div class="content-container">
     {[...postYears.entries()].map(([year, posts]) => (
-      <h2 class="year-heading">{year}</h2>
-      <div>
-        {posts.map((blogPostEntry: { id: any; data: { title: any; description: any; date: any; }; }) => (
-          <PostRow
-            href={`/blog/${blogPostEntry.id}`},
-            title={blogPostEntry.data.title},
-            description={blogPostEntry.data.description},
-            date={blogPostEntry.data.date}
-          />
-        ))}
-      </div>
-    ))
-    }
+      <section class="year-section">
+        <h2 class="year-heading">{year}</h2>
+        <div class="posts-list">
+          {posts.map((blogPostEntry: { id: any; data: { title: any; description: any; date: any; }; }) => (
+            <PostRow
+              href={`/blog/${blogPostEntry.id}`},
+              title={blogPostEntry.data.title},
+              description={blogPostEntry.data.description},
+              date={blogPostEntry.data.date}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
   </div>
 </Layout>
 
