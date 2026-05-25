@@ -21,12 +21,13 @@ const dateOptions: object = {
 };
 ---
 <Layout title={entry.data.title}>
-	<div class="content-container">
+	<div class="content-container masthead">
+		<span class="eyebrow">{entry.data.date.toLocaleDateString('en-US', dateOptions)}</span>
 		<h1>{entry.data.title}</h1>
-		<p class="date">{entry.data.date.toLocaleDateString('en-US', dateOptions)}</p>
+	</div>
+
 		<div class="text-container">
 			<Content />
-		</div>
 		
 		<ul class="tags">
 			{entry.data.tags.map(tag => (
