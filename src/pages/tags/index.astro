@@ -6,8 +6,9 @@ const uniqueTags = [...new Set(blogEntries.map((post) => post.data.tags).flat())
 
 ---
 <Layout title="Tags">
-  <h1>Tags</h1>
+  
   <div class="content-container">
+    <h1>Tags</h1>
     <ul>
       { uniqueTags.map(tag => (
         <li><a href={`/tags/${tag}`}>{tag}</a></li>

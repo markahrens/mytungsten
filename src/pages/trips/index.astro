@@ -1,22 +1,48 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
 ---
+
 <Layout title="Trips">
-  <h1>Trips</h1>
-  <div class="content-container">
-    <h2><a href="/trips/ghana2013">Ghana 2013</a></h2>
-    <p>Based in the Winneba region.</p>
-    <h2><a href="/trips/ghana2015">Ghana 2015</a></h2>
-    <p>Based in Accra and Kumasi.</p>
-  </div>
+  <main>
+    <div class="content-container masthead">
+      <span class="eyebrow">Extended Travel</span>
+      <h1>Trips</h1>
+    </div>
+
+    <div class="bg-container">
+      <div class="content-container">
+        <div class="trips-grid">
+          <div class="text-card clickable-card">
+            <h3 class="eyebrow">Mission Work</h3>
+            <h2><a href="/trips/ghana2013" class="stretched-link">Ghana 2013</a></h2>
+            <p class="location">Winneba Region</p>
+            <p class="description">Two weeks based in the Winneba region, working on community development and infrastructure projects.</p>
+          </div>
+
+          <div class="text-card clickable-card">
+            <h3 class="eyebrow">Mission Work</h3>
+            <h2><a href="/trips/ghana2015" class="stretched-link">Ghana 2015</a></h2>
+            <p class="location">Accra & Kumasi</p>
+            <p class="description">Returned to Ghana, this time based between Accra and Kumasi — two of the country's largest cities.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </Layout>
 
 <style>
-  h2 {
-    text-align: left;
-    margin: 0;
+  .bg-container {
+    background-color: var(--color-bg-muted);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: 80px 0;
   }
-  p {
-    margin: 8px 0 30px;
+
+  .trips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
   }
+
 </style>

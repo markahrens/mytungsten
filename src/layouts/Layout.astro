@@ -1,6 +1,7 @@
 ---
+import { Font } from "astro:assets";
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,227 +9,400 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="MyTungsten, the personal web site for Mark Ahrens" />
-		<meta name="viewport" content="width=device-width" />
-		<meta property="og:title" content="MyTungsten" />
-		<meta property="og:type" content="website" />
-		<meta property="og:description" content="The personal web site for Mark Ahrens" />
-		<meta property="og:image" content="https://www.mytungsten.net/web-app-manifest-512x512.png" />
-		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="shortcut icon" href="/favicon.ico" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-		<link rel="manifest" href="/site.webmanifest" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title} | MyTungsten</title>
-		<link rel="alternate" type="application/rss+xml" title="RSS Feed for MyTungsten" href="/feed.xml" />
-		<link rel="sitemap" href="/sitemap-index.xml" />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,95,400..700;1,95,400..700&display=swap" rel="stylesheet">
-		<slot name="head" />
-	</head>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZ00BVBCXZ"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="MyTungsten, the personal web site for Mark Ahrens" />
+    <meta name="viewport" content="width=device-width" />
+    <meta property="og:title" content="MyTungsten" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="The personal web site for Mark Ahrens" />
+    <meta property="og:image" content="https://www.mytungsten.net/web-app-manifest-512x512.png" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | MyTungsten</title>
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for MyTungsten" href="/feed.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Font cssVariable="--font-geom" />
+    <Font cssVariable="--font-zalando-sans" />
+    <slot name="head" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZ00BVBCXZ"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-		gtag('config', 'G-YZ00BVBCXZ');
-	</script>
-	<body>
-		<nav>
-			<a href="/" class="site-logo-container">
-				<svg version="1.1" id="mt-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-				viewBox="0 0 1024 1024" xml:space="preserve">
-				<style>
-					.st0 {
-						fill:none;
-						stroke:#FFFFFF;
-						stroke-width:120;
-						stroke-miterlimit:10;
-						@media (prefers-color-scheme: dark) {
-							stroke:#f1fef6
-						}
-					}
-				</style>
-					<path class="st0" d="M128.2,642c0-71,57.5-128.5,128.5-128.5S385.2,571.1,385.2,642"/>
-					<path class="st0" d="M385.2,642c0-71,57.5-128.5,128.5-128.5S642.2,571.1,642.2,642"/>
-					<line class="st0" x1="128.2" y1="640" x2="128.2" y2="840"/>
-					<line class="st0" x1="385.2" y1="640" x2="385.2" y2="840"/>
-					<path class="st0" d="M899.2,656.6c0,71-57.5,128.5-128.5,128.5s-128.5-57.5-128.5-128.5"/>
-					<line class="st0" x1="642.2" y1="189.6" x2="642.2" y2="668.6"/>
-					<line class="st0" x1="619.8" y1="374.6" x2="826.8" y2="374.6"/>
-				</svg>
-				<span>MyTungsten</span>
-			</a>
-			<ul>
-				<li><a href="/blog">Blog</a></li>
-				<li><a href="/trips">Trips</a></li>
-				<li><a href="/projects">Projects</a></li>
-				<li><a href="/flights">Flights</a></li>
-				<li><a href="/about">About</a></li>
-			</ul>
+      gtag("config", "G-YZ00BVBCXZ");
+    </script></head
+  >
+  <!-- Google tag (gtag.js) -->
 
-		</nav>
-		<slot />
-	</body>
+  <body>
+    <nav>
+      <a href="/" class="site-logo-container">
+        <svg
+          version="1.1"
+          id="mt-logo"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 1024 1024"
+          xml:space="preserve"
+        >
+          <style>
+            .st0 {
+              fill: none;
+              stroke: #1e293b;
+              stroke-width: 120;
+              stroke-miterlimit: 10;
+            }
+          </style>
+          <path class="st0" d="M128.2,642c0-71,57.5-128.5,128.5-128.5S385.2,571.1,385.2,642"></path>
+          <path class="st0" d="M385.2,642c0-71,57.5-128.5,128.5-128.5S642.2,571.1,642.2,642"></path>
+          <line class="st0" x1="128.2" y1="640" x2="128.2" y2="840"></line>
+          <line class="st0" x1="385.2" y1="640" x2="385.2" y2="840"></line>
+          <path class="st0" d="M899.2,656.6c0,71-57.5,128.5-128.5,128.5s-128.5-57.5-128.5-128.5"></path>
+          <line class="st0" x1="642.2" y1="189.6" x2="642.2" y2="668.6"></line>
+          <line class="st0" x1="619.8" y1="374.6" x2="826.8" y2="374.6"></line>
+        </svg>
+        <span>MyTungsten</span>
+      </a>
+      <ul>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/trips">Trips</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/flights">Flights</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </nav>
+    <slot />
+  </body>
 </html>
 <style is:global>
-	:root {
-		--lightColor: #F1FAFB;
-		--lightColorAlt: #d3e0ea;
-		--darkColor: #2b3a6b;
-		--darkColorAlt: #3A70B7;
-		--bodyLink: #1E88E5;
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		color: var(--darkColor);
-	}
+  :root {
+    /* Colors */
+    --color-bg: #f8fafc;
+    --color-bg-muted: hsl(from var(--color-bg) h s calc(l - 5));
+    --color-bg-hover: #f1f5f9;
+    --color-text: #1e293b;
+    --color-metallic: #64748b;
+    --color-link: #0369a1;
+    --color-border: #cbd5e1;
+    --color-white: #ffffff;
 
-	body {
-		margin: 0;
-		font-family: "Instrument Sans", sans-serif;
-		font-optical-sizing: auto;
-		font-weight: 400;
-		font-style: normal;
-		font-variation-settings:
-			"wdth" 95;
-	}
+    /* Status Badges */
+    --color-success-bg: #dcfce7;
+    --color-success-text: #166534;
+    --color-error-bg: #fee2e2;
+    --color-error-text: #991b1b;
 
-	h1, h2, h3 {
-		font-family: 'Instrument Sans', sans-serif;
-		text-align: center;
-		font-variation-settings:
-			"wdth" 92.5;
-	}
-	.headings-left h1,
-	.headings-left h2,
-	.headings-left h3 {
-		text-align: left;
-	}
-	h1 {
-		font-weight: 600;
-		font-size: 2.4rem;
-	}
-	h2 {
-		font-weight: 600;
-		font-size: 2rem;
-	}
-	h3 {
-		margin-top: 40px;
-		font-weight: 600;
-		font-size: 1.6rem;
-	}
-	li {
-		font-size: 1.2rem;
-	}
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
 
-	p {	
-		font-size: 1.2rem;
-    line-height: 1.8rem;
-	}
+    /* Spacing */
+    --masthead-padding: 80px 0;
+    --section-padding: 80px 0;
+    
+    /* Transitions */
+    --transition-standard: 0.2s ease;
+  }
 
+  html {
+    font-family: var(--font-zalando-sans);
+    color: var(--color-text);
+  }
 
-	a {
-		color: var(--darkColorAlt);
-		text-decoration: none;
-		position: relative;
-	}
+  body {
+    margin: 0;
+    background-color: var(--color-bg);
+    font-weight: 400;
+  }
 
-	a:hover {
-		color: var(--darkColorAlt);
-	}
+  /* Typography */
+  h1, h2, h3, h4 {
+    font-family: var(--font-geom);
+    padding: 0;
+    margin: 0;
+    color: var(--color-text);
+  }
 
-	a::before {
-		content: "";
-		position: absolute;
-		display: block;
-		width: 100%;
-		height: 1.5px;
-		bottom: 0;
-		left: 0;
-		background-color: var(--darkColorAlt);
-		transform: scaleX(0);
-		transform-origin: top left;
-		transition: transform 0.3s ease;
-	}
+  h1 {
+    font-weight: 600;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
 
-	a:hover::before {
-		transform: scaleX(1);
-	}
+  .hero-title {
+    font-size: 5rem;
+    @media (max-width: 600px) { font-size: 3.5rem; }
+  }
 
-	.content-container {
-		max-width: 980px;
-		margin: 0 auto;
-		padding: 0 20px;
-	}
+  h2 {
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
 
-	nav {
-		display: flex;
-		justify-content: space-between;
-		font-weight: 500;
-		margin-bottom: 40px;
-		padding: 8px;
-		
-		background-color: var(--darkColor);
-		& a {
-			color: var(--lightColor);
-			text-decoration: none;
-		}
-		& a:hover {
-			color: var(--lightColorAlt);
-		}
-		& a::before {
-			background-color: var(--lightColorAlt);
-		}
-		& a.site-logo-container:hover {
-			color: var(--lightColor);
-		}
-		& a.site-logo-container::before {
-			display: none;
-		}
-		& .site-logo-container {
-			display: flex;
-			align-items: center;
-			& span {
-				display: inline-block;
-				padding: 8px 16px;
-				font-size: 1.6rem;
-			}
-		}
-		 
-		& svg {
-			width: 64px;
-			display: inline;
-		}
-		& .st0{
-			@media (prefers-color-scheme: dark) {
-				stroke:var(--lightColor)
-			}
-		}
-		& ul {
-			padding: 0;
-			margin: 0;
-			display: flex;
-			flex-direction: row;
-			@media (width <= 600px) { 
-				flex-direction: column;
-			};
-			& li {
-				list-style-type: none;
-				padding: 16px;
-				font-size: 1.1rem;
-				text-align: center;
-				@media (width <= 600px) { 
-					padding: 4px;
-				};
-			}
-		}
-	}
-	
+  h3 {
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+  }
+
+  li {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+    position: relative;
+    transition: color var(--transition-standard);
+  }
+
+  a:hover {
+    color: var(--color-text);
+  }
+
+  a:not(.stretched-link)::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-text);
+    transform: scaleX(0);
+    transform-origin: top left;
+    transition: transform 0.3s ease;
+  }
+
+  a:not(.stretched-link):hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Layout Utilities */
+  .content-container {
+    max-width: 1136px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .text-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    padding: 120px 0;
+    gap: 16px;
+
+    @media (max-width: 600px) {
+      padding: 80px 0;
+    }
+
+    h1, h2 {
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      @media (max-width: 600px) {
+        font-size: 2.8rem;
+      }
+    }
+
+    h2 {
+      font-size: 3rem;
+      font-weight: 600;
+      @media (max-width: 600px) {
+        font-size: 2.4rem;
+      }
+    }
+
+    .eyebrow {
+      margin-bottom: 0;
+    }
+
+    .intro {
+      font-size: 1.4rem;
+      max-width: 600px;
+      color: var(--color-metallic);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .subtitle {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--color-metallic);
+      max-width: 800px;
+      margin-top: 10px;
+      line-height: 1.3;
+      font-family: var(--font-zalando-sans);
+    }
+  }
+
+  .year-section {
+    margin-bottom: 60px;
+  }
+
+  .year-heading {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-text);
+    display: inline-block;
+    padding-bottom: 8px;
+    font-family: var(--font-geom);
+  }
+
+  .bg-container {
+    background-color: var(--color-bg-muted);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--section-padding);
+  }
+
+  /* Components */
+  .clickable-card {
+    position: relative;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    transition: transform var(--transition-standard), 
+                border-color var(--transition-standard), 
+                box-shadow var(--transition-standard), 
+                background-color var(--transition-standard);
+    border-radius: 0;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .clickable-card:hover {
+    border-color: var(--color-metallic);
+    box-shadow: var(--shadow-md);
+    background-color: var(--color-bg-hover);
+    transform: translateY(-2px);
+  }
+
+  .clickable-card .stretched-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .text-card {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    h2 {
+      font-size: 1.8rem;
+      margin: 0;
+      color: var(--color-text);
+      
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+
+    .location {
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-metallic);
+      margin: 4px 0;
+    }
+
+    p, .description {
+      font-size: 1rem;
+      color: var(--color-metallic);
+      line-height: 1.5;
+      margin: 8px 0 0 0;
+    }
+  }
+
+  .eyebrow {
+    display: block;
+    font-family: var(--font-geom);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-metallic);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-geom);
+    font-weight: 600;
+    padding: 8px;
+    border-bottom: 1px solid var(--color-border);
+
+    & a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    & a.site-logo-container {
+      display: flex;
+      align-items: center;
+      &:hover { color: var(--color-text); }
+      &::before { display: none; }
+      
+      & span {
+        display: inline-block;
+        padding: 8px 16px;
+        font-size: 1.6rem;
+      }
+
+      & svg {
+        width: 64px;
+        display: inline;
+        .st0 { stroke: var(--color-text); }
+      }
+    }
+
+    & ul {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      @media (max-width: 600px) { flex-direction: column; }
+
+      & li {
+        list-style-type: none;
+        padding: 16px;
+        font-size: 1.1rem;
+        text-align: center;
+        @media (max-width: 600px) { padding: 4px; }
+      }
+    }
+  }
+</style>
 </style>
