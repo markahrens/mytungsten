@@ -12,14 +12,14 @@ import Layout from "../../layouts/Layout.astro";
     <div class="bg-container">
       <div class="content-container">
         <div class="trips-grid">
-          <div class="trip-card clickable-card">
+          <div class="text-card clickable-card">
             <h3 class="eyebrow">Mission Work</h3>
             <h2><a href="/trips/ghana2013" class="stretched-link">Ghana 2013</a></h2>
             <p class="location">Winneba Region</p>
             <p class="description">Two weeks based in the Winneba region, working on community development and infrastructure projects.</p>
           </div>
 
-          <div class="trip-card clickable-card">
+          <div class="text-card clickable-card">
             <h3 class="eyebrow">Mission Work</h3>
             <h2><a href="/trips/ghana2015" class="stretched-link">Ghana 2015</a></h2>
             <p class="location">Accra & Kumasi</p>
@@ -33,7 +33,7 @@ import Layout from "../../layouts/Layout.astro";
 
 <style>
   .bg-container {
-    background-color: hsl(from var(--color-bg) h s calc(l - 5));
+    background-color: var(--color-bg-muted);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
     padding: 80px 0;
@@ -45,37 +45,4 @@ import Layout from "../../layouts/Layout.astro";
     gap: 32px;
   }
 
-  .trip-card {
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    h2 {
-      font-size: 1.8rem;
-      margin: 0;
-      color: var(--color-text);
-    }
-
-    .location {
-      font-weight: 700;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-metallic);
-      margin: 4px 0;
-    }
-
-    .description {
-      font-size: 1rem;
-      color: var(--color-text);
-      line-height: 1.5;
-      margin: 8px 0 0 0;
-      opacity: 0.8;
-    }
-
-    .eyebrow {
-      margin-bottom: 4px;
-    }
-  }
 </style>

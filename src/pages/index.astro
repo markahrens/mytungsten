@@ -19,30 +19,29 @@ const dateOptions: object = {
 <Layout title="Home">
 	<main>
 		<div class="content-container masthead">
-			<h1>My<span>Tungsten</span></h1>
-			<h2>The personal website of Mark Ahrens—web technology expert, Drupal specialist, farmer, and soccer fan. Building on the web since 2001.</h2>
+			<h1 class="hero-title">My<span>Tungsten</span></h1>
+			<p class="subtitle">The personal website of Mark Ahrens—web technology expert, Drupal specialist, farmer, and soccer fan. Building on the web since 2001.</p>
 		</div>
 
 		<div class="bg-container">
-			<div class="content-container">
+			<div class="content-container flex-layout">
 				<div class="blog-container">
-					<h3 class="eyebrow">Latest Post</h3>
+					<span class="eyebrow">Latest Post</span>
 					{lastestPost.map(blogPostEntry => (
 						<BlogPost
-							href={`/blog/${blogPostEntry.id}`},
-							title={blogPostEntry.data.title},
-							description={blogPostEntry.data.description},
+							href={`/blog/${blogPostEntry.id}`}
+							title={blogPostEntry.data.title}
+							description={blogPostEntry.data.description}
 							date={blogPostEntry.data.date}
 						/>
 					))}
 					<div class="recent-posts">
-						<p class="eyebrow">Recent Posts</p>
+						<span class="eyebrow">Recent Posts</span>
 						{recentPosts.map(blogPostEntry => (
 							<div class="recent-posts-post">
-								<span>{blogPostEntry.data.date.toLocaleDateString('en-US', dateOptions)}</span>
+								<span class="post-date">{blogPostEntry.data.date.toLocaleDateString('en-US', dateOptions)}</span>
 								<a href={`/blog/${blogPostEntry.id}`}>{blogPostEntry.data.title}</a>
 							</div>
-							
 						))}
 					</div>
 					
@@ -51,96 +50,95 @@ const dateOptions: object = {
 
 				<div class="sidebar-container">
 					<TungstenCard />
-					<h3 class="eyebrow">Site Updates</h3>
-						<ul>
-							<li><span>1/1/2024 </span><span>Restored the blog</span></li>
-							<li><span>12/24/2023</span><span>Updated site design, restored iPod for Windows review, added more info on About page.</span></li>
-							<li><span>2/20/2023</span><span>Restored Euler's Identity page</span></li>
-							<li><span>2/14/2023</span><span>Added About page</span></li>
-						</ul>
-					
+					<span class="eyebrow">Site Updates</span>
+					<ul class="updates-list">
+						<li><span>1/1/2024 </span><span>Restored the blog</span></li>
+						<li><span>12/24/2023</span><span>Updated site design, restored iPod for Windows review, added more info on About page.</span></li>
+						<li><span>2/20/2023</span><span>Restored Euler's Identity page</span></li>
+						<li><span>2/14/2023</span><span>Added About page</span></li>
+					</ul>
 				</div>
-		
-		
+			</div>
+		</div>
 	</main>
 </Layout>
 
 <style>
 	.masthead {
-		display: flex;
-		flex-direction: column;
-		padding: 120px 0;
-		gap: 20px;
-		h1 {
-			font-size: 5rem;
-			text-box-edge: cap alphabetic;
-			text-box-trim: both;
-			span {
-				color: var(--color-metallic);
-			}
-		}
-
-		h2 {
-			max-width: 600px;
-			font-size: 1.6rem;
-			font-weight: 400;
-			font-family: var(--font-zalando-sans);
+		h1 span {
+			color: var(--color-metallic);
 		}
 	}
 
-	.bg-container {
-		background-color: hsl(from var(--color-bg) h s calc(l - 10));
-		border-top: 1px solid var(--color-border);
+	.flex-layout {
+		@media screen and (min-width: 600px) {
+			display: flex;
+			gap: 40px;
+		}
+	}
 
-		.content-container {
-			@media screen and (width >= 600px) {
+	.blog-container {
+		flex: 1;
+
+		.recent-posts {
+			margin-top: 40px;
+
+			.recent-posts-post {
 				display: flex;
-				flex-direction: row;
+				gap: 20px;
+				padding-bottom: 12px;
+				margin-bottom: 12px;
+				border-bottom: 1px solid var(--color-border);
+				align-items: baseline;
 
-				.blog-container {
-					flex: 1;
-					padding: 20px;
-
-					.recent-posts {
-						.recent-posts-post {
-							display: flex;
-							flex-direction: row;
-							gap: 20px;
-							padding-bottom: 10px;
-							margin-bottom: 10px;
-							border-bottom: 1px solid var(--color-border);
-							align-items: center;
-							span {
-								flex: 0 0 120px;
-								color: var(--color-metallic);
-								font-size: 0.7rem;
-							}
-						}
-					}
-
-					.view-all {
-						font-size: 0.8rem;
-					}
+				.post-date {
+					flex: 0 0 100px;
+					color: var(--color-metallic);
+					font-size: 0.8rem;
+					font-weight: 600;
 				}
 
-				.sidebar-container {
-					padding: 20px;
-					flex: 0 0 200px;
-					border-left: 1px solid var(--color-border);
+				a {
+					font-weight: 500;
+				}
+			}
+		}
 
-					ul {
-						padding: 0;
+		.view-all {
+			margin-top: 24px;
+			font-size: 0.9rem;
+		}
+	}
 
-						li {
-							list-style-type: none;
-							display: flex;
-							flex-direction: column;
-							gap: 4px;
-							font-size: 0.8rem;
-							margin-bottom: 10px;
-						}
-					}
-				}	
+	.sidebar-container {
+		flex: 0 0 280px;
+		padding-left: 40px;
+		border-left: 1px solid var(--color-border);
+
+		@media (max-width: 900px) {
+			padding-left: 0;
+			border-left: none;
+			margin-top: 60px;
+		}
+
+		.updates-list {
+			padding: 0;
+			margin: 0;
+
+			li {
+				list-style-type: none;
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+				font-size: 0.85rem;
+				margin-bottom: 16px;
+				line-height: 1.4;
+
+				span:first-child {
+					font-weight: 700;
+					color: var(--color-metallic);
+					font-size: 0.75rem;
+				}
 			}
 		}
 	}

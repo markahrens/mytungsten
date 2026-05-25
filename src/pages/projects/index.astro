@@ -12,19 +12,19 @@ import Layout from "../../layouts/Layout.astro";
     <div class="bg-container">
       <div class="content-container">
         <div class="projects-grid">
-          <div class="project-card clickable-card">
+          <div class="text-card clickable-card">
             <h3 class="eyebrow">Application</h3>
             <h2><a href="https://bowls.mytungsten.net" class="stretched-link">Bowl Report</a></h2>
             <p>A comprehensive project collecting and displaying the history of college football bowl game results.</p>
           </div>
 
-          <div class="project-card clickable-card">
+          <div class="text-card clickable-card">
             <h3 class="eyebrow">Archive</h3>
             <h2><a href="/projects/eulers" class="stretched-link">Euler's Identity</a></h2>
             <p>One of the original pages from the 2001 version of MyTungsten, restored for the modern web.</p>
           </div>
 
-          <div class="project-card clickable-card">
+          <div class="text-card clickable-card">
             <h3 class="eyebrow">Review</h3>
             <h2><a href="/projects/ipod-for-windows" class="stretched-link">iPod for Windows</a></h2>
             <p>A nostalgic review from February 2003, detailing the early days of Apple's iconic music player on PC.</p>
@@ -37,7 +37,7 @@ import Layout from "../../layouts/Layout.astro";
 
 <style>
   .bg-container {
-    background-color: hsl(from var(--color-bg) h s calc(l - 5));
+    background-color: var(--color-bg-muted);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
     padding: 80px 0;
@@ -49,27 +49,4 @@ import Layout from "../../layouts/Layout.astro";
     gap: 32px;
   }
 
-  .project-card {
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    h2 {
-      font-size: 1.8rem;
-      margin: 0;
-      color: var(--color-text);
-    }
-
-    p {
-      font-size: 1rem;
-      color: var(--color-metallic);
-      line-height: 1.5;
-      margin: 8px 0 0 0;
-    }
-
-    .eyebrow {
-      margin-bottom: 4px;
-    }
-  }
 </style>

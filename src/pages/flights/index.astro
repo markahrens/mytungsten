@@ -103,17 +103,8 @@ const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number
 </Layout>
 
 <style>
-  .masthead {
-    padding: 80px 20px;
-    h2 {
-      font-size: 2.4rem;
-      max-width: 600px;
-      line-height: 1.1;
-    }
-  }
-
   .bg-container {
-    background-color: hsl(from var(--color-bg) h s calc(l - 5));
+    background-color: var(--color-bg-muted);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
     padding: 40px 0;
@@ -142,19 +133,6 @@ const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number
       font-weight: 700;
       color: var(--color-text);
       line-height: 1;
-    }
-  }
-
-  .year-section {
-    margin-bottom: 80px;
-
-    .year-heading {
-      font-size: 2.4rem;
-      margin-bottom: 32px;
-      color: var(--color-text);
-      border-bottom: 2px solid var(--color-text);
-      display: inline-block;
-      padding-bottom: 8px;
     }
   }
 
