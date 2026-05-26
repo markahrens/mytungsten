@@ -72,7 +72,14 @@ const { title } = Astro.props;
         </svg>
         <span>MyTungsten</span>
       </a>
-      <ul>
+      <button class="menu-toggle" aria-label="Open Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <ul id="nav-menu">
         <li><a href="/blog">Blog</a></li>
         <li><a href="/trips">Trips</a></li>
         <li><a href="/projects">Projects</a></li>
@@ -81,6 +88,17 @@ const { title } = Astro.props;
       </ul>
     </nav>
     <slot />
+
+    <script>
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('#nav-menu');
+
+      menuToggle?.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+        navMenu?.classList.toggle('active');
+      });
+    </script>
   </body>
 </html>
 <style is:global>
@@ -141,7 +159,7 @@ const { title } = Astro.props;
 
   .hero-title {
     font-size: 5rem;
-    @media (max-width: 600px) { font-size: 3.5rem; }
+    @media (width <= 600px) { font-size: 3.5rem; }
   }
 
   h2 {
@@ -214,8 +232,13 @@ const { title } = Astro.props;
     padding: 120px 0;
     gap: 16px;
 
-    @media (max-width: 600px) {
-      padding: 80px 0;
+    @media (width <= 1136px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    @media (width <= 600px) {
+      padding: 80px 20px;
     }
 
     h1, h2 {
@@ -225,7 +248,7 @@ const { title } = Astro.props;
 
     h1 {
       font-size: 3.5rem;
-      @media (max-width: 600px) {
+      @media (width <= 600px) {
         font-size: 2.8rem;
       }
     }
@@ -233,7 +256,7 @@ const { title } = Astro.props;
     h2 {
       font-size: 3rem;
       font-weight: 600;
-      @media (max-width: 600px) {
+      @media (width <= 600px) {
         font-size: 2.4rem;
       }
     }
@@ -363,10 +386,25 @@ const { title } = Astro.props;
     font-weight: 600;
     padding: 8px;
     border-bottom: 1px solid var(--color-border);
+    position: relative;
+    align-items: center;
 
     & a {
       color: var(--color-text);
       text-decoration: none;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--color-text);
+      
+      @media (width <= 600px) {
+        display: block;
+      }
     }
 
     & a.site-logo-container {
@@ -393,14 +431,30 @@ const { title } = Astro.props;
       margin: 0;
       display: flex;
       flex-direction: row;
-      @media (max-width: 600px) { flex-direction: column; }
+
+      @media (width <= 600px) { 
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--color-bg);
+        border-bottom: 1px solid var(--color-border);
+        z-index: 10;
+        padding: 16px 0;
+      }
+
+      &.active {
+        display: flex;
+      }
 
       & li {
         list-style-type: none;
         padding: 16px;
         font-size: 1.1rem;
         text-align: center;
-        @media (max-width: 600px) { padding: 4px; }
+        @media (width <= 600px) { padding: 12px; }
       }
     }
   }
