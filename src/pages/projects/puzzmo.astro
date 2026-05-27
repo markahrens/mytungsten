@@ -14,7 +14,7 @@ const puzzmo = (puzzmoResult.entries ?? []).sort((a, b) => {
   // If days are the same, sort by current streak descending
   return dateB !== dateA ? dateB - dateA : b.data.current - a.data.current;
 });
-console.log(puzzmo)
+
 ---
 
 <Layout title="Puzzmo Games">
@@ -31,7 +31,7 @@ console.log(puzzmo)
         {
           puzzmo.map((game) => (
             <div class="text-card">
-              <h2><a href={`https://www.puzzmo.com/play/${game.data.gameSlug}`} target="_blank" class="stretched-link">{game.data.gameDisplayName}</a></h2>
+              <h2><a href={`https://www.puzzmo.com/play/${game.data.gameSlug}`} target="_blank">{game.data.gameDisplayName}</a></h2>
               <div class="data-points">
 
                 <div class="data-point">
