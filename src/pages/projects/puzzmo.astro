@@ -1,0 +1,94 @@
+---
+export const prerender = false;
+import { DateTime } from "luxon";
+import Layout from '../../layouts/Layout.astro';
+import { getLiveCollection } from "astro:content";
+
+const puzzmoResult = (await getLiveCollection("puzzmo"))
+
+const puzzmo = (puzzmoResult.entries ?? []).sort((a, b) => {
+  const dateA = new Date(a.data.lastUpdated).setHours(0, 0, 0, 0);
+  const dateB = new Date(b.data.lastUpdated).setHours(0, 0, 0, 0);
+
+  // If days are different, sort by date descending
+  // If days are the same, sort by current streak descending
+  return dateB !== dateA ? dateB - dateA : b.data.current - a.data.current;
+});
+console.log(puzzmo)
+---
+
+<Layout title="Puzzmo Games">
+  
+  <div class="content-container masthead">
+    <span class="eyebrow">Games</span>
+    <h1>Puzzmo</h1>
+    <p>The status of games played on <a href="https://www.puzzmo.com">Puzzmo</a>, loaded via the ATProto.</p>
+  </div>
+  
+  <div class="bg-container">
+    <div class="content-container">
+      <div class="games-grid">
+        {
+          puzzmo.map((game) => (
+            <div class="text-card">
+              <h2><a href={`https://www.puzzmo.com/play/${game.data.gameSlug}`} target="_blank" class="stretched-link">{game.data.gameDisplayName}</a></h2>
+              <div class="data-points">
+
+                <div class="data-point">
+                  <span class="label">Last Played</span>
+                  <span class="value">{DateTime.fromISO(game.data.lastUpdated).toLocaleString()}</span>
+                </div>
+                <div class="data-point">
+                  <span class="label">Total Plays</span>
+                  <span class="value">{game.data.total}</span>
+                </div>
+                <div class="data-point">
+                  <span class="label">Current Streak</span>
+                  <span class="value">{game.data.current}</span>
+                </div>
+                <div class="data-point">
+                  <span class="label">Max Streak</span>
+                  <span class="value">{game.data.max}</span>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Layout>
+
+
+<style>
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+  }
+
+  .data-points {
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+    gap: 20px;
+  }
+
+  .data-point {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 115px;
+      .label { 
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--color-metallic); 
+        text-transform: uppercase;
+      }
+      .value { 
+        font-size: 1rem; 
+        gap: 8px;
+      }
+    }
+</style>
