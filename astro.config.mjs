@@ -24,5 +24,7 @@ export default defineConfig({
     }
   ],
 
-  adapter: cloudflare()
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+  })
 });
