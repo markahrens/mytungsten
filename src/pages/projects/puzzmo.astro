@@ -5,7 +5,12 @@ import { DateTime } from "luxon";
 import Layout from '../../layouts/Layout.astro';
 import { getLiveCollection } from "astro:content";
 
-const puzzmoResult = (await getLiveCollection("puzzmo"))
+const puzzmoResult = (await getLiveCollection("puzzmo"));
+
+if (puzzmoResult.error) {
+  console.error("Live collection error:", puzzmoResult.error);
+  // optionally: return Astro.redirect('/error') or render an error state
+}
 
 const puzzmo = (puzzmoResult.entries ?? []).sort((a, b) => {
   const dateA = new Date(a.data.lastUpdated).setHours(0, 0, 0, 0);
