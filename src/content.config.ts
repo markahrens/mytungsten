@@ -1,5 +1,5 @@
 import { z, defineCollection } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
 const tripsCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/trips" }), // v2.5.0 and later
@@ -21,6 +21,7 @@ const blogCollection = defineCollection({
     tags: z.array(z.string())
   }),
 });
+
 
 
 

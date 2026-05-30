@@ -2,10 +2,13 @@ import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
 import react from '@astrojs/react';
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.mytungsten.net',
   integrations: [sitemap(), react()],
+
   fonts: [
     {
       name: "Geom",
@@ -19,5 +22,9 @@ export default defineConfig({
       provider: fontProviders.google(),
       weights: [400, 700],
     }
-  ]
+  ],
+
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+  })
 });
