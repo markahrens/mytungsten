@@ -1,0 +1,111 @@
+---
+export const prerender = false;
+
+import Layout from "../../layouts/Layout.astro";
+import { getLiveCollection } from "astro:content";
+import AdsbFlightRow from "../../components/AdsbFlightRow.astro";
+import { DateTime } from "luxon";
+
+const adsbResult = await getLiveCollection("adsb");
+
+if (adsbResult.error) {
+  console.error("ADSB Live Collection error:", adsbResult.error);
+}
+
+const flights = adsbResult.entries ?? [];
+
+// Today's formatted date for display
+const todayDisplay = DateTime.now().setZone("America/Chicago").toLocaleString(DateTime.DATE_HUGE);
+---
+
+<Layout title="ADSB Flight Tracker">
+  <main>
+    <div class="content-container masthead">
+      <span class="eyebrow">Data</span>
+      <h1>ADSB Flight Tracker</h1>
+      <p>Today's flights tracked by my local ADSB receiver.</p>
+    </div>
+
+    <div class="bg-container">
+      <div class="content-container">
+        <div class="section-header">
+          <h2>Flights Seen Today</h2>
+          <span class="date-badge">{todayDisplay}</span>
+        </div>
+
+        <div class="flights-list">
+          {
+            flights.length > 0 ? (
+              flights.map((flight) => (
+                <AdsbFlightRow
+                  hex={flight.data.hex}
+                  registration={flight.data.registration}
+                  type={flight.data.type}
+                  flight={flight.data.flight}
+                  seen_date={flight.data.seen_date}
+                  operator={flight.data.operator}
+                  origin={flight.data.origin}
+                  destination={flight.data.destination}
+                  owner={flight.data.owner}
+                  airline={flight.data.airline}
+                />
+              ))
+            ) : (
+              <div class="empty-state">
+                <span class="icon">✈️</span>
+                <p>No flights detected by the receiver yet today.</p>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 16px;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .date-badge {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-metallic);
+    }
+  }
+
+  .flights-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    border: 1px dashed var(--color-border);
+    background: var(--color-white);
+    
+    .icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: var(--color-metallic);
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+</style>
