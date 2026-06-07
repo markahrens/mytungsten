@@ -63,7 +63,8 @@ function getMockAdsbFlights() {
       enriched: 1,
       confidence: "high",
       owner: "Southwest Airlines Co",
-      airline: "Southwest Airlines"
+      airline: "SWA",
+      operated_by: "Southwest Airlines"
     },
     {
       hex: "C0FFEE",
@@ -77,7 +78,8 @@ function getMockAdsbFlights() {
       enriched: 1,
       confidence: "high",
       owner: "United Airlines Inc",
-      airline: "United Airlines"
+      airline: "UAL",
+      operated_by: "United Airlines"
     },
     {
       hex: "4B12A4",
@@ -91,7 +93,8 @@ function getMockAdsbFlights() {
       enriched: 1,
       confidence: "high",
       owner: "Deutsche Lufthansa AG",
-      airline: "Lufthansa"
+      airline: "DLH",
+      operated_by: "Lufthansa"
     }
   ];
   return mockData.map(d => ({
@@ -123,7 +126,13 @@ const adsbCollection = defineLiveCollection({
         }
 
         const today = new Date().toLocaleDateString('sv-SE');
-        const stmt = db.prepare("SELECT * FROM aircraft_seen WHERE seen_date = ? ORDER BY rowid DESC");
+        const stmt = db.prepare(`
+          SELECT a.*, al.name AS operated_by
+          FROM aircraft_seen a
+          LEFT JOIN airlines al ON a.airline = al.icao
+          WHERE a.seen_date = ?
+          ORDER BY a.rowid DESC
+        `);
         const { results } = await stmt.bind(today).all();
 
         const entries = (results || []).map((row: any) => ({
@@ -142,7 +151,12 @@ const adsbCollection = defineLiveCollection({
         if (!db) return undefined;
 
         const [hex, seen_date] = id.split('-');
-        const stmt = db.prepare("SELECT * FROM aircraft_seen WHERE hex = ? AND seen_date = ?");
+        const stmt = db.prepare(`
+          SELECT a.*, al.name AS operated_by
+          FROM aircraft_seen a
+          LEFT JOIN airlines al ON a.airline = al.icao
+          WHERE a.hex = ? AND a.seen_date = ?
+        `);
         const row = await stmt.bind(hex, seen_date).first();
         if (!row) return undefined;
 
@@ -168,6 +182,7 @@ const adsbCollection = defineLiveCollection({
     confidence: z.string().nullable().optional(),
     owner: z.string().nullable().optional(),
     airline: z.string().nullable().optional(),
+    operated_by: z.string().nullable().optional(),
   }),
 });
 

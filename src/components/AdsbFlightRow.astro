@@ -1,5 +1,5 @@
 ---
-const { registration, type, flight, seen_date, owner, origin, destination, airline, operator } = Astro.props;
+const { registration, type, flight, seen_date, owner, origin, destination, airline, operator, operated_by } = Astro.props;
 ---
 
 <div class="adsb-row-container">
@@ -23,7 +23,18 @@ const { registration, type, flight, seen_date, owner, origin, destination, airli
           <span class="no-route">No Known Route</span>
         )}
       </div>
-      <div class="owner">{owner || "Private Owner"}</div>
+      <div class="owner">
+        {owner ? (
+          <>
+            {owner}
+            {operated_by && owner.toLowerCase().indexOf(operated_by.toLowerCase()) === -1 && operated_by.toLowerCase().indexOf(owner.toLowerCase()) === -1 && (
+              <span class="operator"> • Operated by {operated_by}</span>
+            )}
+          </>
+        ) : (
+          operated_by || "Private Owner"
+        )}
+      </div>
     </div>
 
     <!-- Flight / callsign info -->
