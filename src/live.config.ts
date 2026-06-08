@@ -49,7 +49,7 @@ const puzzmoCollection = defineLiveCollection({
 
 // Mock helper for ADSB flights during local development when D1 is not bound
 function getMockAdsbFlights() {
-  const today = new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' }); // YYYY-MM-DD
   const mockData = [
     {
       hex: "A3B1C2",
@@ -125,7 +125,7 @@ const adsbCollection = defineLiveCollection({
           return { entries: getMockAdsbFlights() };
         }
 
-        const today = new Date().toLocaleDateString('sv-SE');
+        const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
         const stmt = db.prepare(`
           SELECT a.*, al.name AS operated_by
           FROM aircraft_seen a
