@@ -49,6 +49,12 @@ const todayDisplay = DateTime.now().setZone("America/Chicago").toLocaleString(Da
                   owner={flight.data.owner}
                   airline={flight.data.airline}
                   operated_by={flight.data.operated_by}
+                  origin_code_iata={flight.data.origin_code_iata}
+                  origin_name={flight.data.origin_name}
+                  origin_city={flight.data.origin_city}
+                  destination_code_iata={flight.data.destination_code_iata}
+                  destination_name={flight.data.destination_name}
+                  destination_city={flight.data.destination_city}
                 />
               ))
             ) : (
