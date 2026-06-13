@@ -64,7 +64,13 @@ function getMockAdsbFlights() {
       confidence: "high",
       owner: "Southwest Airlines Co",
       airline: "SWA",
-      operated_by: "Southwest Airlines"
+      operated_by: "Southwest Airlines",
+      origin_code_iata: "MDW",
+      origin_name: "Chicago Midway International Airport",
+      origin_city: "Chicago",
+      destination_code_iata: "AUS",
+      destination_name: "Austin-Bergstrom International Airport",
+      destination_city: "Austin"
     },
     {
       hex: "C0FFEE",
@@ -79,7 +85,13 @@ function getMockAdsbFlights() {
       confidence: "high",
       owner: "United Airlines Inc",
       airline: "UAL",
-      operated_by: "United Airlines"
+      operated_by: "United Airlines",
+      origin_code_iata: "ORD",
+      origin_name: "O'Hare International Airport",
+      origin_city: "Chicago",
+      destination_code_iata: "SFO",
+      destination_name: "San Francisco International Airport",
+      destination_city: "San Francisco"
     },
     {
       hex: "4B12A4",
@@ -94,7 +106,13 @@ function getMockAdsbFlights() {
       confidence: "high",
       owner: "Deutsche Lufthansa AG",
       airline: "DLH",
-      operated_by: "Lufthansa"
+      operated_by: "Lufthansa",
+      origin_code_iata: "FRA",
+      origin_name: "Frankfurt Airport",
+      origin_city: "Frankfurt",
+      destination_code_iata: "LHR",
+      destination_name: "London Heathrow Airport",
+      destination_city: "London"
     }
   ];
   return mockData.map(d => ({
@@ -127,9 +145,13 @@ const adsbCollection = defineLiveCollection({
 
         const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
         const stmt = db.prepare(`
-          SELECT a.*, al.name AS operated_by
+          SELECT a.*, al.name AS operated_by,
+                 apo.code_iata AS origin_code_iata, apo.name AS origin_name, apo.city AS origin_city,
+                 apd.code_iata AS destination_code_iata, apd.name AS destination_name, apd.city AS destination_city
           FROM aircraft_seen a
-          LEFT JOIN airlines al ON a.airline = al.icao
+          LEFT JOIN airlines al ON a.operator = al.icao
+          LEFT JOIN airports apo ON a.origin = apo.code
+          LEFT JOIN airports apd ON a.destination = apd.code
           WHERE a.seen_date = ?
           ORDER BY a.rowid DESC
         `);
@@ -152,9 +174,13 @@ const adsbCollection = defineLiveCollection({
 
         const [hex, seen_date] = id.split('-');
         const stmt = db.prepare(`
-          SELECT a.*, al.name AS operated_by
+          SELECT a.*, al.name AS operated_by,
+                 apo.code_iata AS origin_code_iata, apo.name AS origin_name, apo.city AS origin_city,
+                 apd.code_iata AS destination_code_iata, apd.name AS destination_name, apd.city AS destination_city
           FROM aircraft_seen a
-          LEFT JOIN airlines al ON a.airline = al.icao
+          LEFT JOIN airlines al ON a.operator = al.icao
+          LEFT JOIN airports apo ON a.origin = apo.code
+          LEFT JOIN airports apd ON a.destination = apd.code
           WHERE a.hex = ? AND a.seen_date = ?
         `);
         const row = await stmt.bind(hex, seen_date).first();
@@ -183,6 +209,12 @@ const adsbCollection = defineLiveCollection({
     owner: z.string().nullable().optional(),
     airline: z.string().nullable().optional(),
     operated_by: z.string().nullable().optional(),
+    origin_code_iata: z.string().nullable().optional(),
+    origin_name: z.string().nullable().optional(),
+    origin_city: z.string().nullable().optional(),
+    destination_code_iata: z.string().nullable().optional(),
+    destination_name: z.string().nullable().optional(),
+    destination_city: z.string().nullable().optional(),
   }),
 });
 

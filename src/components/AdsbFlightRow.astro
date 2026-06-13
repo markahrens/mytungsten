@@ -1,5 +1,22 @@
 ---
-const { registration, type, flight, seen_date, owner, origin, destination, airline, operator, operated_by } = Astro.props;
+const {
+  registration,
+  type,
+  flight,
+  seen_date,
+  owner,
+  origin,
+  destination,
+  airline,
+  operator,
+  operated_by,
+  origin_code_iata,
+  origin_name,
+  origin_city,
+  destination_code_iata,
+  destination_name,
+  destination_city,
+} = Astro.props;
 ---
 
 <div class="adsb-row-container">
@@ -15,14 +32,21 @@ const { registration, type, flight, seen_date, owner, origin, destination, airli
       <div class="codes">
         {origin && destination ? (
           <>
-            <span class="code">{origin}</span>
+            <span class="code" title={origin_name ? `${origin_name} (${origin_city || ""})` : origin}>{origin_code_iata || origin}</span>
             <span class="arrow">→</span>
-            <span class="code">{destination}</span>
+            <span class="code" title={destination_name ? `${destination_name} (${destination_city || ""})` : destination}>{destination_code_iata || destination}</span>
           </>
         ) : (
           <span class="no-route">No Known Route</span>
         )}
       </div>
+      {origin && destination && (origin_city || destination_city || origin_name || destination_name) && (
+        <div class="airport-names">
+          <span class="airport" title={origin_name}>{origin_city || origin_name || origin}</span>
+          <span class="dot">&middot;</span>
+          <span class="airport" title={destination_name}>{destination_city || destination_name || destination}</span>
+        </div>
+      )}
       <div class="owner">
         {owner ? (
           <>
@@ -107,6 +131,26 @@ const { registration, type, flight, seen_date, owner, origin, destination, airli
         color: var(--color-metallic);
         font-weight: 400;
         font-size: 1.2rem;
+      }
+    }
+    
+    .airport-names {
+      font-size: 0.85rem;
+      color: var(--color-metallic);
+      font-weight: 500;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      
+      .airport {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 220px;
+      }
+      .dot {
+        color: var(--color-border);
       }
     }
     
