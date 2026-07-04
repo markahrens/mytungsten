@@ -1,0 +1,135 @@
+---
+const { href, title, category, detail, venue_name, venue_city, date } = Astro.props;
+const newDate = new Date(date);
+newDate.setUTCHours(12, 0, 0, 0);
+
+const categoryIcons: Record<string, string> = {
+  sport: '🏟️',
+  concert: '🎸',
+  theater: '🎭',
+  other: '🎟️'
+};
+
+const icon = categoryIcons[category] || '🎟️';
+---
+
+<div class="event-row-container">
+  <a href={href} class="event-row clickable-card">
+    <div class="date-col">
+      <span class="month">{newDate.toLocaleDateString('en-US', { month: 'short' })}</span>
+      <span class="day">{newDate.getUTCDate()}</span>
+    </div>
+    
+    <div class="info-col">
+      <div class="title-row">
+        <span class="icon">{icon}</span>
+        <span class="title">{title}</span>
+      </div>
+      <div class="venue-info">
+        {venue_name ? `${venue_name} • ` : ''}{venue_city}
+      </div>
+    </div>
+
+    <div class="details-col">
+      {detail && <span class="subcategory-tag">{detail}</span>}
+    </div>
+  </a>
+</div>
+
+<style>
+  .event-row-container {
+    margin-bottom: 12px;
+  }
+
+  .event-row {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: center;
+    padding: 16px 24px;
+    gap: 24px;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    transition: all 0.2s ease;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .date-col {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+    border-right: 1px solid var(--color-border);
+    padding-right: 24px;
+    
+    .month, .day {
+      font-family: var(--font-geom);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+  }
+
+  .info-col {
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      
+      .icon {
+        font-size: 1.2rem;
+      }
+
+      .title {
+        font-family: var(--font-geom);
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--color-text);
+      }
+    }
+    
+    .venue-info {
+      font-size: 0.9rem;
+      color: var(--color-metallic);
+      font-weight: 500;
+    }
+  }
+
+  .details-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    
+    .subcategory-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      background: var(--color-bg-muted);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      color: var(--color-metallic);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .event-row {
+      grid-template-columns: 80px 1fr;
+      padding: 12px 16px;
+      gap: 16px;
+    }
+    .date-col {
+      padding-right: 16px;
+      .day { font-size: 1.2rem; }
+    }
+    .details-col {
+      display: none;
+    }
+  }
+</style>
