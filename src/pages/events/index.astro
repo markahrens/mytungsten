@@ -1,0 +1,125 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EventRow from '../../components/EventRow.astro';
+import { getAllEvents, slugForEvent } from '../../lib/db';
+
+const events = getAllEvents();
+
+const uniqueVenues = new Set(events.map(e => e.venue_id).filter(Boolean));
+const sportsCount = events.filter(e => e.category === 'sport').length;
+const concertsCount = events.filter(e => e.category === 'concert').length;
+const theaterCount = events.filter(e => e.category === 'theater').length;
+
+// Group events by year
+const eventsByYear = events.reduce((acc, event) => {
+  const year = new Date(event.event_date).getFullYear();
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(event);
+  return acc;
+}, {} as Record<number, typeof events>);
+
+// Sort years in descending order
+const sortedYears = Object.keys(eventsByYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout title="Events">
+  <main>
+    <div class="content-container masthead">
+      <span class="eyebrow">Logbook</span>
+      <h1>Events Attended</h1>
+    </div>
+
+    <div class="bg-container">
+      <div class="content-container summary-grid">
+        <div class="stat-card">
+          <span class="eyebrow">Total Events</span>
+          <span class="stat-value">{events.length}</span>
+        </div>
+        <div class="stat-card">
+          <span class="eyebrow">Unique Venues</span>
+          <span class="stat-value">{uniqueVenues.size}</span>
+        </div>
+        <div class="stat-card">
+          <span class="eyebrow">Breakdown</span>
+          <span class="stat-value-sm">
+            🏟️ {sportsCount} Sports &nbsp;&bull;&nbsp;
+            🎸 {concertsCount} Concerts<br />
+            🎭 {theaterCount} Theater &nbsp;&bull;&nbsp;
+            🎟️ {events.length - sportsCount - concertsCount - theaterCount} Other
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-container">
+      {sortedYears.map(year => (
+        <section class="year-section">
+          <h2 class="year-heading">{year}</h2>
+          <div class="events-list">
+            {eventsByYear[year as unknown as number].map(event => (
+              <EventRow
+                href={`/events/${slugForEvent(event)}`}
+                title={event.title}
+                category={event.category}
+                detail={event.category === 'sport' ? (event.league || event.sport) : undefined}
+                venue_name={event.venue_name}
+                venue_city={event.venue_city}
+                date={event.event_date}
+              />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .bg-container {
+    background-color: var(--color-bg-muted);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: 40px 0;
+    margin-bottom: 60px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .stat-value {
+      font-family: var(--font-geom);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1;
+    }
+
+    .stat-value-sm {
+      font-family: var(--font-geom);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+  }
+
+  .events-list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
