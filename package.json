@@ -25,11 +25,11 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-leaflet": "^5.0.0",
-    "sanitize-html": "^2.11.0",
-    "wrangler": "^4.95.0"
+    "sanitize-html": "^2.11.0"
   },
   "devDependencies": {
-    "@types/luxon": "^3.7.1"
+    "@types/luxon": "^3.7.1",
+    "wrangler": "^4.95.0"
   },
   "overrides": {
     "vite": "^7"

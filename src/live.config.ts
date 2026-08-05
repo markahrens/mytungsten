@@ -146,12 +146,12 @@ const adsbCollection = defineLiveCollection({
         const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
         const stmt = db.prepare(`
           SELECT a.*, al.name AS operated_by,
-                 apo.code_iata AS origin_code_iata, apo.name AS origin_name, apo.city AS origin_city,
-                 apd.code_iata AS destination_code_iata, apd.name AS destination_name, apd.city AS destination_city
+                 apo.iata AS origin_code_iata, apo.name AS origin_name, apo.municipality AS origin_city,
+                 apd.iata AS destination_code_iata, apd.name AS destination_name, apd.municipality AS destination_city
           FROM aircraft_seen a
-          LEFT JOIN airlines al ON a.operator = al.icao
-          LEFT JOIN airports apo ON a.origin = apo.code
-          LEFT JOIN airports apd ON a.destination = apd.code
+          LEFT JOIN airlines al ON a.airline = al.iata
+          LEFT JOIN airports apo ON a.origin = apo.icao
+          LEFT JOIN airports apd ON a.destination = apd.icao
           WHERE a.seen_date = ?
           ORDER BY a.rowid DESC
         `);
@@ -175,12 +175,12 @@ const adsbCollection = defineLiveCollection({
         const [hex, seen_date] = id.split('-');
         const stmt = db.prepare(`
           SELECT a.*, al.name AS operated_by,
-                 apo.code_iata AS origin_code_iata, apo.name AS origin_name, apo.city AS origin_city,
-                 apd.code_iata AS destination_code_iata, apd.name AS destination_name, apd.city AS destination_city
+                 apo.iata AS origin_code_iata, apo.name AS origin_name, apo.municipality AS origin_city,
+                 apd.iata AS destination_code_iata, apd.name AS destination_name, apd.municipality AS destination_city
           FROM aircraft_seen a
-          LEFT JOIN airlines al ON a.operator = al.icao
-          LEFT JOIN airports apo ON a.origin = apo.code
-          LEFT JOIN airports apd ON a.destination = apd.code
+          LEFT JOIN airlines al ON a.airline = al.iata
+          LEFT JOIN airports apo ON a.origin = apo.icao
+          LEFT JOIN airports apd ON a.destination = apd.icao
           WHERE a.hex = ? AND a.seen_date = ?
         `);
         const row = await stmt.bind(hex, seen_date).first();
@@ -201,6 +201,7 @@ const adsbCollection = defineLiveCollection({
     type: z.string().nullable().optional(),
     flight: z.string().nullable().optional(),
     seen_date: z.string(),
+    seen_datetime: z.string().nullable().optional(),
     operator: z.string().nullable().optional(),
     origin: z.string().nullable().optional(),
     destination: z.string().nullable().optional(),
@@ -215,6 +216,8 @@ const adsbCollection = defineLiveCollection({
     destination_code_iata: z.string().nullable().optional(),
     destination_name: z.string().nullable().optional(),
     destination_city: z.string().nullable().optional(),
+    model: z.string().nullable().optional(),
+    flight_number: z.string().nullable().optional(),
   }),
 });
 
