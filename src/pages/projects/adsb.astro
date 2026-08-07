@@ -6,7 +6,21 @@ import { getLiveCollection } from "astro:content";
 import AdsbFlightRow from "../../components/AdsbFlightRow.astro";
 import { DateTime } from "luxon";
 
-const adsbResult = await getLiveCollection("adsb");
+const url = new URL(Astro.request.url);
+const dateParam = url.searchParams.get("date");
+
+const tz = "America/Chicago";
+let selectedDate = DateTime.now().setZone(tz);
+
+if (dateParam) {
+  const parsed = DateTime.fromISO(dateParam, { zone: tz });
+  if (parsed.isValid) {
+    selectedDate = parsed;
+  }
+}
+
+const dateStr = selectedDate.toFormat("yyyy-MM-dd");
+const adsbResult = await getLiveCollection("adsb", { date: dateStr });
 
 if (adsbResult.error) {
   console.error("ADSB Live Collection error:", adsbResult.error);
@@ -14,8 +28,17 @@ if (adsbResult.error) {
 
 const flights = adsbResult.entries ?? [];
 
-// Today's formatted date for display
-const todayDisplay = DateTime.now().setZone("America/Chicago").toLocaleString(DateTime.DATE_HUGE);
+const prevDateStr = selectedDate.minus({ days: 1 }).toFormat("yyyy-MM-dd");
+const nextDateStr = selectedDate.plus({ days: 1 }).toFormat("yyyy-MM-dd");
+const todayZone = DateTime.now().setZone(tz);
+const isToday = selectedDate.hasSame(todayZone, "day");
+const isTodayOrFuture = selectedDate.startOf("day") >= todayZone.startOf("day");
+
+const minDate = DateTime.fromISO("2026-07-28", { zone: tz });
+const isAtMinDateOrBefore = selectedDate.startOf("day") <= minDate.startOf("day");
+const isBeforeMinDate = selectedDate.startOf("day") < minDate.startOf("day");
+
+const badgeDate = selectedDate.toLocaleString(DateTime.DATE_HUGE);
 ---
 
 <Layout title="ADSB Flight Tracker">
@@ -23,15 +46,41 @@ const todayDisplay = DateTime.now().setZone("America/Chicago").toLocaleString(Da
     <div class="content-container masthead">
       <span class="eyebrow">Data</span>
       <h1>ADSB Flight Tracker</h1>
-      <p>Today's flights tracked by my local ADSB receiver.</p>
+      <p>Flights tracked by my local ADSB receiver.</p>
     </div>
 
     <div class="bg-container">
       <div class="content-container">
         <div class="section-header">
-          <h2>Flights Seen Today</h2>
-          <span class="date-badge">{todayDisplay}</span>
+          <h2>Flights Seen {isToday ? "Today" : "on " + selectedDate.toLocaleString(DateTime.DATE_MED)}</h2>
+          
+          <div class="archive-nav">
+            {!isAtMinDateOrBefore && (
+              <a href={`?date=${prevDateStr}`} class="nav-link prev" title="Previous Day">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width.5="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>Prev</span>
+              </a>
+            )}
+            
+            <span class="date-badge">{badgeDate}</span>
+            
+            {!isTodayOrFuture && !isBeforeMinDate && (
+              <a href={`?date=${nextDateStr}`} class="nav-link next" title="Next Day">
+                <span>Next</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width.5="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </a>
+            )}
+          </div>
         </div>
+
+        {!isToday && (
+          <div class="jump-today-wrapper">
+            <a href="?" class="jump-today-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><polyline points="16 3 21 8 16 13"></polyline><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><polyline points="8 21 3 16 8 11"></polyline></svg>
+              Return to Today
+            </a>
+          </div>
+        )}
 
         <div class="flights-list">
           {
@@ -60,7 +109,11 @@ const todayDisplay = DateTime.now().setZone("America/Chicago").toLocaleString(Da
             ) : (
               <div class="empty-state">
                 <span class="icon">✈️</span>
-                <p>No flights detected by the receiver yet today.</p>
+                {isBeforeMinDate ? (
+                  <p>Data does not exist before July 28, 2026.</p>
+                ) : (
+                  <p>No flights detected by the receiver {isToday ? "yet today" : "on this date"}.</p>
+                )}
               </div>
             )
           }
@@ -78,17 +131,83 @@ const todayDisplay = DateTime.now().setZone("America/Chicago").toLocaleString(Da
     margin-bottom: 24px;
     border-bottom: 1px solid var(--color-border);
     padding-bottom: 16px;
+    gap: 16px;
+    flex-wrap: wrap;
 
     h2 {
       margin: 0;
       font-size: 1.5rem;
       font-weight: 700;
     }
+  }
+
+  .archive-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-bg-offset, #f4f4f5);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
 
     .date-badge {
       font-size: 0.9rem;
       font-weight: 600;
-      color: var(--color-metallic);
+      color: var(--color-text, #18181b);
+      padding: 6px 12px;
+      background: var(--color-white, #ffffff);
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      white-space: nowrap;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-offset, #71717a);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+
+      &:hover:not(.disabled) {
+        color: var(--color-text, #18181b);
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      &.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .jump-today-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -16px;
+    margin-bottom: 24px;
+
+    .jump-today-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-primary, #2563eb);
+      text-decoration: none;
+      padding: 6px 12px;
+      background: rgba(37, 99, 235, 0.08);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(37, 99, 235, 0.15);
+        transform: translateY(-1px);
+      }
     }
   }
 

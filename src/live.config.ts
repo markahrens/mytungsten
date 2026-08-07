@@ -48,15 +48,14 @@ const puzzmoCollection = defineLiveCollection({
 });
 
 // Mock helper for ADSB flights during local development when D1 is not bound
-function getMockAdsbFlights() {
-  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' }); // YYYY-MM-DD
+function getMockAdsbFlights(date: string) {
   const mockData = [
     {
       hex: "A3B1C2",
       registration: "N732SW",
       type: "B737",
       flight: "SWA1024",
-      seen_date: today,
+      seen_date: date,
       operator: "Southwest Airlines",
       origin: "MDW",
       destination: "AUS",
@@ -77,7 +76,7 @@ function getMockAdsbFlights() {
       registration: "N120UA",
       type: "A320",
       flight: "UAL482",
-      seen_date: today,
+      seen_date: date,
       operator: "United Airlines",
       origin: "ORD",
       destination: "SFO",
@@ -98,7 +97,7 @@ function getMockAdsbFlights() {
       registration: "D-AIPX",
       type: "A321",
       flight: "DLH204",
-      seen_date: today,
+      seen_date: date,
       operator: "Lufthansa",
       origin: "FRA",
       destination: "LHR",
@@ -135,15 +134,15 @@ async function getD1Database() {
 const adsbCollection = defineLiveCollection({
   loader: {
     name: "adsb-loader",
-    loadCollection: async () => {
+    loadCollection: async ({ filter }: { filter?: { date?: string }, collection: string }) => {
       try {
         const db = await getD1Database();
+        const targetDate = filter?.date || new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
         if (!db) {
           // Return mock data for local development if DB is not bound
-          return { entries: getMockAdsbFlights() };
+          return { entries: getMockAdsbFlights(targetDate) };
         }
 
-        const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
         const stmt = db.prepare(`
           SELECT a.*, al.name AS operated_by,
                  apo.iata AS origin_code_iata, apo.name AS origin_name, apo.municipality AS origin_city,
@@ -155,7 +154,7 @@ const adsbCollection = defineLiveCollection({
           WHERE a.seen_date = ?
           ORDER BY a.rowid DESC
         `);
-        const { results } = await stmt.bind(today).all();
+        const { results } = await stmt.bind(targetDate).all();
 
         const entries = (results || []).map((row: any) => ({
           id: `${row.hex}-${row.seen_date}`,
