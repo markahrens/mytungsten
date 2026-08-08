@@ -11,16 +11,10 @@ export default defineConfig({
 
   fonts: [
     {
-      name: "Geom",
-      cssVariable: "--font-geom",
+      name: "Hanken Grotesk",
+      cssVariable: "--font-hanken-grotesk",
       provider: fontProviders.google(),
-      weights: [400, 700],
-    },
-    {
-      name: "Zalando Sans",
-      cssVariable: "--font-zalando-sans",
-      provider: fontProviders.google(),
-      weights: [400, 700],
+      weights: [400, 500, 600, 700, 800, 900],
     }
   ],
 
