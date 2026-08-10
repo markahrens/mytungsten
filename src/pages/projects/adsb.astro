@@ -39,6 +39,51 @@ const isAtMinDateOrBefore = selectedDate.startOf("day") <= minDate.startOf("day"
 const isBeforeMinDate = selectedDate.startOf("day") < minDate.startOf("day");
 
 const badgeDate = selectedDate.toLocaleString(DateTime.DATE_HUGE);
+
+// --- Daily Summary Computation ---
+
+// Top 5 airports by combined appearances (origin + destination)
+const airportCounts: Record<string, { iata: string; name: string; city: string; count: number }> = {};
+for (const f of flights) {
+  const d = f.data;
+  if (d.origin && d.origin_code_iata) {
+    const key = d.origin_code_iata;
+    if (!airportCounts[key]) airportCounts[key] = { iata: key, name: d.origin_name || key, city: d.origin_city || '', count: 0 };
+    airportCounts[key].count++;
+  }
+  if (d.destination && d.destination_code_iata) {
+    const key = d.destination_code_iata;
+    if (!airportCounts[key]) airportCounts[key] = { iata: key, name: d.destination_name || key, city: d.destination_city || '', count: 0 };
+    airportCounts[key].count++;
+  }
+}
+const topAirports = Object.values(airportCounts)
+  .sort((a, b) => b.count - a.count)
+  .slice(0, 15);
+
+// Flights by airline (operated_by label, fallback to airline code)
+const airlineCounts: Record<string, number> = {};
+for (const f of flights) {
+  const label = f.data.operated_by || f.data.airline || 'Unknown';
+  airlineCounts[label] = (airlineCounts[label] ?? 0) + 1;
+}
+const airlineBreakdown = Object.entries(airlineCounts)
+  .sort(([, a], [, b]) => b - a);
+const maxAirlineCount = airlineBreakdown[0]?.[1] ?? 1;
+
+// Top 5 aircraft models
+const modelCounts: Record<string, number> = {};
+for (const f of flights) {
+  const m = f.data.model || f.data.type || 'Unknown';
+  modelCounts[m] = (modelCounts[m] ?? 0) + 1;
+}
+const topModels = Object.entries(modelCounts)
+  .sort(([, a], [, b]) => b - a)
+  .slice(0, 5);
+const maxModelCount = topModels[0]?.[1] ?? 1;
+
+// Headline stats
+const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
 ---
 
 <Layout title="ADSB Flight Tracker">
@@ -48,6 +93,96 @@ const badgeDate = selectedDate.toLocaleString(DateTime.DATE_HUGE);
       <h1>ADSB Flight Tracker</h1>
       <p>Flights tracked by my local ADSB receiver.</p>
     </div>
+
+    {flights.length > 0 && !isBeforeMinDate && (
+      <div class="summary-panel-outer">
+        <div class="content-container">
+          <div class="summary-panel">
+
+            <!-- Headline stats row -->
+            <div class="summary-headline">
+              <div class="headline-stat">
+                <span class="headline-label">Flights Tracked</span>
+                <span class="headline-num">{flights.length}</span>
+              </div>
+              {busiestAirline && (
+                <div class="headline-stat busiest">
+                  <span class="headline-label">Busiest Airline</span>
+                  <span class="headline-num">{busiestAirline}</span>
+                </div>
+              )}
+            </div>
+
+            <!-- Three-column breakdown -->
+            <div class="summary-cols">
+
+              <!-- Top Airports -->
+              <div class="summary-col">
+                <h3 class="col-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  Top Airports
+                </h3>
+                <ol class="ranked-list">
+                  {topAirports.map((ap, i) => (
+                    <li class="ranked-item">
+                      <span class="rank-num">{i + 1}</span>
+                      <div class="rank-info">
+                        <span class="rank-code">{ap.iata}</span>
+                        <span class="rank-dash">–</span>
+                        <span class="rank-name">{ap.name}</span>
+                      </div>
+                      <span class="rank-count">{ap.count}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              <!-- Airlines -->
+              <div class="summary-col">
+                <h3 class="col-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 2c-2-2-4-2-5.5-.5L10 5 1.8 6.2c-.5.1-.9.5-.8 1.1l.2.8c.1.5.5.9 1 1l2.7.3 3.5 6.1c.2.3.6.5 1 .4l.9-.2c.5-.1.9-.5.8-1l-.4-2.7L14 9l1.2 7.8c.1.5.5.9 1 .8l.9-.2c.4-.1.7-.4.7-.8z"/></svg>
+                  Airlines
+                </h3>
+                <div class="airline-bars">
+                  {airlineBreakdown.map(([name, count]) => (
+                    <div class="airline-bar-row">
+                      <span class="airline-name">{name}</span>
+                      <div class="bar-track">
+                        <div class="bar-fill" style={`width: ${Math.round((count / maxAirlineCount) * 100)}%`}></div>
+                      </div>
+                      <span class="airline-count">{count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Top Models -->
+              <div class="summary-col">
+                <h3 class="col-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  Top Aircraft Models
+                </h3>
+                <ol class="model-list">
+                  {topModels.map(([model, count], i) => (
+                    <li class="model-item">
+                      <div class="model-header">
+                        <span class="model-rank">{i + 1}</span>
+                        <span class="model-name">{model}</span>
+                        <span class="model-count">{count}</span>
+                      </div>
+                      <div class="model-bar-track">
+                        <div class="model-bar-fill" style={`width: ${Math.round((count / maxModelCount) * 100)}%`}></div>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
 
     <div class="bg-container">
       <div class="content-container">
@@ -89,7 +224,7 @@ const badgeDate = selectedDate.toLocaleString(DateTime.DATE_HUGE);
                 <AdsbFlightRow
                   hex={flight.data.hex}
                   registration={flight.data.registration}
-                  type={flight.data.type}
+                  model={flight.data.model}
                   flight={flight.data.flight}
                   seen_date={flight.data.seen_date}
                   operator={flight.data.operator}
@@ -124,6 +259,274 @@ const badgeDate = selectedDate.toLocaleString(DateTime.DATE_HUGE);
 </Layout>
 
 <style>
+  /* ── Daily Summary Panel ── */
+  .summary-panel-outer {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-muted);
+    padding: 40px 0;
+    margin-bottom: 0;
+  }
+
+  .summary-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Headline row */
+  .summary-headline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+
+    @media (width < 480px) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  .headline-stat {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: space-between;
+    gap: 16px;
+
+    @media (width > 480px) {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .headline-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--color-metallic);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .headline-num {
+      font-family: var(--font-hanken-grotesk);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1;
+    }
+  }
+
+  /* Three column breakdown */
+  .summary-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .summary-col {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    padding: 20px 24px;
+  }
+
+  .col-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-metallic);
+    margin: 0 0 16px 0;
+
+    svg {
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+  }
+
+  /* Top Airports */
+  .ranked-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ranked-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .rank-num {
+      font-family: var(--font-hanken-grotesk);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-metallic);
+      width: 16px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .rank-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 6px;
+      overflow: hidden;
+
+      .rank-code {
+        font-family: var(--font-hanken-grotesk);
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--color-text);
+        flex-shrink: 0;
+      }
+
+      .rank-dash {
+        font-size: 0.82rem;
+        color: var(--color-metallic);
+        flex-shrink: 0;
+      }
+
+      .rank-name {
+        font-size: 0.82rem;
+        color: var(--color-metallic);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .rank-count {
+      font-family: var(--font-hanken-grotesk);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-text);
+      background: var(--color-bg-muted);
+      padding: 2px 8px;
+      border-radius: 99px;
+      border: 1px solid var(--color-border);
+    }
+  }
+
+  /* Airlines bar chart */
+  .airline-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .airline-bar-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+
+    .airline-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bar-track {
+      width: 80px;
+      height: 6px;
+      background: var(--color-border);
+      border-radius: 99px;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      .bar-fill {
+        height: 100%;
+        background: var(--color-text);
+        border-radius: 99px;
+        transition: width 0.4s ease;
+      }
+    }
+
+    .airline-count {
+      font-family: var(--font-hanken-grotesk);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-text);
+      min-width: 20px;
+      text-align: right;
+    }
+  }
+
+  /* Top Models */
+  .model-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .model-item {
+    .model-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+
+      .model-rank {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--color-metallic);
+        width: 14px;
+        flex-shrink: 0;
+      }
+
+      .model-name {
+        flex: 1;
+        font-family: var(--font-hanken-grotesk);
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--color-text);
+      }
+
+      .model-count {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--color-metallic);
+      }
+    }
+
+    .model-bar-track {
+      height: 4px;
+      background: var(--color-border);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-left: 22px;
+
+      .model-bar-fill {
+        height: 100%;
+        background: var(--color-text);
+        border-radius: 99px;
+        opacity: 0.35;
+        transition: width 0.4s ease;
+      }
+    }
+  }
+
+  /* ── rest of original styles ── */
   .section-header {
     display: flex;
     justify-content: space-between;
