@@ -151,7 +151,7 @@ const adsbCollection = defineLiveCollection({
           LEFT JOIN airlines al ON a.airline = al.iata
           LEFT JOIN airports apo ON a.origin = apo.icao
           LEFT JOIN airports apd ON a.destination = apd.icao
-          WHERE a.seen_date = ?
+          WHERE a.seen_date = ? AND a.flight_number IS NOT NULL
           ORDER BY a.rowid DESC
         `);
         const { results } = await stmt.bind(targetDate).all();
