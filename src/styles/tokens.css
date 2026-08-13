@@ -1,24 +1,81 @@
 :root {
   /* Colors */
-  --color-bg: #f8fafc;
-  --color-bg-muted: hsl(from var(--color-bg) h s calc(l - 5));
-  --color-bg-hover: #f1f5f9;
-  --color-text: #1e293b;
-  --color-metallic: #64748b;
-  --color-link: #0369a1;
-  --color-border: #cbd5e1;
-  --color-white: #ffffff;
+
+  /* Brand */
+  --color-primary: #17634D;
+  --color-primary-dark: #124936;
+  --color-primary-light: #E7F0EC;
+
+  /* Accent */
+  --color-accent: #A87945;
+  --color-accent-light: #F1E9DE;
+
+  /* Text */
+  --color-text: #1D2522;
+  --color-text-muted: #68736E;
+  --color-text-light: #8A938F;
+
+  /* Surfaces */
+  --color-background: #F6F6F2;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #EFF1ED;
+
+  /* Borders */
+  --color-border: #D9DED9;
+  --color-border-dark: #B9C2BC;
+
+  /* Legacy mappings for component compatibility */
+  --color-bg: var(--color-background);
+  --color-bg-muted: var(--color-surface-alt);
+  --color-bg-hover: var(--color-primary-light);
+  --color-metallic: var(--color-text-muted);
+  --color-link: var(--color-primary);
+  --color-white: #FFFFFF;
 
   /* Status badges */
-  --color-success-bg: #dcfce7;
-  --color-success-text: #166534;
+  --color-success-bg: #E7F0EC;
+  --color-success-text: #17634D;
   --color-error-bg: #fee2e2;
   --color-error-text: #991b1b;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
-  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.05);
+  /* Typography */
+  --font-family: var(--font-hanken-grotesk);
+
+  --font-size-base: 1.125rem;       /* 18px */
+  --font-size-small: 0.875rem;      /* 14px */
+  --font-size-xs: 0.75rem;          /* 12px */
+
+  --font-size-h1: clamp(2.5rem, 6vw, 4rem);
+  --font-size-h2: clamp(1.75rem, 3vw, 2.25rem);
+  --font-size-h3: 1.375rem;
+
+  --line-height-body: 1.65;
+  --line-height-heading: 1.1;
+  --line-height-tight: 1.2;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Layout */
+  --content-reading: 700px;
+  --content-standard: 960px;
+  --content-wide: 1200px;
+
+  --page-padding: 1.5rem;
+  --page-padding-wide: 2rem;
+
+  /* Shadows & Radius */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.04);
+
+  --radius-none: 0;
+  --radius-sm: 6px;
+  --radius-xs: 4px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
 
   /* Spacing scale */
   --space-1: 4px;
@@ -32,19 +89,8 @@
   --space-12: 48px;
   --space-15: 60px;
   --space-20: 80px;
-  --space-30: 120px;
-
-  /* Shape */
-  --radius-none: 0;
-  --radius-sm: 4px;
-  --radius-xs: 6px;
-  --radius-md: 8px;
-  --radius-pill: 999px;
-
-  /* Layout */
-  --masthead-padding: var(--space-20) 0;
-  --section-padding: var(--space-20) 0;
 
   /* Transitions */
   --transition-standard: 0.2s ease;
 }
+

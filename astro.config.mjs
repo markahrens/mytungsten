@@ -1,13 +1,14 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
 import react from '@astrojs/react';
+import icon from 'astro-icon';
 
 import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.mytungsten.net',
-  integrations: [sitemap(), react()],
+  integrations: [sitemap(), react(), icon()],
 
   fonts: [
     {
