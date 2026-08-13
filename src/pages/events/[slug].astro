@@ -61,7 +61,7 @@ if (event.venue_latitude && event.venue_longitude) {
     <DetailPass
       class="ticket-pass"
       brandColor={brandColor}
-      stripe={`repeating-linear-gradient(45deg, ${brandColor} 0, ${brandColor} 10px, var(--color-border) 10px, var(--color-border) 20px)`}
+      stripeColors={['var(--color-border)']}
     >
       <div slot="header" class="ticket-header">
         <div class="category-badge">

@@ -40,12 +40,12 @@ const dateOptions: object = {
 						{recentPosts.map(blogPostEntry => (
 							<div class="recent-posts-post">
 								<span class="post-date">{blogPostEntry.data.date.toLocaleDateString('en-US', dateOptions)}</span>
-								<a href={`/blog/${blogPostEntry.id}`}>{blogPostEntry.data.title}</a>
+								<a href={`/blog/${blogPostEntry.id}`} class="link-underline">{blogPostEntry.data.title}</a>
 							</div>
 						))}
 					</div>
 					
-					<p class="view-all"><a href="/blog">View all posts</a></p>
+					<p class="view-all"><a href="/blog" class="link-underline">View all posts</a></p>
 				</div>
 
 				<div class="sidebar-container">

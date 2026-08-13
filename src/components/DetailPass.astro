@@ -3,7 +3,8 @@ interface Props {
   /** A page-specific hook, such as "boarding-pass" or "ticket-pass". */
   class?: string;
   brandColor: string;
-  stripe: string;
+  /** Additional colors for the footer stripe, after the primary brand color. */
+  stripeColors?: string[];
   stubWidth?: number;
   collapseAt?: 900 | 1000;
 }
@@ -11,15 +12,21 @@ interface Props {
 const {
   class: className,
   brandColor,
-  stripe,
+  stripeColors = ['var(--color-border)'],
   stubWidth = 280,
   collapseAt = 900,
 } = Astro.props;
+
+const stripeColorsWithBrand = [brandColor, ...stripeColors];
+const stripeSize = 10;
+const stripe = stripeColorsWithBrand
+  .map((color, index) => `${color} ${index * stripeSize}px, ${color} ${(index + 1) * stripeSize}px`)
+  .join(', ');
 ---
 
 <section
   class:list={['detail-pass', 'card', `detail-pass--collapse-${collapseAt}`, className]}
-  style={`--detail-pass-brand: ${brandColor}; --detail-pass-stripe: ${stripe}; --detail-pass-stub-width: ${stubWidth}px;`}
+  style={`--detail-pass-brand: ${brandColor}; --detail-pass-stripe: repeating-linear-gradient(45deg, ${stripe}); --detail-pass-stub-width: ${stubWidth}px;`}
 >
   <header class="detail-pass__header"><slot name="header" /></header>
   <div class="detail-pass__body">

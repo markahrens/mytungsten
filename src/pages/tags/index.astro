@@ -11,7 +11,7 @@ const uniqueTags = [...new Set(blogEntries.map((post) => post.data.tags).flat())
     <h1>Tags</h1>
     <ul>
       { uniqueTags.map(tag => (
-        <li><a href={`/tags/${tag}`}>{tag}</a></li>
+        <li><a href={`/tags/${tag}`} class="link-underline">{tag}</a></li>
       )) }
     </ul>
   </div>

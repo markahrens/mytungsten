@@ -94,7 +94,7 @@ if (dept_gate_actual && arrival_gate_actual) {
     <DetailPass
       class="boarding-pass"
       brandColor={airline?.brand_color1 || '#64748b'}
-      stripe={`repeating-linear-gradient(45deg, ${airline?.brand_color1 || '#64748b'} 0, ${airline?.brand_color1 || '#64748b'} 10px, ${airline?.brand_color2 || '#94a3b8'} 10px, ${airline?.brand_color2 || '#94a3b8'} 20px, ${airline?.brand_color3 || '#cbd5e1'} 20px, ${airline?.brand_color3 || '#cbd5e1'} 30px)`}
+      stripeColors={[airline?.brand_color2 || '#94a3b8', airline?.brand_color3 || '#cbd5e1']}
       stubWidth={240}
       collapseAt={1000}
     >

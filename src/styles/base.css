@@ -54,18 +54,21 @@ li {
   margin-bottom: 0.5rem;
 }
 
-a {
+.link-underline,
+.prose a {
   position: relative;
   color: var(--color-link);
   text-decoration: none;
   transition: color var(--transition-standard);
 }
 
-a:hover {
+.link-underline:hover,
+.prose a:hover {
   color: var(--color-text);
 }
 
-a:not(.stretched-link)::before {
+.link-underline::before,
+.prose a::before {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -79,6 +82,7 @@ a:not(.stretched-link)::before {
   transition: transform 0.3s ease;
 }
 
-a:not(.stretched-link):hover::before {
+.link-underline:hover::before,
+.prose a:hover::before {
   transform: scaleX(1);
 }
