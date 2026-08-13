@@ -28,7 +28,7 @@ const puzzmo = (puzzmoResult.entries ?? []).sort((a, b) => {
   <div class="content-container masthead">
     <span class="eyebrow">Games</span>
     <h1>Puzzmo</h1>
-    <p>The status of games played on <a href="https://www.puzzmo.com">Puzzmo</a>, loaded via the ATProto.</p>
+    <p>The status of games played on <a href="https://www.puzzmo.com" class="link-underline">Puzzmo</a>, loaded via the ATProto.</p>
   </div>
   
   <div class="bg-container">
@@ -36,8 +36,8 @@ const puzzmo = (puzzmoResult.entries ?? []).sort((a, b) => {
       <div class="games-grid">
         {
           puzzmo.map((game) => (
-            <div class="text-card">
-              <h2><a href={`https://www.puzzmo.com/play/${game.data.gameSlug}`} target="_blank">{game.data.gameDisplayName}</a></h2>
+            <div class="card card--text">
+              <h2><a href={`https://www.puzzmo.com/play/${game.data.gameSlug}`} target="_blank" class="link-underline">{game.data.gameDisplayName}</a></h2>
               <div class="data-points">
 
                 <div class="data-point">

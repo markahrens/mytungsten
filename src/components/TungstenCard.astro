@@ -1,7 +1,7 @@
 ---
 ---
 
-<div class="tungsten-card">
+<div class="tungsten-card card">
   <div class="element-tile">
     <span class="atomic-number">74</span>
     <span class="symbol">W</span>
@@ -25,13 +25,10 @@
   .tungsten-card {
     display: flex;
     align-items: center;
-    gap: 20px;
-    background: var(--color-white);
-    border: 1px solid var(--color-border);
-    border-radius: 0;
-    padding: 16px;
-    margin-bottom: 32px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    gap: var(--space-5);
+    padding: var(--space-4);
+    margin-bottom: var(--space-8);
+    box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
   }
@@ -40,13 +37,13 @@
     width: 80px;
     height: 80px;
     background: var(--color-metallic);
-    color: white;
-    border-radius: 0;
+    color: var(--color-white);
+    border-radius: var(--radius-none);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: var(--space-2);
+    box-shadow: var(--shadow-sm);
     flex-shrink: 0;
     font-family: var(--font-hanken-grotesk);
   }
@@ -76,7 +73,7 @@
   .details-pane {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .property {
@@ -112,6 +109,5 @@
     opacity: 0.7;
   }
 </style>
-
 
 

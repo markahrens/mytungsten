@@ -18,7 +18,7 @@ if (airline) {
 ---
 
 <div class="flight-row-container">
-  <a href={href} class="flight-row clickable-card">
+  <a href={href} class="flight-row card card--interactive">
     <div class="date-col">
       <span class="month">{newDate.toLocaleDateString('en-US', { month: 'short' })}</span>
       <span class="day">{newDate.getUTCDate()}</span>
@@ -42,21 +42,17 @@ if (airline) {
 
 <style>
   .flight-row-container {
-    margin-bottom: 12px;
+    margin-bottom: var(--space-3);
   }
 
   .flight-row {
     display: grid;
-    grid-template-columns: 100px 1fr auto;
+    grid-template-columns: minmax(90px, auto) 1fr auto;
     align-items: center;
-    padding: 16px 24px;
-    gap: 24px;
+    padding: var(--space-4) var(--space-6);
+    gap: var(--space-6);
     text-decoration: none;
     color: inherit;
-    border: 1px solid var(--color-border);
-    background: var(--color-white);
-    transition: all 0.2s ease;
-
     &:before {
       display: none;
     }
@@ -64,10 +60,10 @@ if (airline) {
 
   .date-col {
     display: flex;
-    gap: 6px;
+    gap: var(--space-2);
     align-items: baseline;
     border-right: 1px solid var(--color-border);
-    padding-right: 24px;
+    padding-right: var(--space-6);
     
     .month, .day {
       font-family: var(--font-hanken-grotesk);
@@ -81,8 +77,8 @@ if (airline) {
     .codes {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 4px;
+      gap: var(--space-3);
+      margin-bottom: var(--space-1);
       
       .code {
         font-family: var(--font-hanken-grotesk);
@@ -125,12 +121,12 @@ if (airline) {
 
   @media (max-width: 600px) {
     .flight-row {
-      grid-template-columns: 80px 1fr;
-      padding: 12px 16px;
-      gap: 16px;
+      grid-template-columns: minmax(70px, auto) 1fr;
+      padding: var(--space-3) var(--space-4);
+      gap: var(--space-4);
     }
     .date-col {
-      padding-right: 16px;
+      padding-right: var(--space-4);
       .day { font-size: 1.2rem; }
     }
     .details-col {

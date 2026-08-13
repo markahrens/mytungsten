@@ -1,0 +1,106 @@
+---
+interface Props {
+  /** A page-specific hook, such as "boarding-pass" or "ticket-pass". */
+  class?: string;
+  brandColor: string;
+  /** Additional colors for the footer stripe, after the primary brand color. */
+  stripeColors?: string[];
+  stubWidth?: number;
+  collapseAt?: 900 | 1000;
+}
+
+const {
+  class: className,
+  brandColor,
+  stripeColors = ['var(--color-border)'],
+  stubWidth = 280,
+  collapseAt = 900,
+} = Astro.props;
+
+const stripeColorsWithBrand = [brandColor, ...stripeColors];
+const stripeSize = 10;
+const stripe = stripeColorsWithBrand
+  .map((color, index) => `${color} ${index * stripeSize}px, ${color} ${(index + 1) * stripeSize}px`)
+  .join(', ');
+---
+
+<section
+  class:list={['detail-pass', 'card', `detail-pass--collapse-${collapseAt}`, className]}
+  style={`--detail-pass-brand: ${brandColor}; --detail-pass-stripe: repeating-linear-gradient(45deg, ${stripe}); --detail-pass-stub-width: ${stubWidth}px;`}
+>
+  <header class="detail-pass__header"><slot name="header" /></header>
+  <div class="detail-pass__body">
+    <div class="detail-pass__main"><slot name="main" /></div>
+    <div class="detail-pass__perforation" aria-hidden="true"></div>
+    <aside class="detail-pass__stub"><slot name="stub" /></aside>
+  </div>
+  <footer class="detail-pass__footer" aria-hidden="true"></footer>
+</section>
+
+<style>
+  .detail-pass {
+    box-shadow: var(--shadow-card);
+    margin-bottom: var(--space-15);
+    overflow: hidden;
+  }
+
+  .detail-pass__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6) var(--space-8);
+    color: var(--color-white);
+    background: var(--detail-pass-brand);
+  }
+
+  .detail-pass__body {
+    display: grid;
+    grid-template-columns: 1fr auto var(--detail-pass-stub-width);
+    gap: var(--space-8);
+    padding: var(--space-10) var(--space-8);
+  }
+
+  .detail-pass__perforation {
+    width: 1px;
+    margin: calc(-1 * var(--space-10)) 0;
+    border-left: 2px dashed var(--color-border);
+  }
+
+  .detail-pass__footer {
+    height: var(--space-2);
+    opacity: 0.8;
+    background-image: var(--detail-pass-stripe);
+  }
+
+  @media (max-width: 900px) {
+    .detail-pass--collapse-900 .detail-pass__body {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-pass--collapse-900 .detail-pass__perforation,
+    .detail-pass--collapse-900 .detail-pass__stub {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .detail-pass--collapse-1000 .detail-pass__body {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-pass--collapse-1000 .detail-pass__perforation,
+    .detail-pass--collapse-1000 .detail-pass__stub {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .detail-pass__header {
+      padding: var(--space-4) var(--space-5);
+    }
+    .detail-pass__body {
+      padding: var(--space-5) var(--space-4);
+      gap: var(--space-4);
+    }
+  }
+</style>

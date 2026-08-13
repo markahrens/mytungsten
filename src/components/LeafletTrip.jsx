@@ -10,9 +10,8 @@ export default function Leaflet(stops) {
   function TripArc() {
     const map = useMap();
     if ( stops.stops.length > 1) {
-      console.log(map)
       for (let i = 0; i < stops.stops.length - 1; i++) {
-        L.Polyline.Arc([stops.stops[i].lat, stops.stops[i].lng], [stops.stops[i+1].lat, stops.stops[i+1].lng], {color: '#4A4DE7',
+        L.Polyline.Arc([stops.stops[i].lat, stops.stops[i].lng], [stops.stops[i+1].lat, stops.stops[i+1].lng], {color: '#0369a1',
         vertices: 200}).addTo(map);
       }
     }
