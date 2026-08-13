@@ -38,15 +38,15 @@ const icon = categoryIcons[category] || '🎟️';
 
 <style>
   .event-row-container {
-    margin-bottom: 12px;
+    margin-bottom: var(--space-3);
   }
 
   .event-row {
     display: grid;
-    grid-template-columns: 100px 1fr auto;
+    grid-template-columns: minmax(90px, auto) 1fr auto;
     align-items: center;
-    padding: 16px 24px;
-    gap: 24px;
+    padding: var(--space-4) var(--space-6);
+    gap: var(--space-6);
     text-decoration: none;
     color: inherit;
     &:before {
@@ -56,10 +56,10 @@ const icon = categoryIcons[category] || '🎟️';
 
   .date-col {
     display: flex;
-    gap: 6px;
+    gap: var(--space-2);
     align-items: baseline;
     border-right: 1px solid var(--color-border);
-    padding-right: 24px;
+    padding-right: var(--space-6);
     
     .month, .day {
       font-family: var(--font-hanken-grotesk);
@@ -73,8 +73,8 @@ const icon = categoryIcons[category] || '🎟️';
     .title-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
+      gap: var(--space-2);
+      margin-bottom: var(--space-1);
       
       .icon {
         font-size: 1.2rem;
@@ -99,29 +99,29 @@ const icon = categoryIcons[category] || '🎟️';
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 6px;
+    gap: var(--space-2);
     
     .subcategory-tag {
       font-size: 0.75rem;
       text-transform: uppercase;
       font-weight: 700;
       letter-spacing: 0.05em;
-      padding: 2px 8px;
+      padding: 2px var(--space-2);
       background: var(--color-bg-muted);
       border: 1px solid var(--color-border);
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
       color: var(--color-metallic);
     }
   }
 
   @media (max-width: 600px) {
     .event-row {
-      grid-template-columns: 80px 1fr;
-      padding: 12px 16px;
-      gap: 16px;
+      grid-template-columns: minmax(70px, auto) 1fr;
+      padding: var(--space-3) var(--space-4);
+      gap: var(--space-4);
     }
     .date-col {
-      padding-right: 16px;
+      padding-right: var(--space-4);
       .day { font-size: 1.2rem; }
     }
     .details-col {

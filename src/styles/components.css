@@ -120,6 +120,12 @@
   transform: translateY(-2px);
 }
 
+.card--interactive:focus-visible,
+.clickable-card:focus-visible {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
 .card--interactive .stretched-link::after,
 .clickable-card .stretched-link::after {
   position: absolute;

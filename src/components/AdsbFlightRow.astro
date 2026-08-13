@@ -71,16 +71,16 @@ const {
 
 <style>
   .adsb-row-container {
-    margin-bottom: 12px;
+    margin-bottom: var(--space-3);
   }
 
   .adsb-row {
     display: grid;
-    grid-template-columns: 200px 1fr auto;
+    grid-template-columns: minmax(160px, auto) 1fr auto;
     align-items: center;
-    padding: 16px 24px;
-    gap: 24px;
-    transition: all 0.2s ease;
+    padding: var(--space-4) var(--space-6);
+    gap: var(--space-6);
+    transition: transform var(--transition-standard), border-color var(--transition-standard), box-shadow var(--transition-standard), background-color var(--transition-standard);
   }
 
   .aircraft-col {
@@ -88,7 +88,7 @@ const {
     flex-direction: column;
     gap: 2px;
     border-right: 1px solid var(--color-border);
-    padding-right: 24px;
+    padding-right: var(--space-6);
     
     .registration-code {
       font-family: var(--font-hanken-grotesk);
@@ -108,7 +108,7 @@ const {
     .route-airports {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: var(--space-4);
       margin-bottom: 6px;
 
       .airport-group {
@@ -170,12 +170,12 @@ const {
 
   @media (max-width: 600px) {
     .adsb-row {
-      grid-template-columns: 110px 1fr;
-      padding: 12px 16px;
-      gap: 16px;
+      grid-template-columns: minmax(90px, auto) 1fr;
+      padding: var(--space-3) var(--space-4);
+      gap: var(--space-4);
     }
     .aircraft-col {
-      padding-right: 16px;
+      padding-right: var(--space-4);
       .registration-code { font-size: 1.05rem; }
       .type-code { font-size: 0.75rem; }
     }
