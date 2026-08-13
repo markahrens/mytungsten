@@ -36,7 +36,7 @@ const puzzmo = (puzzmoResult.entries ?? []).sort((a, b) => {
       <div class="games-grid">
         {
           puzzmo.map((game) => (
-            <div class="text-card">
+            <div class="card card--text">
               <h2><a href={`https://www.puzzmo.com/play/${game.data.gameSlug}`} target="_blank">{game.data.gameDisplayName}</a></h2>
               <div class="data-points">
 

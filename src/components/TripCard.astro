@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 const { href, title, description, img, alt } = Astro.props;
 ---
 
-<div class="trip-card clickable-card">
+<div class="trip-card card card--interactive">
   <div class="image-container">
     <Image src={img} alt={alt} width={600} class="trip-card-image" />
   </div>
@@ -15,8 +15,6 @@ const { href, title, description, img, alt } = Astro.props;
 
 <style>
   .trip-card {
-    background: var(--color-white);
-    border: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
     height: 100%;

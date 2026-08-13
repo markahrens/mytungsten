@@ -18,7 +18,7 @@ if (airline) {
 ---
 
 <div class="flight-row-container">
-  <a href={href} class="flight-row clickable-card">
+  <a href={href} class="flight-row card card--interactive">
     <div class="date-col">
       <span class="month">{newDate.toLocaleDateString('en-US', { month: 'short' })}</span>
       <span class="day">{newDate.getUTCDate()}</span>
@@ -53,10 +53,6 @@ if (airline) {
     gap: 24px;
     text-decoration: none;
     color: inherit;
-    border: 1px solid var(--color-border);
-    background: var(--color-white);
-    transition: all 0.2s ease;
-
     &:before {
       display: none;
     }

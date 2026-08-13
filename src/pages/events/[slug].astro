@@ -169,7 +169,7 @@ if (event.venue_latitude && event.venue_longitude) {
           </div>
 
           {stops.length > 0 && (
-            <div class="map-wrapper clickable-card">
+            <div class="map-wrapper card card--interactive">
               <TripMap client:only="react" stops={stops} />
             </div>
           )}

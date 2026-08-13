@@ -18,7 +18,7 @@ const {
 ---
 
 <section
-  class:list={['detail-pass', `detail-pass--collapse-${collapseAt}`, className]}
+  class:list={['detail-pass', 'card', `detail-pass--collapse-${collapseAt}`, className]}
   style={`--detail-pass-brand: ${brandColor}; --detail-pass-stripe: ${stripe}; --detail-pass-stub-width: ${stubWidth}px;`}
 >
   <header class="detail-pass__header"><slot name="header" /></header>
@@ -32,8 +32,6 @@ const {
 
 <style>
   .detail-pass {
-    background: var(--color-white);
-    border: 1px solid var(--color-border);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
     margin-bottom: 60px;
     overflow: hidden;
