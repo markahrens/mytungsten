@@ -32,8 +32,8 @@ const {
 
 <style>
   .detail-pass {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-    margin-bottom: 60px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: var(--space-15);
     overflow: hidden;
   }
 
@@ -41,7 +41,7 @@ const {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 32px;
+    padding: var(--space-6) var(--space-8);
     color: var(--color-white);
     background: var(--detail-pass-brand);
   }
@@ -49,18 +49,18 @@ const {
   .detail-pass__body {
     display: grid;
     grid-template-columns: 1fr auto var(--detail-pass-stub-width);
-    gap: 32px;
-    padding: 40px 32px;
+    gap: var(--space-8);
+    padding: var(--space-10) var(--space-8);
   }
 
   .detail-pass__perforation {
     width: 1px;
-    margin: -40px 0;
+    margin: calc(-1 * var(--space-10)) 0;
     border-left: 2px dashed var(--color-border);
   }
 
   .detail-pass__footer {
-    height: 8px;
+    height: var(--space-2);
     opacity: 0.8;
     background-image: var(--detail-pass-stripe);
   }
