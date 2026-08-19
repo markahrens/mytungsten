@@ -89,9 +89,8 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
 <Layout title="ADSB Flight Tracker">
   <main>
     <div class="content-container masthead">
-      <span class="eyebrow">Data</span>
       <h1>ADSB Flight Tracker</h1>
-      <p>Flights tracked by my local ADSB receiver.</p>
+      <p class="subtitle">Flights tracked by my local ADSB receiver.</p>
     </div>
 
     {flights.length > 0 && !isBeforeMinDate && (

@@ -21,10 +21,9 @@ blogEntries.forEach(post => {
 <Layout title="Blog">
   
   <div class="content-container masthead">
-    <span class="eyebrow">Journal</span>
     <h1>Blog</h1>
   </div>
-  
+   <div class="bg-container">
   <div class="content-container">
     {[...postYears.entries()].map(([year, posts]) => (
       <section class="year-section">
@@ -42,6 +41,7 @@ blogEntries.forEach(post => {
       </section>
     ))}
   </div>
+</div>
 </Layout>
 
 

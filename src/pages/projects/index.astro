@@ -13,7 +13,6 @@ import { Icon } from "astro-icon/components";
     <div class="content-container">
       <div class="projects-list card">
         <a href="/projects/puzzmo" class="project-row">
-          <div class="category-col">DATA</div>
           <div class="icon-col"><Icon name="lucide:layout-grid" size={20} /></div>
           <div class="title-col">Puzzmo Games</div>
           <div class="desc-col">Current status of Puzzmo games played.</div>
@@ -21,15 +20,13 @@ import { Icon } from "astro-icon/components";
         </a>
 
         <a href="/projects/adsb" class="project-row">
-          <div class="category-col">LIVE DATA</div>
           <div class="icon-col"><Icon name="lucide:plane" size={20} /></div>
           <div class="title-col">ADSB Flight Tracker</div>
-          <div class="desc-col">Live flights tracked by a local receiver, powered by Cloudflare D1.</div>
+          <div class="desc-col">Flights tracked by my local ADSB receiver</div>
           <div class="arrow-col"><Icon name="lucide:arrow-right" size={16} /></div>
         </a>
 
         <a href="https://bowls.mytungsten.net" class="project-row">
-          <div class="category-col">APPLICATION</div>
           <div class="icon-col"><Icon name="lucide:pie-chart" size={20} /></div>
           <div class="title-col">Bowl Report</div>
           <div class="desc-col">College football bowl game results, since 2000.</div>
@@ -37,7 +34,6 @@ import { Icon } from "astro-icon/components";
         </a>
 
         <a href="/projects/eulers" class="project-row">
-          <div class="category-col">ARCHIVE</div>
           <div class="icon-col"><Icon name="lucide:pi" size={20} /></div>
           <div class="title-col">Euler's Identity</div>
           <div class="desc-col">A tribute to one of mathematics' most beautiful equations.</div>
@@ -45,7 +41,6 @@ import { Icon } from "astro-icon/components";
         </a>
 
         <a href="/projects/ipod-for-windows" class="project-row">
-          <div class="category-col">REVIEW</div>
           <div class="icon-col"><Icon name="lucide:smartphone" size={20} /></div>
           <div class="title-col">iPod for Windows</div>
           <div class="desc-col">A review of the Windows port of iTunes for the iPod.</div>
@@ -72,7 +67,7 @@ import { Icon } from "astro-icon/components";
 
   .project-row {
     display: grid;
-    grid-template-columns: 150px 48px 220px 1fr 40px;
+    grid-template-columns: 48px 220px 1fr 40px;
     align-items: center;
     padding: var(--space-4) var(--space-6);
     border-bottom: 1px solid var(--color-border);
