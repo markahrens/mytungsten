@@ -1,57 +1,143 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <Layout title="Projects">
-  <main>
+  <main class="projects-page">
     <div class="content-container masthead">
-      <span class="eyebrow">Work & Experiments</span>
-      <h1>Web Projects</h1>
+      <h1>Projects</h1>
+      <p class="subtitle">Things I've built, collect, and experiment with.</p>
     </div>
 
-    <div class="bg-container">
-      <div class="content-container">
-        <div class="projects-grid">
+    <div class="content-container">
+      <div class="projects-list card">
+        <a href="/projects/puzzmo" class="project-row">
+          <div class="icon-col"><Icon name="ph:checkerboard" size={20} /></div>
+          <div class="title-col">Puzzmo Games</div>
+          <div class="desc-col">Current status of Puzzmo games played.</div>
+          <div class="arrow-col"><Icon name="ph:arrow-right" size={16} /></div>
+        </a>
 
-          <div class="card card--text card--interactive">
-            <h3 class="eyebrow">Data</h3>
-            <h2><a href="/projects/puzzmo" class="stretched-link">Puzzmo Games</a></h2>
-            <p>Current status of Puzzmo games played</p>
-          </div>
-          <div class="card card--text card--interactive">
-            <h3 class="eyebrow">Live Data</h3>
-            <h2><a href="/projects/adsb" class="stretched-link">ADSB Flight Tracker</a></h2>
-            <p>Live flights tracked by a local receiver, powered by Cloudflare D1</p>
-          </div>
-          <div class="card card--text card--interactive">
-            <h3 class="eyebrow">Application</h3>
-            <h2><a href="https://bowls.mytungsten.net" class="stretched-link">Bowl Report</a></h2>
-            <p>A comprehensive project collecting and displaying the history of college football bowl game results.</p>
-          </div>
+        <a href="/projects/adsb" class="project-row">
+          <div class="icon-col"><Icon name="ph:airplane" size={20} /></div>
+          <div class="title-col">ADSB Flight Tracker</div>
+          <div class="desc-col">Flights tracked by my local ADSB receiver</div>
+          <div class="arrow-col"><Icon name="ph:arrow-right" size={16} /></div>
+        </a>
 
-          <div class="card card--text card--interactive">
-            <h3 class="eyebrow">Archive</h3>
-            <h2><a href="/projects/eulers" class="stretched-link">Euler's Identity</a></h2>
-            <p>One of the original pages from the 2001 version of MyTungsten, restored for the modern web.</p>
-          </div>
+        <a href="https://bowls.mytungsten.net" class="project-row">
+          <div class="icon-col"><Icon name="ph:football" size={20} /></div>
+          <div class="title-col">Bowl Report</div>
+          <div class="desc-col">College football bowl game results, since 2000.</div>
+          <div class="arrow-col"><Icon name="ph:arrow-right" size={16} /></div>
+        </a>
 
-          <div class="card card--text card--interactive">
-            <h3 class="eyebrow">Review</h3>
-            <h2><a href="/projects/ipod-for-windows" class="stretched-link">iPod for Windows</a></h2>
-            <p>A nostalgic review from February 2003, detailing the early days of Apple's iconic music player on PC.</p>
-          </div>
-        </div>
+        <a href="/projects/eulers" class="project-row">
+          <div class="icon-col"><Icon name="ph:pi" size={20} /></div>
+          <div class="title-col">Euler's Identity</div>
+          <div class="desc-col">A tribute to one of mathematics' most beautiful equations.</div>
+          <div class="arrow-col"><Icon name="ph:arrow-right" size={16} /></div>
+        </a>
+
+        <a href="/projects/ipod-for-windows" class="project-row">
+          <div class="icon-col"><Icon name="ph:device-tablet-camera" size={20} /></div>
+          <div class="title-col">iPod for Windows</div>
+          <div class="desc-col">A review of the Windows port of iTunes for the iPod.</div>
+          <div class="arrow-col"><Icon name="ph:arrow-right" size={16} /></div>
+        </a>
       </div>
     </div>
   </main>
 </Layout>
 
 <style>
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
+  .projects-page {
+    padding-bottom: var(--space-12);
   }
 
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 48px 220px 1fr 40px;
+    align-items: center;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--transition-standard);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: var(--color-surface-alt);
+
+      .title-col {
+        color: var(--color-primary);
+      }
+
+      .arrow-col {
+        transform: translateX(3px);
+      }
+    }
+
+    @media (max-width: 850px) {
+      grid-template-columns: 40px 1fr 30px;
+      gap: var(--space-3);
+      padding: var(--space-4);
+    }
+  }
+
+  .category-col {
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent);
+    letter-spacing: 0.05em;
+
+    @media (max-width: 850px) {
+      display: none;
+    }
+  }
+
+  .icon-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary-dark);
+  }
+
+  .title-col {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary-dark);
+    transition: color var(--transition-standard);
+  }
+
+  .desc-col {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+
+    @media (max-width: 850px) {
+      display: none;
+    }
+  }
+
+  .arrow-col {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--color-primary-dark);
+    transition: transform var(--transition-standard);
+  }
 </style>
+
+

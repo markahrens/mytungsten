@@ -1,6 +1,7 @@
 ---
 import { DateTime, Duration } from "luxon";
 import Layout from "../../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
 import DetailPass from "../../components/DetailPass.astro";
 import FlightCard from "../../components/FlightCard.astro";
 import TripMap from '../../components/LeafletTrip.jsx';
@@ -120,7 +121,7 @@ if (dept_gate_actual && arrival_gate_actual) {
           </div>
           <div class="flight-path">
             <div class="line"></div>
-            <div class="plane">✈️</div>
+            <div class="plane"><Icon name="ph:airplane-tilt" size={40} /></div>
           </div>
           <div class="arrival">
             <FlightCard
@@ -239,12 +240,11 @@ if (dept_gate_actual && arrival_gate_actual) {
 
     .plane {
       position: absolute;
-      top: 50%;
+      top: 55%;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
+      transform: translate(-50%, -50%);
       background: var(--color-white);
-      padding: 0 12px;
-      font-size: 1.5rem;
+      padding: 0 18px;
     }
   }
 

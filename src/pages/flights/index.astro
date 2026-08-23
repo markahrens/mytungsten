@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Icon } from "astro-icon/components";
 import FlightRow from '../../components/FlightRow.astro';
 import { getAllFlights, getAirportInfo } from '../../lib/db';
 
@@ -52,29 +53,37 @@ const flightsByYear = flights.reduce((acc, flight) => {
 
 // Sort years in descending order
 const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number(a));
-
 ---
 
 <Layout title="Flights">
-  <main>
+  <main class="flights-page">
     <div class="content-container masthead">
-      <span class="eyebrow">Logbook</span>
       <h1>Flight Log</h1>
+      <p class="subtitle">A record of every flight I've taken since 2013.</p>
     </div>
-
     <div class="bg-container">
-      <div class="content-container summary-grid">
-        <div class="stat-card">
-          <span class="eyebrow">Total Flights</span>
+    <div class="content-container summary-container">
+      <div class="stat-card card">
+        <div class="stat-icon"><Icon name="ph:airplane-tilt" size={40} /></div>
+        <div class="stat-content">
           <span class="stat-value">{flights.length}</span>
+          <span class="stat-label">FLIGHTS</span>
         </div>
-        <div class="stat-card">
-          <span class="eyebrow">Total Miles</span>
+      </div>
+
+      <div class="stat-card card">
+        <div class="stat-icon"><Icon name="ph:map-pin" size={40} /></div>
+        <div class="stat-content">
           <span class="stat-value">{Math.round(flightDistances).toLocaleString()}</span>
+          <span class="stat-label">MILES</span>
         </div>
-        <div class="stat-card">
-          <span class="eyebrow">Unique Airports</span>
+      </div>
+
+      <div class="stat-card card">
+        <div class="stat-icon"><Icon name="ph:air-traffic-control" size={40} /></div>
+        <div class="stat-content">
           <span class="stat-value">{airports.length}</span>
+          <span class="stat-label">AIRPORTS</span>
         </div>
       </div>
     </div>
@@ -98,46 +107,103 @@ const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number
           </div>
         </section>
       ))}
+
+      <div class="archive-link-container">
+        <a href="/flights" class="archive-link">
+          View all flights (2013–2025) 
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
     </div>
   </main>
 </Layout>
 
 <style>
-  .bg-container {
-    background-color: var(--color-bg-muted);
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    padding: 40px 0;
-    margin-bottom: 60px;
+  .flights-page {
+    padding-bottom: var(--space-12);
   }
 
-  .summary-grid {
+  .summary-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
 
-    @media (max-width: 700px) {
+    @media (max-width: 750px) {
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: var(--space-4);
     }
   }
 
   .stat-card {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
 
-    .stat-value {
-      font-family: var(--font-hanken-grotesk);
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--color-text);
-      line-height: 1;
-    }
+  .stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary-dark);
+  }
+
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stat-value {
+    font-size: 2.25rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary-dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
   }
 
   .flights-list {
     display: flex;
     flex-direction: column;
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .archive-link-container {
+    margin-top: var(--space-6);
+  }
+
+  .archive-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9375rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary-dark);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 </style>
+

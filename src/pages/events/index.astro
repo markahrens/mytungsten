@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Icon } from "astro-icon/components";
 import EventRow from '../../components/EventRow.astro';
 import { getAllEvents, slugForEvent } from '../../lib/db';
 
@@ -27,8 +28,8 @@ const sortedYears = Object.keys(eventsByYear).sort((a, b) => Number(b) - Number(
 <Layout title="Events">
   <main>
     <div class="content-container masthead">
-      <span class="eyebrow">Logbook</span>
       <h1>Events Attended</h1>
+      <p class="subtitle">Listing of events I have attended through the years.</p>
     </div>
 
     <div class="bg-container">
@@ -44,10 +45,10 @@ const sortedYears = Object.keys(eventsByYear).sort((a, b) => Number(b) - Number(
         <div class="stat-card">
           <span class="eyebrow">Breakdown</span>
           <span class="stat-value-sm">
-            🏟️ {sportsCount} Sports &nbsp;&bull;&nbsp;
-            🎸 {concertsCount} Concerts<br />
-            🎭 {theaterCount} Theater &nbsp;&bull;&nbsp;
-            🎟️ {events.length - sportsCount - concertsCount - theaterCount} Other
+            <Icon name="ph:strategy" size={24} /> {sportsCount} Sports &nbsp;&bull;&nbsp;
+            <Icon name="ph:music-notes" size={24} /> {concertsCount} Concerts<br />
+            <Icon name="ph:mask-happy" size={24} /> {theaterCount} Theater &nbsp;&bull;&nbsp;
+            <Icon name="ph:ticket" size={24} /> {events.length - sportsCount - concertsCount - theaterCount} Other
           </span>
         </div>
       </div>
@@ -115,6 +116,10 @@ const sortedYears = Object.keys(eventsByYear).sort((a, b) => Number(b) - Number(
       font-weight: 600;
       color: var(--color-text);
       line-height: 1.6;
+
+      svg {
+        vertical-align: middle;
+      }
     }
   }
 

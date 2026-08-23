@@ -1,16 +1,18 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const { href, title, category, detail, venue_name, venue_city, date } = Astro.props;
 const newDate = new Date(date);
 newDate.setUTCHours(12, 0, 0, 0);
 
 const categoryIcons: Record<string, string> = {
-  sport: '🏟️',
-  concert: '🎸',
-  theater: '🎭',
-  other: '🎟️'
+  sport: "ph:strategy",
+  concert: "ph:music-notes",
+  theater: "ph:mask-happy",
+  other: "ph:ticket"
 };
 
-const icon = categoryIcons[category] || '🎟️';
+const iconName = categoryIcons[category] || "ph:ticket";
 ---
 
 <div class="event-row-container">
@@ -22,7 +24,7 @@ const icon = categoryIcons[category] || '🎟️';
     
     <div class="info-col">
       <div class="title-row">
-        <span class="icon">{icon}</span>
+        <span class="icon"><Icon name={iconName} size={20} /></span>
         <span class="title">{title}</span>
       </div>
       <div class="venue-info">
