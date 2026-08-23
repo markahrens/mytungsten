@@ -11,14 +11,12 @@
     "generate-types": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.5.5",
-    "@astrojs/react": "^5.0.4",
-    "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.2",
-    "@fujocoded/astro-atproto-loader": "^0.2.1",
-    "@iconify-json/lucide": "^1.2.123",
+    "@astrojs/cloudflare": "^14.2.3",
+    "@astrojs/react": "^6.0.4",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
     "@iconify-json/ph": "^1.2.2",
-    "astro": "^6.3.1",
+    "astro": "^7.2.4",
     "astro-icon": "^1.1.5",
     "better-sqlite3": "^12.4.1",
     "leaflet": "^1.9.4",
@@ -35,6 +33,6 @@
     "wrangler": "^4.95.0"
   },
   "overrides": {
-    "vite": "^7"
+    "vite": "^8"
   }
 }
