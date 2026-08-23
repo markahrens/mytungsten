@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Icon } from "astro-icon/components";
 import FlightRow from '../../components/FlightRow.astro';
 import { getAllFlights, getAirportInfo } from '../../lib/db';
 
@@ -63,11 +64,7 @@ const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number
     <div class="bg-container">
     <div class="content-container summary-container">
       <div class="stat-card card">
-        <div class="stat-icon">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.7-.2-1.5.1-1.9.7l-.4.6c-.4.6-.2 1.4.4 1.8l5.3 3.7-2.6 2.6-2.2-.6c-.4-.1-.9.1-1.1.4l-.5.5c-.3.4-.2 1 .2 1.3l2.8 2 2 2.8c.3.4.9.5 1.3.2l.5-.5c.3-.3.5-.8.4-1.1l-.6-2.2 2.6-2.6 3.7 5.3c.4.6 1.2.8 1.8.4l.6-.4c.6-.4.9-1.2.7-1.9z"></path>
-          </svg>
-        </div>
+        <div class="stat-icon"><Icon name="ph:airplane-tilt" size={40} /></div>
         <div class="stat-content">
           <span class="stat-value">{flights.length}</span>
           <span class="stat-label">FLIGHTS</span>
@@ -75,12 +72,7 @@ const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number
       </div>
 
       <div class="stat-card card">
-        <div class="stat-icon">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-        </div>
+        <div class="stat-icon"><Icon name="ph:map-pin" size={40} /></div>
         <div class="stat-content">
           <span class="stat-value">{Math.round(flightDistances).toLocaleString()}</span>
           <span class="stat-label">MILES</span>
@@ -88,13 +80,7 @@ const sortedYears = Object.keys(flightsByYear).sort((a, b) => Number(b) - Number
       </div>
 
       <div class="stat-card card">
-        <div class="stat-icon">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="2" y1="12" x2="22" y2="12"></line>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-          </svg>
-        </div>
+        <div class="stat-icon"><Icon name="ph:air-traffic-control" size={40} /></div>
         <div class="stat-content">
           <span class="stat-value">{airports.length}</span>
           <span class="stat-label">AIRPORTS</span>

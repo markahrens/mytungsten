@@ -1,5 +1,6 @@
 ---
 import { DateTime } from "luxon";
+import { Icon } from "astro-icon/components";
 import Layout from "../../layouts/Layout.astro";
 import DetailPass from "../../components/DetailPass.astro";
 import TripMap from '../../components/LeafletTrip.jsx';
@@ -25,10 +26,10 @@ const eventDate = DateTime.fromISO(event.event_date);
 const formattedTime = event.event_time ? DateTime.fromFormat(event.event_time, "HH:mm").toFormat("h:mm a") : undefined;
 
 const categoryIcons: Record<string, string> = {
-  sport: '🏟️',
-  concert: '🎸',
-  theater: '🎭',
-  other: '🎟️'
+  sport: "ph:strategy",
+  concert: "ph:music-notes",
+  theater: "ph:mask-happy",
+  other: "ph:ticket"
 };
 
 const categoryColors: Record<string, string> = {
@@ -39,7 +40,7 @@ const categoryColors: Record<string, string> = {
 };
 
 const brandColor = categoryColors[event.category] || '#475569';
-const icon = categoryIcons[event.category] || '🎟️';
+const iconName = categoryIcons[event.category] || "ph:ticket";
 
 let stops = [];
 if (event.venue_latitude && event.venue_longitude) {
@@ -65,7 +66,7 @@ if (event.venue_latitude && event.venue_longitude) {
     >
       <div slot="header" class="ticket-header">
         <div class="category-badge">
-          <span class="icon">{icon}</span>
+          <span class="icon"><Icon name={iconName} size={24} /></span>
           <span class="category-name">{event.category}</span>
         </div>
         <div class="ticket-date">
@@ -190,7 +191,7 @@ if (event.venue_latitude && event.venue_longitude) {
       display: flex;
       align-items: center;
       gap: 8px;
-      .icon { font-size: 1.4rem; }
+      .icon { display: flex; align-items: center; }
       .category-name { font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
     }
     .ticket-date { font-family: var(--font-hanken-grotesk); font-size: 1.2rem; font-weight: 600; }

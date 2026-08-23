@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Icon } from "astro-icon/components";
 import BlogPost from '../components/PostRow.astro';
 import TungstenCard from '../components/TungstenCard.astro';
 import { getCollection } from 'astro:content';
+
 
 const latestPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -33,11 +35,7 @@ const dateOptions: object = {
           The personal website of Mark Ahrens—web technology expert, Drupal specialist, farmer, and soccer fan.
         </p>
         <a href="/about" class="more-link">
-          More about Mark 
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          More about Mark <Icon name="ph:arrow-right" size={16} />
         </a>
       </div>
 
