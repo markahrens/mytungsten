@@ -1,6 +1,6 @@
 {
 	"compatibility_date": "2026-05-27",
-	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_flags": ["nodejs_compat", "no_handle_cross_request_promise_resolution"],
 	"name": "mytungsten",
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {

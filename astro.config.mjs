@@ -20,6 +20,13 @@ export default defineConfig({
   ],
 
   adapter: cloudflare({
-    prerenderEnvironment: 'node',
-  })
+    prerenderEnvironment: 'node'
+  }),
+
+  vite: {
+    optimizeDeps: {
+      exclude: ['@astrojs/cloudflare'],
+    },
+  },
+  
 });
