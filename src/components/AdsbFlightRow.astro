@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const {
   registration,
   model,
@@ -16,55 +18,79 @@ const {
   destination_code_iata,
   destination_name,
   destination_city,
+  airline_code_iata,
 } = Astro.props;
+
+const iataCode = airline_code_iata || (airline && airline.length === 2 ? airline.toUpperCase() : null);
+
+// Dynamically match local images from src/content/images/airline-logos/{IATA}.png
+const logoModules = import.meta.glob<{ default: ImageMetadata }>('../content/images/airline-logos/*.png', { eager: true });
+const matchedLogoKey = iataCode ? Object.keys(logoModules).find((path) => path.endsWith(`/${iataCode.toUpperCase()}.png`)) : null;
+const logoSrc = matchedLogoKey ? logoModules[matchedLogoKey].default.src : null;
+
+const airlineDisplayName = operated_by || owner || operator;
 ---
 
 <div class="adsb-row-container">
   <div class="adsb-row card">
-    <!-- Aircraft details (Registration and Type) -->
-    <div class="aircraft-col">
-      <span class="registration-code">{registration || "Unknown Reg"}</span>
-      <span class="type-code">{model || "Unknown Model"}</span>
-    </div>
-    
-    <!-- Route details (Origin -> Destination, and Owner) -->
+    <!-- Route details (Origin -> Destination) -->
     <div class="route-col">
-      <div class="route-airports">
-        {origin && destination ? (
-          <>
-            <div class="airport-group">
-              <span class="code">{origin_code_iata || origin}</span>
-              {origin_name && <span class="airport-name">{origin_name}</span>}
-
-            </div>
-            <span class="arrow">→</span>
-            <div class="airport-group">
-              <span class="code">{destination_code_iata || destination}</span>
-              {destination_name && <span class="airport-name">{destination_name}</span>}
-
-            </div>
-          </>
-        ) : (
+      {origin && destination ? (
+        <div class="airport-group origin-group">
+          <span class="code">{origin_code_iata || origin}</span>
+          <span class="airport-name">{origin_name || origin_city || ""}</span>
+        </div>
+        <div class="arrow-group">
+          <Icon name="ph:arrow-right" size={16} class="arrow" />
+        </div>
+        <div class="airport-group dest-group">
+          <span class="code">{destination_code_iata || destination}</span>
+          <span class="airport-name">{destination_name || destination_city || ""}</span>
+        </div>
+      ) : (
+        <div class="no-route-group">
           <span class="no-route">No Known Route</span>
-        )}
-      </div>
-      <div class="owner">
-        {owner ? (
-          <>
-            {owner}
-            {operated_by && owner.toLowerCase().indexOf(operated_by.toLowerCase()) === -1 && operated_by.toLowerCase().indexOf(owner.toLowerCase()) === -1 && (
-              <span class="operator"> • Operated by {operated_by}</span>
-            )}
-          </>
-        ) : (
-          operated_by || "Private Owner"
-        )}
-      </div>
+        </div>
+      )}
     </div>
 
-    <!-- Flight / callsign info -->
-    <div class="details-col">
-      <div class="flight-number">{flight || "N/A"}</div>
+    <!-- Right side information: Airline name, Flight / Tail info, and Logo -->
+    <div class="right-col">
+      <div class="airline-details">
+        {airlineDisplayName && <div class="airline-name">{airlineDisplayName}</div>}
+        <div class="flight-tail-line">
+          {flight && <span class="flight-number">{flight}</span>}
+          {flight && registration && <span class="bullet">•</span>}
+          {registration && <span class="registration">{registration}</span>}
+          {model && (registration || flight) && <span class="bullet model-bullet-mobile">•</span>}
+          {model && <span class="model-inline">{model}</span>}
+        </div>
+        {model && (
+          <div class="model-line desktop-only">
+            {model}
+          </div>
+        )}
+      </div>
+
+      <!-- Far right logo badge or placeholder badge -->
+      <div class="logo-col">
+        {logoSrc ? (
+          <img
+            src={logoSrc}
+            alt={iataCode || "Airline"}
+            class="airline-logo"
+            loading="lazy"
+          />
+        ) : iataCode ? (
+          <div class="airline-code-badge">
+            {iataCode}
+          </div>
+        ) : (
+          <div class="airline-code-badge placeholder">
+            --
+          </div>
+        )}
+      </div>
     </div>
   </div>
 </div>
@@ -75,112 +101,221 @@ const {
   }
 
   .adsb-row {
-    display: grid;
-    grid-template-columns: minmax(160px, auto) 1fr auto;
-    align-items: center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
     padding: var(--space-4) var(--space-6);
     gap: var(--space-6);
     transition: transform var(--transition-standard), border-color var(--transition-standard), box-shadow var(--transition-standard), background-color var(--transition-standard);
   }
 
-  .aircraft-col {
+  /* Left route section with fixed columns so origin/destination line up vertically across rows */
+  .route-col {
+    display: flex;
+    align-items: flex-start;
+    flex: 1 1 auto;
+  }
+
+  .airport-group {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    border-right: 1px solid var(--color-border);
-    padding-right: var(--space-6);
-    
-    .registration-code {
-      font-family: var(--font-hanken-grotesk);
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--color-text);
-    }
-    
-    .type-code {
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: var(--color-metallic);
-    }
+    width: 200px;
+    flex-shrink: 0;
   }
 
-  .route-col {
-    .route-airports {
-      display: flex;
+  .airport-group .code {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.1;
+  }
+
+  .airport-group .airport-name {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--color-metallic);
+    line-height: 1.35;
+    margin-top: 2px;
+  }
+
+  .arrow-group {
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 var(--space-2);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .arrow {
+    color: var(--color-metallic);
+    flex-shrink: 0;
+  }
+
+  .no-route-group {
+    width: 400px;
+  }
+
+  .no-route {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-metallic);
+  }
+
+  /* Right column section */
+  .right-col {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-5);
+    text-align: right;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .airline-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .airline-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.1;
+  }
+
+  .flight-tail-line {
+    font-size: 0.85rem;
+    color: var(--color-metallic);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .flight-number {
+    font-weight: 600;
+    color: var(--color-metallic);
+  }
+
+  .registration {
+    font-weight: 500;
+  }
+
+  .bullet {
+    opacity: 0.5;
+  }
+
+  .model-line {
+    font-size: 0.8rem;
+    color: var(--color-metallic);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  .model-bullet-mobile,
+  .model-inline {
+    display: none;
+  }
+
+  /* Logo column on far right */
+  .logo-col {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .airline-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: var(--radius-xs, 4px);
+  }
+
+  .airline-code-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-text);
+    background: var(--color-bg-muted, #f4f4f5);
+  }
+
+  .airline-code-badge.placeholder {
+    color: var(--color-metallic);
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    .adsb-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-3);
+    }
+
+    .route-col {
+      width: 100%;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-3);
+    }
+
+    .airport-group {
+      width: 0;
+      flex: 1 1 0%;
+    }
+
+    .dest-group {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .arrow-group {
+      width: auto;
+      flex-shrink: 0;
+      padding: 0 var(--space-2);
+      margin-top: 4px;
+    }
+
+    .no-route-group {
+      width: auto;
+    }
+
+    .right-col {
+      width: 100%;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
       align-items: center;
       gap: var(--space-4);
-      margin-bottom: 6px;
-
-      .airport-group {
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
-
-        .code {
-          font-family: var(--font-hanken-grotesk);
-          font-size: 1.4rem;
-          font-weight: 600;
-          color: var(--color-text);
-          line-height: 1.1;
-        }
-
-        .airport-name {
-          font-size: 0.8rem;
-          font-weight: 500;
-          color: var(--color-metallic);
-        }
-
-
-      }
-
-      .no-route {
-        font-family: var(--font-hanken-grotesk);
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: var(--color-metallic);
-      }
-
-      .arrow {
-        color: var(--color-metallic);
-        font-weight: 400;
-        font-size: 1.2rem;
-        align-self: flex-start;
-        margin-top: 0.25rem;
-        flex-shrink: 0;
-      }
+      margin-left: 0;
+      text-align: left;
     }
-    
-    .owner {
-      font-size: 0.9rem;
-      color: var(--color-metallic);
-      font-weight: 500;
-    }
-  }
 
-  .details-col {
-    text-align: right;
-    
-    .flight-number {
-      font-family: var(--font-hanken-grotesk);
-      font-weight: 600;
-      font-size: 1.4rem;
-      color: var(--color-text);
+    .airline-details {
+      align-items: flex-start;
     }
-  }
 
-  @media (max-width: 600px) {
-    .adsb-row {
-      grid-template-columns: minmax(90px, auto) 1fr;
-      padding: var(--space-3) var(--space-4);
-      gap: var(--space-4);
-    }
-    .aircraft-col {
-      padding-right: var(--space-4);
-      .registration-code { font-size: 1.05rem; }
-      .type-code { font-size: 0.75rem; }
-    }
-    .details-col {
+    .desktop-only {
       display: none;
+    }
+
+    .model-bullet-mobile,
+    .model-inline {
+      display: inline;
     }
   }
 </style>
+
