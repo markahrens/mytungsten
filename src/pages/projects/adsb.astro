@@ -266,22 +266,31 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
     background: var(--color-bg-muted);
     padding: var(--space-10) 0;
     margin-bottom: 0;
+
+    @media (max-width: 600px) {
+      padding: var(--space-6) 0;
+    }
   }
 
   .summary-panel {
     display: flex;
     flex-direction: column;
     gap: var(--space-8);
+    min-width: 0;
+
+    @media (max-width: 600px) {
+      gap: var(--space-6);
+    }
   }
 
   /* Headline row */
   .summary-headline {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-6);
 
     @media (width < 480px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: var(--space-3);
     }
   }
@@ -292,9 +301,13 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
     padding: var(--space-4) var(--space-6);
     display: flex;
     flex-direction: column;
-    
     justify-content: space-between;
     gap: var(--space-4);
+    min-width: 0;
+
+    @media (max-width: 600px) {
+      padding: var(--space-4);
+    }
 
     @media (width > 480px) {
       flex-direction: row;
@@ -315,17 +328,19 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
       font-weight: 700;
       color: var(--color-text);
       line-height: 1;
+      word-break: break-word;
     }
   }
 
   /* Three column breakdown */
   .summary-cols {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-6);
 
     @media (max-width: 900px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
     }
   }
 
@@ -333,6 +348,11 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
     background: var(--color-white);
     border: 1px solid var(--color-border);
     padding: var(--space-5) var(--space-6);
+    min-width: 0;
+
+    @media (max-width: 600px) {
+      padding: var(--space-4);
+    }
   }
 
   .col-title {
@@ -364,8 +384,9 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
 
   .ranked-item {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: var(--space-3);
+    min-width: 0;
 
     .rank-num {
       font-family: var(--font-hanken-grotesk);
@@ -381,10 +402,9 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
       flex: 1;
       min-width: 0;
       display: flex;
-      flex-direction: row;
+      flex-wrap: wrap;
       align-items: baseline;
-      gap: 6px;
-      overflow: hidden;
+      gap: 4px 6px;
 
       .rank-code {
         font-family: var(--font-hanken-grotesk);
@@ -403,9 +423,7 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
       .rank-name {
         font-size: 0.82rem;
         color: var(--color-metallic);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        word-break: break-word;
       }
     }
 
@@ -418,6 +436,8 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
       padding: 2px 8px;
       border-radius: var(--radius-pill);
       border: 1px solid var(--color-border);
+      flex-shrink: 0;
+      align-self: flex-start;
     }
   }
 
@@ -430,7 +450,7 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
 
   .airline-bar-row {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: center;
     gap: 10px;
 
@@ -441,6 +461,7 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      min-width: 0;
     }
 
     .bar-track {
@@ -480,11 +501,14 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
   }
 
   .model-item {
+    min-width: 0;
+
     .model-header {
       display: flex;
       align-items: center;
       gap: var(--space-2);
       margin-bottom: 5px;
+      min-width: 0;
 
       .model-rank {
         font-size: 0.72rem;
@@ -500,12 +524,17 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
         font-size: 0.95rem;
         font-weight: 700;
         color: var(--color-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
       }
 
       .model-count {
         font-size: 0.82rem;
         font-weight: 700;
         color: var(--color-metallic);
+        flex-shrink: 0;
       }
     }
 

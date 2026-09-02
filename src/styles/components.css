@@ -3,6 +3,10 @@
   max-width: var(--content-wide);
   margin: 0 auto;
   padding: 0 var(--page-padding-wide);
+
+  @media (width <= 600px) {
+    padding: 0 var(--space-5);
+  }
 }
 
 .text-container {
@@ -14,10 +18,12 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: var(--space-12) 0 var(--space-8) 0;
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-8);
 
   @media (width <= 600px) {
-    padding: var(--space-8) 0 var(--space-5) 0;
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-5);
   }
 
   h1, h2 {
