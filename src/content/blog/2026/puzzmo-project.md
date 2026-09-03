@@ -4,6 +4,7 @@ description: Using Astro and the ATProtocol to make a "live" updating page
 date: 2026-05-30
 tags: ["mytungsten", "puzzmo", "development", "astro", "atproto"]
 category: Web Tech
+atUri: "at://did:plc:evbto4bepchfkz2prgfsqp2v/site.standard.document/3mulcsz33wg2q"
 ---
 
 It feels like a lot in technology is kind of weird right now with AI tools coming out every single day, one piece of technology that does excite me is the [ATProtocol](https://atproto.com). The original scope of the ATProtocol was to be the basis of Bluesky, but it continues to expand into a space that could let it be the home to all of your social data without locking it into a specific service. I have been looking for something to tinker with it for awhile now, but finally something realitively easy came along.

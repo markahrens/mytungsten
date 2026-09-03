@@ -1,0 +1,14 @@
+{
+  "posts": {
+    "src/content/blog/2026/puzzmo-project.md": {
+      "contentHash": "d5c2ef2853f9e4276a7cd24d44ffc1660a8c632b96e2752c96ba8228a2dcabb2",
+      "atUri": "at://did:plc:evbto4bepchfkz2prgfsqp2v/site.standard.document/3mulcsz33wg2q",
+      "lastPublished": "2026-09-03T01:37:30.072Z",
+      "slug": "puzzmo-project"
+    }
+  },
+  "publication": {
+    "cid": "bafyreih6sbaxv4lrcspnj6ub2gogj7zeuwuonrjo7ezfqfku55ijv5jmru",
+    "uri": "at://did:plc:evbto4bepchfkz2prgfsqp2v/site.standard.publication/3mulcjmrlul2d"
+  }
+}
