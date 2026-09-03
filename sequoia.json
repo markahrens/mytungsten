@@ -1,0 +1,15 @@
+{
+  "publicDir": "/public",
+  "outputDir": "/dist",
+  "pathPrefix": "/blog/2026",
+  "publishContent": true,
+  "autoSync": true,
+  "$schema": "https://tangled.org/stevedylan.dev/sequoia/raw/main/sequoia.schema.json",
+  "siteUrl": "https://www.mytungsten.net",
+  "contentDir": "src/content/blog/2026",
+  "publicationUri": "at://did:plc:evbto4bepchfkz2prgfsqp2v/site.standard.publication/3mulcjmrlul2d",
+  "pdsUrl": "https://enoki.us-east.host.bsky.network",
+  "frontmatter": {
+    "publishDate": "date"
+  }
+}

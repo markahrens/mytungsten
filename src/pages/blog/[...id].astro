@@ -21,6 +21,9 @@ const dateOptions: object = {
 };
 ---
 <Layout title={entry.data.title}>
+	{entry.data.atUri && (
+		<link slot="head" rel="site.standard.document" href={entry.data.atUri} />
+	)}
 	<div class="text-container masthead">
 		<span class="eyebrow">{entry.data.date.toLocaleDateString('en-US', dateOptions)}</span>
 		<h1>{entry.data.title}</h1>
