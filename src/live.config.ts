@@ -67,9 +67,13 @@ function getMockAdsbFlights(date: string) {
       origin_code_iata: "MDW",
       origin_name: "Chicago Midway International Airport",
       origin_city: "Chicago",
+      origin_lat: 41.7868,
+      origin_lon: -87.7522,
       destination_code_iata: "AUS",
       destination_name: "Austin-Bergstrom International Airport",
-      destination_city: "Austin"
+      destination_city: "Austin",
+      destination_lat: 30.1945,
+      destination_lon: -97.6699
     },
     {
       hex: "C0FFEE",
@@ -88,9 +92,13 @@ function getMockAdsbFlights(date: string) {
       origin_code_iata: "ORD",
       origin_name: "O'Hare International Airport",
       origin_city: "Chicago",
+      origin_lat: 41.9742,
+      origin_lon: -87.9073,
       destination_code_iata: "SFO",
       destination_name: "San Francisco International Airport",
-      destination_city: "San Francisco"
+      destination_city: "San Francisco",
+      destination_lat: 37.6188,
+      destination_lon: -122.3750
     },
     {
       hex: "4B12A4",
@@ -109,9 +117,13 @@ function getMockAdsbFlights(date: string) {
       origin_code_iata: "FRA",
       origin_name: "Frankfurt Airport",
       origin_city: "Frankfurt",
+      origin_lat: 50.0379,
+      origin_lon: 8.5622,
       destination_code_iata: "LHR",
       destination_name: "London Heathrow Airport",
-      destination_city: "London"
+      destination_city: "London",
+      destination_lat: 51.4700,
+      destination_lon: -0.4543
     }
   ];
   return mockData.map(d => ({
@@ -146,7 +158,9 @@ const adsbCollection = defineLiveCollection({
         const stmt = db.prepare(`
           SELECT a.*, al.name AS operated_by,
                  apo.iata AS origin_code_iata, apo.name AS origin_name, apo.municipality AS origin_city,
-                 apd.iata AS destination_code_iata, apd.name AS destination_name, apd.municipality AS destination_city
+                 apo.lat AS origin_lat, apo.lon AS origin_lon,
+                 apd.iata AS destination_code_iata, apd.name AS destination_name, apd.municipality AS destination_city,
+                 apd.lat AS destination_lat, apd.lon AS destination_lon
           FROM aircraft_seen a
           LEFT JOIN airlines al ON a.airline = al.iata
           LEFT JOIN airports apo ON a.origin = apo.icao
@@ -175,7 +189,9 @@ const adsbCollection = defineLiveCollection({
         const stmt = db.prepare(`
           SELECT a.*, al.name AS operated_by,
                  apo.iata AS origin_code_iata, apo.name AS origin_name, apo.municipality AS origin_city,
-                 apd.iata AS destination_code_iata, apd.name AS destination_name, apd.municipality AS destination_city
+                 apo.lat AS origin_lat, apo.lon AS origin_lon,
+                 apd.iata AS destination_code_iata, apd.name AS destination_name, apd.municipality AS destination_city,
+                 apd.lat AS destination_lat, apd.lon AS destination_lon
           FROM aircraft_seen a
           LEFT JOIN airlines al ON a.airline = al.iata
           LEFT JOIN airports apo ON a.origin = apo.icao
@@ -212,9 +228,13 @@ const adsbCollection = defineLiveCollection({
     origin_code_iata: z.string().nullable().optional(),
     origin_name: z.string().nullable().optional(),
     origin_city: z.string().nullable().optional(),
+    origin_lat: z.number().nullable().optional(),
+    origin_lon: z.number().nullable().optional(),
     destination_code_iata: z.string().nullable().optional(),
     destination_name: z.string().nullable().optional(),
     destination_city: z.string().nullable().optional(),
+    destination_lat: z.number().nullable().optional(),
+    destination_lon: z.number().nullable().optional(),
     model: z.string().nullable().optional(),
     flight_number: z.string().nullable().optional(),
   }),

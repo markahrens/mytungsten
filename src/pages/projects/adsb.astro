@@ -4,6 +4,7 @@ export const prerender = false;
 import Layout from "../../layouts/Layout.astro";
 import { getLiveCollection } from "astro:content";
 import AdsbFlightRow from "../../components/AdsbFlightRow.astro";
+import AdsbMap from "../../components/AdsbMap.jsx";
 import { DateTime } from "luxon";
 
 const url = new URL(Astro.request.url);
@@ -27,6 +28,26 @@ if (adsbResult.error) {
 }
 
 const flights = adsbResult.entries ?? [];
+
+// Prepare map routes with coordinates
+const mapRoutes = flights
+  .filter((f) => f.data.origin_lat != null && f.data.origin_lon != null && f.data.destination_lat != null && f.data.destination_lon != null)
+  .map((f) => ({
+    origin: {
+      lat: f.data.origin_lat,
+      lng: f.data.origin_lon,
+      name: f.data.origin_name || f.data.origin_city || f.data.origin_code_iata || "Origin",
+      code: f.data.origin_code_iata || f.data.origin || "",
+    },
+    destination: {
+      lat: f.data.destination_lat,
+      lng: f.data.destination_lon,
+      name: f.data.destination_name || f.data.destination_city || f.data.destination_code_iata || "Destination",
+      code: f.data.destination_code_iata || f.data.destination || "",
+    },
+    flight: f.data.flight || f.data.flight_number || "",
+    airline: f.data.operated_by || f.data.airline || "",
+  }));
 
 const prevDateStr = selectedDate.minus({ days: 1 }).toFormat("yyyy-MM-dd");
 const nextDateStr = selectedDate.plus({ days: 1 }).toFormat("yyyy-MM-dd");
@@ -59,7 +80,7 @@ for (const f of flights) {
 }
 const topAirports = Object.values(airportCounts)
   .sort((a, b) => b.count - a.count)
-  .slice(0, 15);
+  .slice(0, 10);
 
 // Flights by airline (operated_by label, fallback to airline code)
 const airlineCounts: Record<string, number> = {};
@@ -81,36 +102,64 @@ const topModels = Object.entries(modelCounts)
   .sort(([, a], [, b]) => b - a)
   .slice(0, 5);
 const maxModelCount = topModels[0]?.[1] ?? 1;
-
-// Headline stats
-const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
 ---
 
 <Layout title="ADSB Flight Tracker">
+  <link slot="head" rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+
   <main>
     <div class="content-container masthead">
       <h1>ADSB Flight Tracker</h1>
       <p class="subtitle">Flights tracked by my local ADSB receiver.</p>
     </div>
 
+    <div class="content-container">
+      <div class="section-header">
+        <h2>{flights.length} Flights Tracked</h2>
+        
+        <div class="archive-nav">
+          <span class="date-badge">{badgeDate}</span>
+
+          <div class="nav-actions">
+            {!isAtMinDateOrBefore && (
+              <a href={`?date=${prevDateStr}`} class="nav-link prev" title="Previous Day">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width.5="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>Prev</span>
+              </a>
+            )}
+            
+            {!isTodayOrFuture && !isBeforeMinDate && (
+              <a href={`?date=${nextDateStr}`} class="nav-link next" title="Next Day">
+                <span>Next</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width.5="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </a>
+            )}
+
+            {!isToday && (
+              <a href="?" class="jump-today-link" title="Return to Today">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><polyline points="16 3 21 8 16 13"></polyline><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><polyline points="8 21 3 16 8 11"></polyline></svg>
+                <span>Today</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {mapRoutes.length > 0 && !isBeforeMinDate && (
+      <div class="content-container">
+        <div class="map-section">
+          <div class="map-wrapper card">
+            <AdsbMap client:only="react" routes={mapRoutes} />
+          </div>
+        </div>
+      </div>
+    )}
+
     {flights.length > 0 && !isBeforeMinDate && (
       <div class="summary-panel-outer">
         <div class="content-container">
           <div class="summary-panel">
-
-            <!-- Headline stats row -->
-            <div class="summary-headline">
-              <div class="headline-stat">
-                <span class="headline-label">Flights Tracked</span>
-                <span class="headline-num">{flights.length}</span>
-              </div>
-              {busiestAirline && (
-                <div class="headline-stat busiest">
-                  <span class="headline-label">Busiest Airline</span>
-                  <span class="headline-num">{busiestAirline}</span>
-                </div>
-              )}
-            </div>
 
             <!-- Three-column breakdown -->
             <div class="summary-cols">
@@ -185,36 +234,6 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
 
     <div class="bg-container">
       <div class="content-container">
-        <div class="section-header">
-          <h2>Flights Seen {isToday ? "Today" : "on " + selectedDate.toLocaleString(DateTime.DATE_MED)}</h2>
-          
-          <div class="archive-nav">
-            {!isAtMinDateOrBefore && (
-              <a href={`?date=${prevDateStr}`} class="nav-link prev" title="Previous Day">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width.5="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                <span>Prev</span>
-              </a>
-            )}
-            
-            <span class="date-badge">{badgeDate}</span>
-            
-            {!isTodayOrFuture && !isBeforeMinDate && (
-              <a href={`?date=${nextDateStr}`} class="nav-link next" title="Next Day">
-                <span>Next</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width.5="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </a>
-            )}
-          </div>
-        </div>
-
-        {!isToday && (
-          <div class="jump-today-wrapper">
-            <a href="?" class="jump-today-link">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><polyline points="16 3 21 8 16 13"></polyline><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><polyline points="8 21 3 16 8 11"></polyline></svg>
-              Return to Today
-            </a>
-          </div>
-        )}
 
         <div class="flights-list">
           {
@@ -280,55 +299,6 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
 
     @media (max-width: 600px) {
       gap: var(--space-6);
-    }
-  }
-
-  /* Headline row */
-  .summary-headline {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-6);
-
-    @media (width < 480px) {
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--space-3);
-    }
-  }
-
-  .headline-stat {
-    background: var(--color-white);
-    border: 1px solid var(--color-border);
-    padding: var(--space-4) var(--space-6);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: var(--space-4);
-    min-width: 0;
-
-    @media (max-width: 600px) {
-      padding: var(--space-4);
-    }
-
-    @media (width > 480px) {
-      flex-direction: row;
-      align-items: center;
-    }
-
-    .headline-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--color-metallic);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .headline-num {
-      font-family: var(--font-hanken-grotesk);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--color-text);
-      line-height: 1;
-      word-break: break-word;
     }
   }
 
@@ -561,8 +531,6 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--space-6);
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: var(--space-4);
     gap: var(--space-4);
     flex-wrap: wrap;
 
@@ -581,6 +549,7 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
     padding: var(--space-1);
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
+    box-sizing: border-box;
 
     .date-badge {
       font-size: 0.9rem;
@@ -591,6 +560,15 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
       border-radius: var(--radius-xs);
       box-shadow: 0 1px 2px rgba(0,0,0,0.05);
       white-space: nowrap;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      box-sizing: border-box;
     }
 
     .nav-link {
@@ -604,6 +582,7 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
       padding: 6px 12px;
       border-radius: var(--radius-xs);
       transition: all 0.2s ease;
+      box-sizing: border-box;
 
       &:hover:not(.disabled) {
         color: var(--color-text, #18181b);
@@ -615,31 +594,71 @@ const busiestAirline = airlineBreakdown[0]?.[0] ?? null;
         cursor: not-allowed;
       }
     }
-  }
-
-  .jump-today-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: calc(-1 * var(--space-4));
-    margin-bottom: var(--space-6);
 
     .jump-today-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--color-primary, #2563eb);
       text-decoration: none;
-      padding: 6px 12px;
+      padding: 6px 10px;
       background: rgba(37, 99, 235, 0.08);
       border-radius: var(--radius-xs);
       transition: all 0.2s ease;
+      box-sizing: border-box;
 
       &:hover {
         background: rgba(37, 99, 235, 0.15);
-        transform: translateY(-1px);
       }
+    }
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      width: 100%;
+      align-items: stretch;
+      padding: var(--space-2);
+
+      .date-badge {
+        width: 100%;
+        font-size: 0.85rem;
+        padding: 8px 10px;
+      }
+
+      .nav-actions {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        gap: var(--space-2);
+        padding-top: var(--space-1);
+
+        .nav-link,
+        .jump-today-link {
+          flex: 1;
+          justify-content: center;
+          padding: 6px 8px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .map-section {
+    margin-bottom: var(--space-8);
+  }
+
+  .map-wrapper {
+    height: 440px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm, 6px);
+    
+    :global(.leaflet-container) {
+      height: 100% !important;
+      width: 100% !important;
+      background: var(--color-bg-muted, #f4f4f5);
     }
   }
 
