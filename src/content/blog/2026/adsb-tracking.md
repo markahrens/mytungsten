@@ -1,0 +1,22 @@
+---
+title: ADSB Tracker & Webpage
+description: All the pieces on how I made my tracker webpage
+date: 2026-09-13
+tags: ["mytungsten", "adsb", "development"]
+category: Web Tech
+atUri: "at://did:plc:evbto4bepchfkz2prgfsqp2v/site.standard.document/3mvggwlwxi42g"
+---
+
+A while back, I saw in the [Flightradar newsletter](https://www.flightradar24.com/blog/newsletter/), I noticed that anyone with a specific receiver could share tracked flights with them. Building an ADSB receiver was pretty straightforward, hve a Raspberry Pi hooked up to the ADSB device over USB and then use a specific OS image to start sending information along. The first go at this worked pretty well, though I didn't see many flights, it was still fun for me. Then we had a power outage and I thought the Raspberry Pi was damaged. After some testing, what I found is the SD card I was using was actually pretty crummy quality. I got a newer one and got a different OS image installed, and all of a sudden, I was seeing hundreds more flights per day with the same hardware setup. Apparantly the poorer quality SD card never allowed for the full calibration of the hardware, which caused it to not work as well.
+
+With everything running on the Raspberry Pi, I got curious what else I could do with the ADSB data. While it is neat to see what planes my tracker sees on Flightradar, I also wanted to save the information myself to see what I could make from it. This site is hosted with Cloudflare. They offer a database service, so I decided to see if I could save each flight to D1. Working with Claude and Gemini, I got a combination of a Python script running on the Pi sending to a Worker endpoint, and now I was collecting all of the flights myself.
+
+What I found next was planes will report their registation and type of plane, and occasionally their flight number, but trying to do something where I could find out where the plane was going and coming from was not possible with ADSB alone. I then spent a bunch of time trying to find out if there is a free way to find out the origin and destination based on tail number, or even flight number, alone. What I found was, the answer is no, there really isn't. 
+
+This meant to make what I really wanted, I was going to have to use a paid API. What I was looking for was something that was a flat rate per month, just in case something went bonkers with my tracker. After some trial and error, I ended up with [AeroDataBox](https://aerodatabox.com). It allowed for looking up flights by registration and also returned airport information as well. It also has a decent quota per month, which gave me a target of the average number of flights I wanted to look up each day.
+
+The first attempt was doing a lookup of all planes. What I found is there are a lot of smaller planes that don't have flight plans that were not worth looking up. Again, I was using AI tools to develop an enrichment script for the flights. Working with it, the script was updated to only look up specific plane types that are most common with commerical aircraft. That got me closer to my daily quota, but was still over. So the next step was to whittle down the lookups overnight. While there are a few interesting flights overnight, most are cargo traffic and a little less interesting for me. After more trial and error, I finally got it dialed in and right around my quota per month.
+
+Throughout all that testing, I was also working on what the web interface would look like. I started with a basic list of flights today, then evolved it to show some basic summaries at the top and then added a map. Lastly, I got way to go to previous days. All of this was being displayed using an Astro Live Collection reading the D1 database. The enrichment script runs every 5 minutes, so the page is updated throughout the day.
+
+Overall, I really enjoyed getting this working. It is interesting to me to see how much air traffic to and from O'Hare passes by. I have been surprised how often the flight from New Zealand to New York is seen. I also plan to create some sort of summary page. With over a month of good data now, I want to have a page that shows all of the airports planes left and arrived at, longest flights seen, which planes have been seen more often, and more. 

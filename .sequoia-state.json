@@ -5,6 +5,12 @@
       "atUri": "at://did:plc:evbto4bepchfkz2prgfsqp2v/site.standard.document/3mulcsz33wg2q",
       "lastPublished": "2026-09-03T01:37:30.072Z",
       "slug": "puzzmo-project"
+    },
+    "src/content/blog/2026/adsb-tracking.md": {
+      "contentHash": "0fd366dd268800a5ac49dd5e69f76d04a3d8f57b59e002cdd1e04a8a747cb477",
+      "atUri": "at://did:plc:evbto4bepchfkz2prgfsqp2v/site.standard.document/3mvggwlwxi42g",
+      "lastPublished": "2026-09-13T20:32:58.472Z",
+      "slug": "adsb-tracking"
     }
   },
   "publication": {
