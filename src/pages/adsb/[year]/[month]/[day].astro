@@ -1,23 +1,29 @@
 ---
 export const prerender = false;
 
-import Layout from "../../layouts/Layout.astro";
+import Layout from "../../../../layouts/Layout.astro";
 import { getLiveCollection } from "astro:content";
-import AdsbFlightRow from "../../components/AdsbFlightRow.astro";
-import AdsbMap from "../../components/AdsbMap.jsx";
+import AdsbFlightRow from "../../../../components/AdsbFlightRow.astro";
+import AdsbMap from "../../../../components/AdsbMap.jsx";
 import { DateTime } from "luxon";
 
-const url = new URL(Astro.request.url);
-const dateParam = url.searchParams.get("date");
-
 const tz = "America/Chicago";
-let selectedDate = DateTime.now().setZone(tz);
+const todayZone = DateTime.now().setZone(tz);
 
-if (dateParam) {
-  const parsed = DateTime.fromISO(dateParam, { zone: tz });
-  if (parsed.isValid) {
-    selectedDate = parsed;
-  }
+const { year, month, day } = Astro.params;
+
+// Parse date from URL params: /adsb/[year]/[month]/[day]
+let selectedDate = DateTime.fromObject(
+  {
+    year: Number(year),
+    month: Number(month),
+    day: Number(day),
+  },
+  { zone: tz }
+);
+
+if (!selectedDate.isValid) {
+  selectedDate = todayZone;
 }
 
 const dateStr = selectedDate.toFormat("yyyy-MM-dd");
@@ -49,9 +55,13 @@ const mapRoutes = flights
     airline: f.data.operated_by || f.data.airline || "",
   }));
 
-const prevDateStr = selectedDate.minus({ days: 1 }).toFormat("yyyy-MM-dd");
-const nextDateStr = selectedDate.plus({ days: 1 }).toFormat("yyyy-MM-dd");
-const todayZone = DateTime.now().setZone(tz);
+const prevDate = selectedDate.minus({ days: 1 });
+const nextDate = selectedDate.plus({ days: 1 });
+
+const prevUrl = `/adsb/${prevDate.toFormat("yyyy/MM/dd")}`;
+const nextUrl = `/adsb/${nextDate.toFormat("yyyy/MM/dd")}`;
+const todayUrl = `/adsb/${todayZone.toFormat("yyyy/MM/dd")}`;
+
 const isToday = selectedDate.hasSame(todayZone, "day");
 const isTodayOrFuture = selectedDate.startOf("day") >= todayZone.startOf("day");
 
@@ -122,21 +132,25 @@ const maxModelCount = topModels[0]?.[1] ?? 1;
 
           <div class="nav-actions">
             {!isAtMinDateOrBefore && (
-              <a href={`?date=${prevDateStr}`} class="nav-link prev" title="Previous Day">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width.5="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <a href={prevUrl} class="nav-link prev" title="Previous Day">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 <span>Prev</span>
               </a>
             )}
             
             {!isTodayOrFuture && !isBeforeMinDate && (
-              <a href={`?date=${nextDateStr}`} class="nav-link next" title="Next Day">
+              <a href={nextUrl} class="nav-link next" title="Next Day">
                 <span>Next</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width.5="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </a>
             )}
 
+            <a href={`/adsb/${selectedDate.toFormat("yyyy/MM")}`} class="nav-link month-link" title="Month Summary">
+              <span>{selectedDate.toFormat("LLL yyyy")}</span>
+            </a>
+
             {!isToday && (
-              <a href="?" class="jump-today-link" title="Return to Today">
+              <a href={todayUrl} class="jump-today-link" title="Return to Today">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><polyline points="16 3 21 8 16 13"></polyline><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><polyline points="8 21 3 16 8 11"></polyline></svg>
                 <span>Today</span>
               </a>
