@@ -11,12 +11,12 @@
     "generate-types": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.2.3",
-    "@astrojs/react": "^6.0.4",
+    "@astrojs/cloudflare": "^14.3.3",
+    "@astrojs/react": "^7.0.0",
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/sitemap": "^3.7.4",
     "@iconify-json/ph": "^1.2.2",
-    "astro": "^7.2.4",
+    "astro": "^7.3.5",
     "astro-icon": "^1.1.5",
     "better-sqlite3": "^12.4.1",
     "leaflet": "^1.9.4",

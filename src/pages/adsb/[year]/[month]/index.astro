@@ -1,0 +1,1164 @@
+---
+export const prerender = false;
+
+import Layout from "../../../../layouts/Layout.astro";
+import { DateTime } from "luxon";
+
+const tz = "America/Chicago";
+const now = DateTime.now().setZone(tz);
+
+const { year, month } = Astro.params;
+
+let selectedMonth = DateTime.fromObject(
+  {
+    year: Number(year),
+    month: Number(month),
+    day: 1,
+  },
+  { zone: tz }
+);
+
+if (!selectedMonth.isValid) {
+  selectedMonth = now.startOf("month");
+}
+
+const monthStr = selectedMonth.toFormat("yyyy-MM");
+const monthPattern = `${monthStr}%`;
+const monthLabel = selectedMonth.toFormat("LLLL yyyy");
+
+// Helper to access D1 binding
+async function getD1Database() {
+  try {
+    const cf = await import("cloudflare:workers");
+    return cf.env.DB;
+  } catch {
+    return null;
+  }
+}
+
+const db = await getD1Database();
+
+interface AirlineStat {
+  iata: string;
+  name: string;
+  count: number;
+}
+
+interface PlaneStat {
+  hex: string;
+  registration: string;
+  model: string;
+  type: string;
+  airline_name: string;
+  airline_code: string;
+  count: number;
+}
+
+interface DestStat {
+  code: string;
+  name: string;
+  city: string;
+  country?: string;
+  lat?: number | null;
+  lon?: number | null;
+  distance?: number | null;
+  count: number;
+}
+
+// Quad Cities International Airport (KMLI / MLI) coordinates
+const QC_LAT = 41.4485;
+const QC_LON = -90.5075;
+
+function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
+  const R = 3959; // Earth's radius in miles
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+let totalFlights = 0;
+let totalPlanesSeen = 0;
+let planesSeenMultiple = 0;
+let airlines: AirlineStat[] = [];
+let multiPlanes: PlaneStat[] = [];
+let topDestinations: DestStat[] = [];
+let fewestDestinations: DestStat[] = [];
+
+if (db) {
+  try {
+    // 1. Total tracked flights with flight numbers in month
+    const totalRow = await db
+      .prepare(`SELECT count(*) as cnt FROM aircraft_seen WHERE seen_date LIKE ? AND flight_number IS NOT NULL`)
+      .bind(monthPattern)
+      .first<{ cnt: number }>();
+    totalFlights = totalRow?.cnt ?? 0;
+
+    // 2. Summary of all airlines and the number of flights
+    const airlineRows = await db
+      .prepare(`
+        SELECT COALESCE(al.name, a.airline, 'Unknown') as name,
+               COALESCE(a.airline, '') as iata,
+               count(*) as count
+        FROM aircraft_seen a
+        LEFT JOIN airlines al ON a.airline = al.iata
+        WHERE a.seen_date LIKE ? AND a.flight_number IS NOT NULL
+        GROUP BY name
+        ORDER BY count DESC, name ASC
+      `)
+      .bind(monthPattern)
+      .all<{ name: string; iata: string; count: number }>();
+    airlines = airlineRows.results || [];
+
+    // 3. Most commonly seen commercial plane (and any ties)
+    const multiPlaneRows = await db
+      .prepare(`
+        SELECT a.hex,
+               COALESCE(a.registration, a.hex) as registration,
+               COALESCE(a.model, a.type, 'Unknown') as model,
+               COALESCE(a.type, '') as type,
+               COALESCE(al.name, a.airline, '') as airline_name,
+               COALESCE(a.airline, '') as airline_code,
+               count(*) as count
+        FROM aircraft_seen a
+        LEFT JOIN airlines al ON a.airline = al.iata
+        WHERE a.seen_date LIKE ? AND a.flight_number IS NOT NULL
+        GROUP BY a.hex
+        HAVING count > 1
+        ORDER BY count DESC, registration ASC
+      `)
+      .bind(monthPattern)
+      .all<PlaneStat>();
+
+    const allMulti = multiPlaneRows.results || [];
+    const maxCount = allMulti[0]?.count ?? 0;
+    // Filter to only the planes tied for the maximum count
+    multiPlanes = allMulti.filter((p) => p.count === maxCount && maxCount > 0);
+    planesSeenMultiple = allMulti.length; // total repeat aircraft count
+
+    // Total unique planes seen in month
+    const uniquePlaneRow = await db
+      .prepare(`SELECT count(DISTINCT hex) as cnt FROM aircraft_seen WHERE seen_date LIKE ?`)
+      .bind(monthPattern)
+      .first<{ cnt: number }>();
+    totalPlanesSeen = uniquePlaneRow?.cnt ?? 0;
+
+    // 4. Top 10 destinations
+    const topDestRows = await db
+      .prepare(`
+        SELECT COALESCE(apd.iata, a.destination) as code,
+               COALESCE(apd.name, a.destination) as name,
+               COALESCE(apd.municipality, '') as city,
+               count(*) as count
+        FROM aircraft_seen a
+        JOIN airports apd ON a.destination = apd.icao
+        WHERE a.seen_date LIKE ? AND a.destination IS NOT NULL
+        GROUP BY code
+        ORDER BY count DESC
+        LIMIT 10
+      `)
+      .bind(monthPattern)
+      .all<DestStat>();
+    topDestinations = topDestRows.results || [];
+
+    // 5. Unique international destinations (seen few times, not in the US, sorted by distance from QC)
+    const fewestDestRows = await db
+      .prepare(`
+        SELECT COALESCE(apd.iata, a.destination) as code,
+               COALESCE(apd.name, a.destination) as name,
+               COALESCE(apd.municipality, '') as city,
+               COALESCE(apd.country_code, '') as country,
+               apd.lat as lat,
+               apd.lon as lon,
+               count(*) as count
+        FROM aircraft_seen a
+        JOIN airports apd ON a.destination = apd.icao
+        WHERE a.seen_date LIKE ? 
+          AND a.destination IS NOT NULL
+          AND (apd.country_code != 'US' OR (apd.country_code IS NULL AND apd.icao NOT LIKE 'K%'))
+        GROUP BY code
+        ORDER BY count ASC
+        LIMIT 25
+      `)
+      .bind(monthPattern)
+      .all<DestStat>();
+
+    const rawFewest = (fewestDestRows.results || []).map((dest) => {
+      let distance: number | null = null;
+      if (dest.lat != null && dest.lon != null) {
+        distance = Math.round(haversineDistance(QC_LAT, QC_LON, dest.lat, dest.lon));
+      }
+      return { ...dest, distance };
+    });
+
+    // Sort by distance from the Quad Cities descending (furthest first)
+    rawFewest.sort((a, b) => (b.distance ?? 0) - (a.distance ?? 0));
+    fewestDestinations = rawFewest.slice(0, 10);
+  } catch (err) {
+    console.error("Error querying monthly ADSB data:", err);
+  }
+} else {
+  // Mock data for local development when D1 is not bound
+  totalFlights = 142;
+  totalPlanesSeen = 110;
+  planesSeenMultiple = 18;
+  airlines = [
+    { name: "United Airlines", iata: "UA", count: 68 },
+    { name: "American Airlines", iata: "AA", count: 42 },
+    { name: "Southwest Airlines", iata: "WN", count: 24 },
+    { name: "Delta Air Lines", iata: "DL", count: 8 },
+  ];
+  multiPlanes = [
+    { hex: "A3B1C2", registration: "N732SW", model: "Boeing 737-700", type: "B737", airline_name: "Southwest Airlines", airline_code: "WN", count: 6 },
+    { hex: "A3B1D4", registration: "N734SW", model: "Boeing 737-700", type: "B737", airline_name: "Southwest Airlines", airline_code: "WN", count: 6 },
+    { hex: "C0FFEE", registration: "N120UA", model: "Airbus A320-200", type: "A320", airline_name: "United Airlines", airline_code: "UA", count: 6 },
+    { hex: "C0FF33", registration: "N122UA", model: "Airbus A320-200", type: "A320", airline_name: "United Airlines", airline_code: "UA", count: 6 },
+  ];
+  topDestinations = [
+    { code: "ORD", name: "O'Hare International Airport", city: "Chicago", count: 45 },
+    { code: "MDW", name: "Chicago Midway International", city: "Chicago", count: 28 },
+    { code: "DEN", name: "Denver International Airport", city: "Denver", count: 18 },
+    { code: "DFW", name: "Dallas/Fort Worth International", city: "Dallas", count: 12 },
+    { code: "ATL", name: "Hartsfield-Jackson Atlanta", city: "Atlanta", count: 10 },
+  ];
+  fewestDestinations = [
+    { code: "AKL", name: "Auckland Airport", city: "Auckland", country: "NZ", distance: 7990, count: 1 },
+    { code: "NRT", name: "Narita International Airport", city: "Tokyo", country: "JP", distance: 6185, count: 2 },
+    { code: "FRA", name: "Frankfurt Airport", city: "Frankfurt", country: "DE", distance: 4320, count: 1 },
+    { code: "LHR", name: "London Heathrow Airport", city: "London", country: "GB", distance: 3995, count: 2 },
+    { code: "YYZ", name: "Toronto Pearson International", city: "Toronto", country: "CA", distance: 512, count: 3 },
+  ];
+}
+
+const maxAirlineCount = airlines[0]?.count ?? 1;
+const maxMultiPlaneCount = multiPlanes[0]?.count ?? 1;
+const maxDestCount = topDestinations[0]?.count ?? 1;
+
+// Month navigation
+const prevMonth = selectedMonth.minus({ months: 1 });
+const nextMonth = selectedMonth.plus({ months: 1 });
+const prevMonthUrl = `/adsb/${prevMonth.toFormat("yyyy/MM")}`;
+const nextMonthUrl = `/adsb/${nextMonth.toFormat("yyyy/MM")}`;
+
+const minMonth = DateTime.fromISO("2026-07-01", { zone: tz });
+const isAtMinMonthOrBefore = selectedMonth.startOf("month") <= minMonth.startOf("month");
+const isCurrentMonth = selectedMonth.hasSame(now, "month") && selectedMonth.hasSame(now, "year");
+const isCurrentOrFutureMonth = selectedMonth.startOf("month") >= now.startOf("month");
+
+// Dynamically match local images from src/content/images/airline-logos/{IATA}.png
+const logoModules = import.meta.glob<{ default: ImageMetadata }>('../../../../content/images/airline-logos/*.png', { eager: true });
+function getAirlineLogo(iata: string | undefined | null) {
+  if (!iata) return null;
+  const key = Object.keys(logoModules).find((path) => path.endsWith(`/${iata.toUpperCase()}.png`));
+  return key ? logoModules[key].default.src : null;
+}
+---
+
+<Layout title={`ADSB Flight Tracker - ${monthLabel}`}>
+  <main class="adsb-month-page">
+    <div class="content-container masthead">
+      <div class="header-breadcrumbs">
+        <a href="/adsb" class="breadcrumb-link">ADSB Tracker</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href={`/adsb/${selectedMonth.toFormat("yyyy")}`} class="breadcrumb-link">{selectedMonth.toFormat("yyyy")}</a>
+      </div>
+      <h1>{monthLabel} Summary</h1>
+      <p class="subtitle">Monthly flight traffic overview recorded by my local receiver.</p>
+    </div>
+
+    <!-- Month Navigation & Stat Highlights -->
+    <div class="content-container">
+      <div class="month-header-bar">
+        <div class="month-nav">
+          {!isAtMinMonthOrBefore && (
+            <a href={prevMonthUrl} class="nav-btn prev" title="Previous Month">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <span>{prevMonth.toFormat("LLL")}</span>
+            </a>
+          )}
+
+          <span class="current-month-badge">{monthLabel}</span>
+
+          {!isCurrentOrFutureMonth && (
+            <a href={nextMonthUrl} class="nav-btn next" title="Next Month">
+              <span>{nextMonth.toFormat("LLL")}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          )}
+        </div>
+
+        {!isCurrentMonth && (
+          <a href={`/adsb/${now.toFormat("yyyy/MM")}`} class="jump-current-link">
+            Return to Current Month
+          </a>
+        )}
+      </div>
+
+      <!-- High-level Metric Cards -->
+      <div class="stats-grid">
+        <div class="stat-card card">
+          <div class="stat-value">{totalFlights.toLocaleString()}</div>
+          <div class="stat-label">TOTAL FLIGHTS</div>
+          <div class="stat-sub">Enriched commercial flights</div>
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-value">{totalPlanesSeen.toLocaleString()}</div>
+          <div class="stat-label">UNIQUE AIRCRAFT</div>
+          <div class="stat-sub">Distinct tail hexes received</div>
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-value">{multiPlanes[0]?.count ?? 0}x</div>
+          <div class="stat-label">TOP FREQUENCY</div>
+          <div class="stat-sub">{multiPlanes.length} {multiPlanes.length === 1 ? 'aircraft' : 'aircraft tied'}</div>
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-value">{airlines.length}</div>
+          <div class="stat-label">AIRLINES</div>
+          <div class="stat-sub">Commercial operators</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-container">
+      <div class="content-container sections-layout">
+
+        <!-- 1. Destination Overview (Top 10 & Fewest) -->
+        <section class="section-card card">
+          <div class="section-title-bar">
+            <div>
+              <h2 class="section-title">Destinations</h2>
+              <p class="section-desc">Most frequent destinations and rarest destinations seen this month.</p>
+            </div>
+          </div>
+
+          <div class="destinations-columns">
+            <!-- Top 10 Destinations -->
+            <div class="dest-col">
+              <h3 class="col-heading">
+                <span class="badge-pill top-pill">Top 10</span>
+                Most Visited Destinations
+              </h3>
+              {topDestinations.length > 0 ? (
+                <ol class="ranked-dest-list">
+                  {topDestinations.map((dest, idx) => (
+                    <li class="ranked-dest-item">
+                      <span class="rank-index">{idx + 1}</span>
+                      <div class="dest-info">
+                        <div class="dest-top-line">
+                          <span class="dest-code">{dest.code}</span>
+                          <span class="dest-name">{dest.name}</span>
+                        </div>
+                        {dest.city && <span class="dest-city">{dest.city}</span>}
+                        <div class="dest-bar-track">
+                          <div class="dest-bar-fill" style={`width: ${Math.round((dest.count / maxDestCount) * 100)}%`}></div>
+                        </div>
+                      </div>
+                      <span class="dest-count">{dest.count}</span>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p class="empty-col">No destination data recorded.</p>
+              )}
+            </div>
+
+            <!-- Unique International Destinations -->
+            <div class="dest-col">
+              <h3 class="col-heading">
+                <span class="badge-pill few-pill">Unique</span>
+                Unique Locations (Non-US)
+              </h3>
+              {fewestDestinations.length > 0 ? (
+                <ol class="ranked-dest-list">
+                  {fewestDestinations.map((dest, idx) => (
+                    <li class="ranked-dest-item">
+                      <span class="rank-index">{idx + 1}</span>
+                      <div class="dest-info">
+                        <div class="dest-top-line">
+                          <span class="dest-code">{dest.code}</span>
+                          <span class="dest-name">{dest.name}</span>
+                        </div>
+                        <div class="dest-location-line">
+                          {dest.city && <span class="dest-city">{dest.city}</span>}
+                          {dest.city && dest.country && <span class="dest-dot">•</span>}
+                          {dest.country && <span class="dest-country-tag">{dest.country}</span>}
+                          {dest.distance != null && (
+                            <>
+                              <span class="dest-dot">•</span>
+                              <span class="dest-distance">{dest.distance.toLocaleString()} mi</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                      <span class="dest-count few-count">{dest.count} {dest.count === 1 ? 'flight' : 'flights'}</span>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p class="empty-col">No international destination data recorded.</p>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Most Commonly Seen Commercial Plane(s) -->
+        <section class="section-card card">
+          <div class="section-title-bar">
+            <div>
+              <h2 class="section-title">Most Frequently Seen Aircraft</h2>
+              <p class="section-desc">
+                {multiPlanes.length > 0 ? (
+                  <>
+                    The most commonly seen commercial aircraft in {monthLabel}, tracked {multiPlanes[0].count} times{multiPlanes.length > 1 ? ` (${multiPlanes.length} tied)` : ''}.
+                  </>
+                ) : (
+                  <>No commercial aircraft tracked multiple times in {monthLabel}.</>
+                )}
+              </p>
+            </div>
+            {multiPlanes.length > 0 && (
+              <span class="count-badge">{multiPlanes[0].count} sightings each</span>
+            )}
+          </div>
+
+          {multiPlanes.length > 0 ? (
+            <div class="table-scroll-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Registration</th>
+                    <th>Model / Type</th>
+                    <th>Airline / Operator</th>
+                    <th class="text-right">Times Seen</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {multiPlanes.map((plane) => {
+                    const logo = getAirlineLogo(plane.airline_code);
+                    return (
+                      <tr>
+                        <td>
+                          <div class="plane-reg-col">
+                            <span class="plane-reg">{plane.registration}</span>
+                            <span class="plane-hex">{plane.hex}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <span class="plane-model">{plane.model}</span>
+                        </td>
+                        <td>
+                          <div class="airline-cell">
+                            {logo ? (
+                              <img src={logo} alt={plane.airline_name || "Airline"} class="table-airline-logo" loading="lazy" />
+                            ) : plane.airline_code ? (
+                              <span class="table-airline-code">{plane.airline_code}</span>
+                            ) : null}
+                            <span>{plane.airline_name || "Unknown"}</span>
+                          </div>
+                        </td>
+                        <td class="text-right">
+                          <div class="count-bar-wrapper">
+                            <div class="mini-bar-track">
+                              <div
+                                class="mini-bar-fill"
+                                style={`width: ${Math.round((plane.count / maxMultiPlaneCount) * 100)}%`}
+                              ></div>
+                            </div>
+                            <span class="count-pill">{plane.count}</span>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div class="empty-col">No repeat aircraft recorded for this month.</div>
+          )}
+        </section>
+
+        <!-- 3. Summary of All Airlines -->
+        <section class="section-card card">
+          <div class="section-title-bar">
+            <div>
+              <h2 class="section-title">Airlines</h2>
+              <p class="section-desc">
+                Breakdown of all {airlines.length} airlines and total flights tracked.
+              </p>
+            </div>
+            <span class="count-badge">{totalFlights.toLocaleString()} total flights</span>
+          </div>
+
+          {airlines.length > 0 ? (
+            <div class="airlines-grid">
+              {airlines.map((airline) => {
+                const logo = getAirlineLogo(airline.iata);
+                const percent = totalFlights > 0 ? ((airline.count / totalFlights) * 100).toFixed(1) : "0";
+                return (
+                  <div class="airline-card">
+                    <div class="airline-header">
+                      <div class="airline-identity">
+                        {logo ? (
+                          <img src={logo} alt={airline.name} class="airline-grid-logo" loading="lazy" />
+                        ) : (
+                          <div class="airline-grid-badge">{airline.iata || "--"}</div>
+                        )}
+                        <div class="airline-name-group">
+                          <span class="airline-card-name" title={airline.name}>{airline.name}</span>
+                          {airline.iata && <span class="airline-card-code">{airline.iata}</span>}
+                        </div>
+                      </div>
+                      <div class="airline-count-group">
+                        <span class="airline-big-count">{airline.count}</span>
+                        <span class="airline-percent">{percent}%</span>
+                      </div>
+                    </div>
+                    <div class="airline-progress-bar">
+                      <div
+                        class="airline-progress-fill"
+                        style={`width: ${Math.round((airline.count / maxAirlineCount) * 100)}%`}
+                      ></div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div class="empty-col">No airlines recorded for this month.</div>
+          )}
+        </section>
+
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .adsb-month-page {
+    padding-bottom: var(--space-12);
+  }
+
+  /* Breadcrumbs */
+  .header-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+
+    .breadcrumb-link {
+      color: var(--color-primary);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .breadcrumb-sep {
+      opacity: 0.5;
+    }
+  }
+
+  /* Month navigation header */
+  .month-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .month-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--color-surface-alt);
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  .current-month-badge {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text);
+    padding: 6px 14px;
+    background: var(--color-surface);
+    border-radius: var(--radius-xs);
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: var(--radius-xs);
+    transition: background-color var(--transition-standard), color var(--transition-standard);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--color-text);
+    }
+  }
+
+  .jump-current-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 6px 12px;
+    background: var(--color-primary-light);
+    border-radius: var(--radius-xs);
+    transition: opacity var(--transition-standard);
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  /* Metric Cards */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .stat-card {
+    padding: var(--space-5) var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    font-family: var(--font-hanken-grotesk);
+    color: var(--color-primary-dark);
+    line-height: 1;
+    margin-bottom: var(--space-1);
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .stat-sub {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Background container */
+  .bg-container {
+    background-color: var(--color-bg-muted);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-10) 0;
+  }
+
+  .sections-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .section-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-6) var(--space-8);
+
+    @media (max-width: 600px) {
+      padding: var(--space-5);
+    }
+  }
+
+  .section-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .section-title {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .section-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .count-badge {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    background: var(--color-primary-light);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    align-self: flex-start;
+  }
+
+  /* Destinations layout */
+  .destinations-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+
+    @media (max-width: 850px) {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  .dest-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .col-heading {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 var(--space-4);
+  }
+
+  .badge-pill {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+  }
+
+  .top-pill {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+  }
+
+  .few-pill {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+  }
+
+  .ranked-dest-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ranked-dest-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-surface-alt);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .rank-index {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .dest-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .dest-top-line {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+
+  .dest-code {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text);
+    flex-shrink: 0;
+  }
+
+  .dest-name {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .dest-location-line {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+  }
+
+  .dest-city {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+  }
+
+  .dest-dot {
+    opacity: 0.5;
+  }
+
+  .dest-country-tag {
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 700;
+    font-size: 0.7rem;
+    color: var(--color-accent);
+    background: var(--color-accent-light);
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+
+  .dest-distance {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .dest-bar-track {
+    height: 4px;
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    margin-top: 3px;
+  }
+
+  .dest-bar-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    transition: width 0.4s ease;
+  }
+
+  .dest-count {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    background: var(--color-surface-alt);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+  }
+
+  .few-count {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Repeat Visitors Table */
+  .table-scroll-wrapper {
+    overflow-x: auto;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+
+    th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--color-text-muted);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 2px solid var(--color-border);
+      background: var(--color-surface);
+    }
+
+    td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--color-surface-alt);
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background-color: var(--color-surface-alt);
+    }
+
+    .text-right {
+      text-align: right;
+    }
+  }
+
+  .plane-reg-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .plane-reg {
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .plane-hex {
+    font-size: 0.72rem;
+    color: var(--color-text-light);
+    font-family: monospace;
+  }
+
+  .plane-model {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .airline-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text);
+  }
+
+  .table-airline-logo {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .table-airline-code {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 1px 4px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+  }
+
+  .count-bar-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    justify-content: flex-end;
+  }
+
+  .mini-bar-track {
+    width: 70px;
+    height: 5px;
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  .mini-bar-fill {
+    height: 100%;
+    background: var(--color-accent);
+    border-radius: var(--radius-pill);
+  }
+
+  .count-pill {
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 700;
+    color: var(--color-text);
+    background: var(--color-surface-alt);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    min-width: 26px;
+    text-align: center;
+  }
+
+  /* Airlines Grid */
+  .airlines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .airline-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xs);
+    padding: var(--space-4);
+    background: var(--color-surface);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition: border-color var(--transition-standard);
+
+    &:hover {
+      border-color: var(--color-border-dark);
+    }
+  }
+
+  .airline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .airline-identity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+    flex: 1;
+  }
+
+  .airline-grid-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .airline-grid-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text);
+    flex-shrink: 0;
+  }
+
+  .airline-name-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .airline-card-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .airline-card-code {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 600;
+  }
+
+  .airline-count-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .airline-big-count {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    line-height: 1;
+  }
+
+  .airline-percent {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .airline-progress-bar {
+    height: 4px;
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+
+  .airline-progress-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: var(--radius-pill);
+    transition: width 0.4s ease;
+  }
+
+  .empty-col {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+    padding: var(--space-4) 0;
+  }
+</style>
