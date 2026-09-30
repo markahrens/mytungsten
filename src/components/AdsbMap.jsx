@@ -106,7 +106,7 @@ function RoutesLayer({ routes }) {
           [-360, 0, 360].forEach((offset) => {
             const points = baseRoute.map(([lat, lng]) => [lat, lng + offset]);
             const poly = L.polyline(points, {
-              color: "#0284c7",
+              color: "#124936",
               weight: 2,
               opacity: 0.5,
             });

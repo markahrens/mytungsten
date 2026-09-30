@@ -1,28 +1,563 @@
 ---
+export const prerender = false;
+
 import Layout from "../../layouts/Layout.astro";
+import { DateTime } from "luxon";
+
+const tz = "America/Chicago";
+const today = DateTime.now().setZone(tz);
+const todayUrl = `/adsb/${today.toFormat("yyyy/MM/dd")}`;
+const todayLabel = today.toFormat("LLL d, yyyy");
+
+// Helper to access D1 binding
+async function getD1Database() {
+  try {
+    const cf = await import("cloudflare:workers");
+    return cf.env.DB;
+  } catch {
+    return null;
+  }
+}
+
+const db = await getD1Database();
+
+interface AirportStat {
+  code: string;
+  name: string;
+  city: string;
+  count: number;
+}
+
+interface FlightRecord {
+  flight: string;
+  flight_number: string;
+  airline_name: string;
+  origin_code: string;
+  origin_name: string;
+  origin_city: string;
+  dest_code: string;
+  dest_name: string;
+  dest_city: string;
+  distance: number;
+  seen_date: string;
+}
+
+let mostCommonAirport: AirportStat | null = null;
+let longestFlight: FlightRecord | null = null;
+let shortestFlight: FlightRecord | null = null;
+let uniqueAirlines = 0;
+let uniqueCountries = 0;
+
+if (db) {
+  try {
+    // 1. Most common airport of all time (considering both origin and destination)
+    const airportRow = await db
+      .prepare(`
+        SELECT combined.airport_code AS code,
+               COALESCE(ap.iata, combined.airport_code) AS display_code,
+               COALESCE(ap.name, combined.airport_code) AS name,
+               COALESCE(ap.municipality, '') AS city,
+               COUNT(*) AS count
+        FROM (
+          SELECT origin AS airport_code FROM aircraft_seen WHERE origin IS NOT NULL
+          UNION ALL
+          SELECT destination AS airport_code FROM aircraft_seen WHERE destination IS NOT NULL
+        ) combined
+        LEFT JOIN airports ap ON combined.airport_code = ap.icao
+        GROUP BY combined.airport_code
+        ORDER BY count DESC
+        LIMIT 1
+      `)
+      .first<{ display_code: string; name: string; city: string; count: number }>();
+
+    if (airportRow) {
+      mostCommonAirport = {
+        code: airportRow.display_code,
+        name: airportRow.name,
+        city: airportRow.city,
+        count: airportRow.count,
+      };
+    }
+
+    // 2. Longest flight seen (distance > 0)
+    longestFlight = await db
+      .prepare(`
+        SELECT a.flight,
+               COALESCE(a.flight_number, '') AS flight_number,
+               COALESCE(al.name, a.airline, '') AS airline_name,
+               COALESCE(apo.iata, a.origin, '') AS origin_code,
+               COALESCE(apo.name, a.origin, '') AS origin_name,
+               COALESCE(apo.municipality, '') AS origin_city,
+               COALESCE(apd.iata, a.destination, '') AS dest_code,
+               COALESCE(apd.name, a.destination, '') AS dest_name,
+               COALESCE(apd.municipality, '') AS dest_city,
+               a.distance,
+               a.seen_date
+        FROM aircraft_seen a
+        LEFT JOIN airlines al ON a.airline = al.iata
+        LEFT JOIN airports apo ON a.origin = apo.icao
+        LEFT JOIN airports apd ON a.destination = apd.icao
+        WHERE a.distance IS NOT NULL AND a.distance > 0
+        ORDER BY a.distance DESC
+        LIMIT 1
+      `)
+      .first<FlightRecord>();
+
+    // 3. Shortest flight seen (distance > 0)
+    shortestFlight = await db
+      .prepare(`
+        SELECT a.flight,
+               COALESCE(a.flight_number, '') AS flight_number,
+               COALESCE(al.name, a.airline, '') AS airline_name,
+               COALESCE(apo.iata, a.origin, '') AS origin_code,
+               COALESCE(apo.name, a.origin, '') AS origin_name,
+               COALESCE(apo.municipality, '') AS origin_city,
+               COALESCE(apd.iata, a.destination, '') AS dest_code,
+               COALESCE(apd.name, a.destination, '') AS dest_name,
+               COALESCE(apd.municipality, '') AS dest_city,
+               a.distance,
+               a.seen_date
+        FROM aircraft_seen a
+        LEFT JOIN airlines al ON a.airline = al.iata
+        LEFT JOIN airports apo ON a.origin = apo.icao
+        LEFT JOIN airports apd ON a.destination = apd.icao
+        WHERE a.distance IS NOT NULL AND a.distance > 0
+        ORDER BY a.distance ASC
+        LIMIT 1
+      `)
+      .first<FlightRecord>();
+
+    // 4. Number of unique airlines seen
+    const airlineRow = await db
+      .prepare(`SELECT COUNT(DISTINCT airline) AS cnt FROM aircraft_seen WHERE airline IS NOT NULL`)
+      .first<{ cnt: number }>();
+    uniqueAirlines = airlineRow?.cnt ?? 0;
+
+    // 5. Number of unique countries seen (based on origin and destination airports)
+    const countryRow = await db
+      .prepare(`
+        SELECT COUNT(DISTINCT ap.country_code) AS cnt
+        FROM (
+          SELECT origin AS airport_code FROM aircraft_seen WHERE origin IS NOT NULL
+          UNION
+          SELECT destination AS airport_code FROM aircraft_seen WHERE destination IS NOT NULL
+        ) combined
+        JOIN airports ap ON combined.airport_code = ap.icao
+        WHERE ap.country_code IS NOT NULL
+      `)
+      .first<{ cnt: number }>();
+    uniqueCountries = countryRow?.cnt ?? 0;
+  } catch (err) {
+    console.error("Error querying ADSB overview statistics:", err);
+  }
+} else {
+  // Local development fallback data
+  mostCommonAirport = { code: "ORD", name: "O'Hare International Airport", city: "Chicago", count: 3410 };
+  longestFlight = {
+    flight: "ANZ2",
+    flight_number: "2",
+    airline_name: "Air New Zealand",
+    origin_code: "AKL",
+    origin_name: "Auckland Airport",
+    origin_city: "Auckland",
+    dest_code: "JFK",
+    dest_name: "John F. Kennedy International",
+    dest_city: "New York",
+    distance: 8828,
+    seen_date: "2026-08-15",
+  };
+  shortestFlight = {
+    flight: "SKW5124",
+    flight_number: "5124",
+    airline_name: "SkyWest Airlines",
+    origin_code: "ORD",
+    origin_name: "O'Hare International",
+    origin_city: "Chicago",
+    dest_code: "MLI",
+    dest_name: "Quad Cities International",
+    dest_city: "Moline",
+    distance: 139,
+    seen_date: "2026-09-02",
+  };
+  uniqueAirlines = 48;
+  uniqueCountries = 29;
+}
 ---
 
 <Layout title="ADSB Flight Tracker">
-  <main>
+  <main class="adsb-index-page">
     <div class="content-container masthead">
-      <h1>ADSB Flight Tracker</h1>
-      <p class="subtitle">Flights tracked by my local ADSB receiver.</p>
+      <div class="masthead-header">
+        <h1>ADSB Flight Tracker</h1>
+        <div class="header-nav">
+          <span class="nav-badge">Today</span>
+          <a href={todayUrl} class="nav-btn" title="View Today's Flights">
+            <span>{todayLabel}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+      </div>
+      <p class="subtitle">
+        Tracking commercial and general aviation flights passing overhead using a custom ADS-B ground receiver. <br />
+        <a href="/blog/2026/adsb-tracking" class="blog-link">Read the story of how this tracker was built &rarr;</a>
+      </p>
     </div>
 
+    <!-- Quick All-Time Metric Cards -->
+    <div class="content-container">
+      <div class="stats-grid">
+        <div class="stat-card card">
+          <div class="stat-label">MOST COMMON AIRPORT</div>
+          <div class="stat-value">{mostCommonAirport?.code ?? "—"}</div>
+          <div class="stat-sub">{mostCommonAirport?.name ?? "No data"}</div>
+          {mostCommonAirport && (
+            <div class="stat-extra">{mostCommonAirport.city} • {mostCommonAirport.count.toLocaleString()} visits</div>
+          )}
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-label">UNIQUE AIRLINES</div>
+          <div class="stat-value">{uniqueAirlines.toLocaleString()}</div>
+       </div>
+
+        <div class="stat-card card">
+          <div class="stat-label">COUNTRIES CONNECTED</div>
+          <div class="stat-value">{uniqueCountries.toLocaleString()}</div>
+       </div>
+      </div>
+    </div>
+
+    <!-- Detailed Highlights Section -->
     <div class="bg-container">
       <div class="content-container">
-        <!-- Content coming soon -->
+        {(longestFlight || shortestFlight) && (
+          <section class="section-card card">
+            <div class="section-title-bar">
+              <div>
+                <h2 class="section-title">All-Time Flight Extremes</h2>
+                <p class="section-desc">The longest and shortest routes recorded by distance between origin and destination.</p>
+              </div>
+            </div>
+
+            <div class="records-grid">
+              {longestFlight && (
+                <div class="record-box">
+                  <div class="record-badge longest">Longest Flight</div>
+                  <div class="route-display">
+                    <span class="route-code">{longestFlight.origin_code}</span>
+                    <span class="route-arrow">✈</span>
+                    <span class="route-code">{longestFlight.dest_code}</span>
+                  </div>
+                  <p class="route-details">
+                    {longestFlight.origin_city || longestFlight.origin_name} to {longestFlight.dest_city || longestFlight.dest_name}
+                  </p>
+                  <div class="record-meta">
+                    <span class="distance-pill">{longestFlight.distance.toLocaleString()} miles</span>
+                    {longestFlight.airline_name && <span class="meta-tag">{longestFlight.airline_name}</span>}
+                    {longestFlight.flight && <span class="meta-tag">{longestFlight.flight}</span>}
+                    <span class="meta-date">Seen on {longestFlight.seen_date}</span>
+                  </div>
+                </div>
+              )}
+
+              {shortestFlight && (
+                <div class="record-box">
+                  <div class="record-badge shortest">Shortest Flight</div>
+                  <div class="route-display">
+                    <span class="route-code">{shortestFlight.origin_code}</span>
+                    <span class="route-arrow">✈</span>
+                    <span class="route-code">{shortestFlight.dest_code}</span>
+                  </div>
+                  <p class="route-details">
+                    {shortestFlight.origin_city || shortestFlight.origin_name} to {shortestFlight.dest_city || shortestFlight.dest_name}
+                  </p>
+                  <div class="record-meta">
+                    <span class="distance-pill short">{shortestFlight.distance.toLocaleString()} miles</span>
+                    {shortestFlight.airline_name && <span class="meta-tag">{shortestFlight.airline_name}</span>}
+                    {shortestFlight.flight && <span class="meta-tag">{shortestFlight.flight}</span>}
+                    <span class="meta-date">Seen on {shortestFlight.seen_date}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   </main>
 </Layout>
 
 <style>
+  .adsb-index-page {
+    padding-bottom: var(--space-12);
+  }
+
+  .masthead-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-1);
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--color-surface-alt);
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  .nav-badge {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    background: var(--color-surface);
+    border-radius: var(--radius-xs);
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: var(--radius-xs);
+    transition: background-color var(--transition-standard), color var(--transition-standard);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--color-primary-dark);
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 720px;
+    line-height: 1.6;
+    margin-top: var(--space-2);
+  }
+
+  .blog-link {
+    display: inline-block;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: var(--space-1);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .stat-card {
+    padding: var(--space-5) var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-1);
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    font-family: var(--font-hanken-grotesk);
+    color: var(--color-primary-dark);
+    line-height: 1.1;
+    margin-bottom: var(--space-1);
+  }
+
+  .stat-sub {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stat-extra {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+
+  /* Background container */
   .bg-container {
     background-color: var(--color-bg-muted);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    padding: var(--space-12) 0;
-    min-height: 200px;
+    padding: var(--space-10) 0;
+  }
+
+  .section-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-6) var(--space-8);
+
+    @media (max-width: 600px) {
+      padding: var(--space-5);
+    }
+  }
+
+  .section-title-bar {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .section-title {
+    margin: 0 0 4px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .section-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .records-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .record-box {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xs);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .record-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    align-self: flex-start;
+  }
+
+  .record-badge.longest {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+  }
+
+  .record-badge.shortest {
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+  }
+
+  .route-display {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-1);
+  }
+
+  .route-code {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--color-text);
+  }
+
+  .route-arrow {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+  }
+
+  .route-details {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .record-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+  }
+
+  .distance-pill {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    background: var(--color-primary-light);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+  }
+
+  .distance-pill.short {
+    color: var(--color-accent);
+    background: var(--color-accent-light);
+  }
+
+  .meta-tag {
+    font-size: 0.8rem;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 1px 6px;
+    border-radius: var(--radius-xs);
+  }
+
+  .meta-date {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+    margin-left: auto;
   }
 </style>
