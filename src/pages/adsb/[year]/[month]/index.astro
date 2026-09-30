@@ -264,6 +264,8 @@ function getAirlineLogo(iata: string | undefined | null) {
         <a href="/adsb" class="breadcrumb-link">ADSB Tracker</a>
         <span class="breadcrumb-sep">/</span>
         <a href={`/adsb/${selectedMonth.toFormat("yyyy")}`} class="breadcrumb-link">{selectedMonth.toFormat("yyyy")}</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>{selectedMonth.toFormat("LLLL")}</span>
       </div>
       <h1>{monthLabel} Summary</h1>
       <p class="subtitle">Monthly flight traffic overview recorded by my local receiver.</p>
