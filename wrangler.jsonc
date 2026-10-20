@@ -16,8 +16,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "adsb_v2",
-      "database_id": "929c96be-db2f-49be-b008-275727019350"
+      "database_name": "adsb_v3",
+      "database_id": "7a7651c5-7f37-4509-adea-83fd713845e7"
     }
   ]
 }
