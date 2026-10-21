@@ -11,12 +11,12 @@
     "generate-types": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.3.3",
-    "@astrojs/react": "^7.0.0",
+    "@astrojs/cloudflare": "^14.4.2",
+    "@astrojs/react": "^7.1.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@iconify-json/ph": "^1.2.2",
-    "astro": "^7.3.5",
+    "astro": "^7.4.2",
     "astro-icon": "^1.1.5",
     "better-sqlite3": "^12.4.1",
     "leaflet": "^1.9.4",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/luxon": "^3.7.1",
-    "wrangler": "^4.95.0"
+    "wrangler": "^4.151.3"
   },
   "overrides": {
     "vite": "^8"
