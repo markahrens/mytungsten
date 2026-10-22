@@ -1,0 +1,507 @@
+---
+export const prerender = false;
+
+import Layout from "../../../layouts/Layout.astro";
+import type { ImageMetadata } from "astro";
+
+// Helper to access D1 binding
+async function getD1Database() {
+  try {
+    const cf = await import("cloudflare:workers");
+    return cf.env.DB;
+  } catch {
+    return null;
+  }
+}
+
+const db = await getD1Database();
+
+interface AirlineItem {
+  iata: string;
+  icao: string | null;
+  name: string;
+  flight_count: number;
+}
+
+let airlines: AirlineItem[] = [];
+let totalAirlineCount = 0;
+let totalFlightCount = 0;
+
+if (db) {
+  try {
+    const rows = await db
+      .prepare(`
+        SELECT 
+          al.iata,
+          al.icao,
+          COALESCE(al.name, al.iata) as name,
+          COUNT(a.id) as flight_count
+        FROM airlines al
+        JOIN aircraft_seen a ON a.airline = al.iata
+        GROUP BY al.iata
+        ORDER BY flight_count DESC, al.name ASC
+      `)
+      .all<AirlineItem>();
+
+    airlines = rows.results || [];
+    totalAirlineCount = airlines.length;
+    totalFlightCount = airlines.reduce((acc, curr) => acc + (curr.flight_count || 0), 0);
+  } catch (err) {
+    console.error("Error querying airlines index:", err);
+  }
+} else {
+  // Local fallback data for development
+  airlines = [
+    { iata: "UA", icao: "UAL", name: "United Airlines", flight_count: 8830 },
+    { iata: "AA", icao: "AAL", name: "American Airlines", flight_count: 7154 },
+    { iata: "WN", icao: "SWA", name: "Southwest Airlines", flight_count: 6461 },
+    { iata: "DL", icao: "DAL", name: "Delta Air Lines", flight_count: 5284 },
+    { iata: "B6", icao: "JBU", name: "JetBlue Airways", flight_count: 957 },
+    { iata: "AS", icao: "ASA", name: "Alaska Airlines", flight_count: 879 },
+    { iata: "MQ", icao: "ENY", name: "Envoy Air", flight_count: 824 },
+    { iata: "5X", icao: "UPS", name: "UPS", flight_count: 771 },
+  ];
+  totalAirlineCount = airlines.length;
+  totalFlightCount = airlines.reduce((acc, curr) => acc + curr.flight_count, 0);
+}
+
+// Dynamically match local logos from src/content/images/airline-logos/{IATA}.png
+const logoModules = import.meta.glob<{ default: ImageMetadata }>('../../../content/images/airline-logos/*.png', { eager: true });
+function getAirlineLogo(iata: string | undefined | null) {
+  if (!iata) return null;
+  const key = Object.keys(logoModules).find((path) => path.endsWith(`/${iata.toUpperCase()}.png`));
+  return key ? logoModules[key].default.src : null;
+}
+---
+
+<Layout title="Airlines - ADSB Flight Tracker">
+  <main class="adsb-airlines-page">
+    <div class="content-container masthead">
+      <div class="header-breadcrumbs">
+        <a href="/adsb" class="breadcrumb-link">ADSB Tracker</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Airlines</span>
+      </div>
+      <div class="masthead-header">
+        <h1>Airlines</h1>
+        <div class="header-nav">
+          <a href="/adsb" class="nav-btn" title="Back to ADSB Overview">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <span>Overview</span>
+          </a>
+        </div>
+      </div>
+      <p class="subtitle">
+        All {totalAirlineCount.toLocaleString()} commercial and cargo carriers tracked overhead.
+      </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="content-container">
+      <div class="stats-grid">
+        <div class="stat-card card">
+          <div class="stat-label">TOTAL AIRLINES</div>
+          <div class="stat-value">{totalAirlineCount.toLocaleString()}</div>
+          <div class="stat-sub">Operators detected overhead</div>
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-label">TOTAL FLIGHTS TRACKED</div>
+          <div class="stat-value">{totalFlightCount.toLocaleString()}</div>
+          <div class="stat-sub">Across all carriers</div>
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-label">TOP CARRIER</div>
+          <div class="stat-value">{airlines[0]?.iata ?? "—"}</div>
+          <div class="stat-sub">{airlines[0]?.name ?? "No data"}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Airline Directory Table -->
+    <div class="content-container table-container">
+      <div class="airlines-table-card card">
+        <div class="search-bar-row">
+          <input
+            type="search"
+            id="airlineSearch"
+            class="airline-search-input"
+            placeholder="Filter by airline name, IATA, or ICAO code..."
+            aria-label="Filter airlines"
+          />
+          <span class="count-badge" id="visibleCount">{airlines.length} airlines</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="airlines-table" id="airlinesTable">
+            <thead>
+              <tr>
+                <th class="col-logo"></th>
+                <th class="col-code">Code</th>
+                <th class="col-name">Airline Name</th>
+                <th class="col-flights">Flights</th>
+                <th class="col-arrow"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {airlines.map((al) => {
+                const logoSrc = getAirlineLogo(al.iata);
+                return (
+                  <tr
+                    class="airline-row"
+                    data-search={`${al.iata} ${al.icao ?? ""} ${al.name}`.toLowerCase()}
+                  >
+                    <td class="col-logo">
+                      {logoSrc ? (
+                        <img src={logoSrc} alt={al.name} class="airline-logo-img" loading="lazy" />
+                      ) : (
+                        <div class="airline-logo-placeholder">✈</div>
+                      )}
+                    </td>
+                    <td class="col-code">
+                      <a href={`/adsb/airlines/${al.iata.toUpperCase()}`} class="code-pill">
+                        {al.iata.toUpperCase()}
+                      </a>
+                      {al.icao && <span class="sub-icao">{al.icao}</span>}
+                    </td>
+                    <td class="col-name">
+                      <a href={`/adsb/airlines/${al.iata.toUpperCase()}`} class="airline-link">
+                        {al.name}
+                      </a>
+                    </td>
+                    <td class="col-flights">
+                      <span class="flight-count-pill">{al.flight_count.toLocaleString()}</span>
+                    </td>
+                    <td class="col-arrow">
+                      <a href={`/adsb/airlines/${al.iata.toUpperCase()}`} class="row-arrow" aria-label={`View ${al.name}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const searchInput = document.getElementById("airlineSearch") as HTMLInputElement | null;
+  const table = document.getElementById("airlinesTable");
+  const visibleBadge = document.getElementById("visibleCount");
+
+  if (searchInput && table) {
+    const rows = table.querySelectorAll<HTMLTableRowElement>("tbody tr.airline-row");
+    searchInput.addEventListener("input", (e) => {
+      const query = (e.target as HTMLInputElement).value.trim().toLowerCase();
+      let visible = 0;
+      rows.forEach((row) => {
+        const text = row.getAttribute("data-search") || "";
+        if (!query || text.includes(query)) {
+          row.style.display = "";
+          visible++;
+        } else {
+          row.style.display = "none";
+        }
+      });
+      if (visibleBadge) {
+        visibleBadge.textContent = `${visible} airline${visible === 1 ? "" : "s"}`;
+      }
+    });
+  }
+</script>
+
+<style>
+  .adsb-airlines-page {
+    padding-bottom: var(--space-12);
+  }
+
+  .header-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+
+    .breadcrumb-link {
+      color: var(--color-primary);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .breadcrumb-sep {
+      opacity: 0.5;
+    }
+  }
+
+  .masthead-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-1);
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 6px 14px;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+    transition: background-color var(--transition-standard), color var(--transition-standard);
+
+    &:hover {
+      background-color: var(--color-surface-alt);
+      color: var(--color-primary-dark);
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 720px;
+    line-height: 1.6;
+    margin-top: var(--space-2);
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-4) 0 var(--space-6) 0;
+  }
+
+  .stat-card {
+    padding: var(--space-5);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+
+  .stat-sub {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Table Card */
+  .table-container {
+    margin-top: var(--space-4);
+  }
+
+  .airlines-table-card {
+    padding: var(--space-4);
+  }
+
+  .search-bar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .airline-search-input {
+    flex: 1;
+    min-width: 240px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xs);
+    outline: none;
+    transition: border-color var(--transition-standard);
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
+  .count-badge {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: var(--color-surface-alt);
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .airlines-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+
+    th {
+      text-align: left;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      padding: var(--space-3);
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    td {
+      padding: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: middle;
+    }
+
+    tbody tr:hover {
+      background-color: var(--color-surface-alt);
+    }
+  }
+
+  .col-logo {
+    width: 50px;
+    text-align: center;
+  }
+
+  .airline-logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .airline-logo-placeholder {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin: 0 auto;
+  }
+
+  .col-code {
+    width: 120px;
+    white-space: nowrap;
+  }
+
+  .code-pill {
+    display: inline-block;
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    background: var(--color-primary-light);
+    padding: 3px 8px;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .sub-icao {
+    margin-left: 6px;
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+  }
+
+  .col-name {
+    font-weight: 600;
+  }
+
+  .airline-link {
+    color: var(--color-text);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+  }
+
+  .col-flights {
+    width: 110px;
+    text-align: right;
+  }
+
+  .flight-count-pill {
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .col-arrow {
+    width: 40px;
+    text-align: right;
+  }
+
+  .row-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light);
+    text-decoration: none;
+    padding: 4px;
+    border-radius: var(--radius-xs);
+    transition: color var(--transition-standard), transform var(--transition-standard);
+
+    &:hover {
+      color: var(--color-primary);
+      transform: translateX(2px);
+    }
+  }
+</style>

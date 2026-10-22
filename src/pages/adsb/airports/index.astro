@@ -1,0 +1,482 @@
+---
+export const prerender = false;
+
+import Layout from "../../../layouts/Layout.astro";
+
+// Helper to access D1 binding
+async function getD1Database() {
+  try {
+    const cf = await import("cloudflare:workers");
+    return cf.env.DB;
+  } catch {
+    return null;
+  }
+}
+
+const db = await getD1Database();
+
+interface AirportItem {
+  code: string;
+  icao: string;
+  iata: string | null;
+  name: string;
+  municipality: string | null;
+  country_code: string | null;
+  flight_count: number;
+}
+
+let airports: AirportItem[] = [];
+let totalAirportCount = 0;
+let totalFlightCount = 0;
+
+if (db) {
+  try {
+    const rows = await db
+      .prepare(`
+        SELECT 
+          COALESCE(ap.iata, ap.icao) as code,
+          ap.icao,
+          ap.iata,
+          COALESCE(ap.name, ap.icao) as name,
+          ap.municipality,
+          ap.country_code,
+          COUNT(a.id) as flight_count
+        FROM airports ap
+        JOIN (
+          SELECT id, origin as airport_icao FROM aircraft_seen WHERE origin IS NOT NULL
+          UNION ALL
+          SELECT id, destination as airport_icao FROM aircraft_seen WHERE destination IS NOT NULL
+        ) a ON ap.icao = a.airport_icao
+        GROUP BY ap.icao
+        ORDER BY flight_count DESC, ap.name ASC
+      `)
+      .all<AirportItem>();
+
+    airports = rows.results || [];
+    totalAirportCount = airports.length;
+    totalFlightCount = airports.reduce((acc, curr) => acc + (curr.flight_count || 0), 0);
+  } catch (err) {
+    console.error("Error querying airports index:", err);
+  }
+} else {
+  // Local fallback data for development
+  airports = [
+    { code: "ORD", icao: "KORD", iata: "ORD", name: "Chicago O'Hare International", municipality: "Chicago", country_code: "US", flight_count: 10690 },
+    { code: "DEN", icao: "KDEN", iata: "DEN", name: "Denver International", municipality: "Denver", country_code: "US", flight_count: 4935 },
+    { code: "MDW", icao: "KMDW", iata: "MDW", name: "Chicago Midway International", municipality: "Chicago", country_code: "US", flight_count: 4456 },
+    { code: "LAX", icao: "KLAX", iata: "LAX", name: "Los Angeles International", municipality: "Los Angeles", country_code: "US", flight_count: 3181 },
+    { code: "PHX", icao: "KPHX", iata: "PHX", name: "Phoenix Sky Harbor International", municipality: "Phoenix", country_code: "US", flight_count: 2457 },
+    { code: "MCI", icao: "KMCI", iata: "MCI", name: "Kansas City International", municipality: "Kansas City", country_code: "US", flight_count: 1820 },
+    { code: "MLI", icao: "KMLI", iata: "MLI", name: "Quad Cities International", municipality: "Moline", country_code: "US", flight_count: 1250 },
+  ];
+  totalAirportCount = airports.length;
+  totalFlightCount = airports.reduce((acc, curr) => acc + curr.flight_count, 0);
+}
+---
+
+<Layout title="Airports - ADSB Flight Tracker">
+  <main class="adsb-airports-page">
+    <div class="content-container masthead">
+      <div class="header-breadcrumbs">
+        <a href="/adsb" class="breadcrumb-link">ADSB Tracker</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Airports</span>
+      </div>
+      <div class="masthead-header">
+        <h1>Airports</h1>
+        <div class="header-nav">
+          <a href="/adsb" class="nav-btn" title="Back to ADSB Overview">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <span>Overview</span>
+          </a>
+        </div>
+      </div>
+      <p class="subtitle">
+        All {totalAirportCount.toLocaleString()} airports recorded as flight origins or destinations by the receiver overhead.
+      </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="content-container">
+      <div class="stats-grid">
+        <div class="stat-card card">
+          <div class="stat-label">TOTAL AIRPORTS</div>
+          <div class="stat-value">{totalAirportCount.toLocaleString()}</div>
+          <div class="stat-sub">Origins & destinations tracked</div>
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-label">TOTAL FLIGHT CONNECTIONS</div>
+          <div class="stat-value">{totalFlightCount.toLocaleString()}</div>
+          <div class="stat-sub">Cumulative arrivals & departures</div>
+        </div>
+
+        <div class="stat-card card">
+          <div class="stat-label">TOP AIRPORT</div>
+          <div class="stat-value">{airports[0]?.code ?? "—"}</div>
+          <div class="stat-sub">{airports[0]?.name ?? "No data"}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Airport Directory Table -->
+    <div class="content-container table-container">
+      <div class="airports-table-card card">
+        <div class="search-bar-row">
+          <input
+            type="search"
+            id="airportSearch"
+            class="airport-search-input"
+            placeholder="Filter by airport code, name, city, or country..."
+            aria-label="Filter airports"
+          />
+          <span class="count-badge" id="visibleCount">{airports.length} airports</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="airports-table" id="airportsTable">
+            <thead>
+              <tr>
+                <th class="col-code">Code</th>
+                <th class="col-name">Airport Name</th>
+                <th class="col-location">Location</th>
+                <th class="col-flights">Flights</th>
+                <th class="col-arrow"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {airports.map((ap) => {
+                const targetCode = (ap.iata || ap.icao).toUpperCase();
+                return (
+                  <tr
+                    class="airport-row"
+                    data-search={`${ap.code} ${ap.icao} ${ap.iata ?? ""} ${ap.name} ${ap.municipality ?? ""} ${ap.country_code ?? ""}`.toLowerCase()}
+                  >
+                    <td class="col-code">
+                      <a href={`/adsb/airports/${targetCode}`} class="code-pill">
+                        {targetCode}
+                      </a>
+                      {ap.iata && ap.icao && ap.iata !== ap.icao && (
+                        <span class="sub-icao">{ap.icao}</span>
+                      )}
+                    </td>
+                    <td class="col-name">
+                      <a href={`/adsb/airports/${targetCode}`} class="airport-link">
+                        {ap.name}
+                      </a>
+                    </td>
+                    <td class="col-location">
+                      {ap.municipality ? ap.municipality : ""}
+                      {ap.municipality && ap.country_code ? `, ${ap.country_code}` : ap.country_code ?? "—"}
+                    </td>
+                    <td class="col-flights">
+                      <span class="flight-count-pill">{ap.flight_count.toLocaleString()}</span>
+                    </td>
+                    <td class="col-arrow">
+                      <a href={`/adsb/airports/${targetCode}`} class="row-arrow" aria-label={`View ${ap.name}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const searchInput = document.getElementById("airportSearch") as HTMLInputElement | null;
+  const table = document.getElementById("airportsTable");
+  const visibleBadge = document.getElementById("visibleCount");
+
+  if (searchInput && table) {
+    const rows = table.querySelectorAll<HTMLTableRowElement>("tbody tr.airport-row");
+    searchInput.addEventListener("input", (e) => {
+      const query = (e.target as HTMLInputElement).value.trim().toLowerCase();
+      let visible = 0;
+      rows.forEach((row) => {
+        const text = row.getAttribute("data-search") || "";
+        if (!query || text.includes(query)) {
+          row.style.display = "";
+          visible++;
+        } else {
+          row.style.display = "none";
+        }
+      });
+      if (visibleBadge) {
+        visibleBadge.textContent = `${visible} airport${visible === 1 ? "" : "s"}`;
+      }
+    });
+  }
+</script>
+
+<style>
+  .adsb-airports-page {
+    padding-bottom: var(--space-12);
+  }
+
+  .header-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+
+    .breadcrumb-link {
+      color: var(--color-primary);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .breadcrumb-sep {
+      opacity: 0.5;
+    }
+  }
+
+  .masthead-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-1);
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 6px 14px;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+    transition: background-color var(--transition-standard), color var(--transition-standard);
+
+    &:hover {
+      background-color: var(--color-surface-alt);
+      color: var(--color-primary-dark);
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 720px;
+    line-height: 1.6;
+    margin-top: var(--space-2);
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-4) 0 var(--space-6) 0;
+  }
+
+  .stat-card {
+    padding: var(--space-5);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+
+  .stat-sub {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Table Card */
+  .table-container {
+    margin-top: var(--space-4);
+  }
+
+  .airports-table-card {
+    padding: var(--space-4);
+  }
+
+  .search-bar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .airport-search-input {
+    flex: 1;
+    min-width: 240px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xs);
+    outline: none;
+    transition: border-color var(--transition-standard);
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
+  .count-badge {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: var(--color-surface-alt);
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .airports-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+
+    th {
+      text-align: left;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      padding: var(--space-3) var(--space-3);
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    td {
+      padding: var(--space-3) var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: middle;
+    }
+
+    tbody tr:hover {
+      background-color: var(--color-surface-alt);
+    }
+  }
+
+  .col-code {
+    width: 120px;
+    white-space: nowrap;
+  }
+
+  .code-pill {
+    display: inline-block;
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    background: var(--color-primary-light);
+    padding: 3px 8px;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .sub-icao {
+    margin-left: 6px;
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+  }
+
+  .col-name {
+    font-weight: 600;
+  }
+
+  .airport-link {
+    color: var(--color-text);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+  }
+
+  .col-location {
+    color: var(--color-text-muted);
+  }
+
+  .col-flights {
+    width: 110px;
+    text-align: right;
+  }
+
+  .flight-count-pill {
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .col-arrow {
+    width: 40px;
+    text-align: right;
+  }
+
+  .row-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light);
+    text-decoration: none;
+    padding: 4px;
+    border-radius: var(--radius-xs);
+    transition: color var(--transition-standard), transform var(--transition-standard);
+
+    &:hover {
+      color: var(--color-primary);
+      transform: translateX(2px);
+    }
+  }
+</style>

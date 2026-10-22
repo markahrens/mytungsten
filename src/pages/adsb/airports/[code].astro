@@ -1,0 +1,665 @@
+---
+export const prerender = false;
+
+import Layout from "../../../layouts/Layout.astro";
+import AdsbMap from "../../../components/AdsbMap.jsx";
+
+// Helper to access D1 binding
+async function getD1Database() {
+  try {
+    const cf = await import("cloudflare:workers");
+    return cf.env.DB;
+  } catch {
+    return null;
+  }
+}
+
+const { code } = Astro.params;
+const rawCode = (code || "").trim().toUpperCase();
+
+const db = await getD1Database();
+
+interface AirportDetails {
+  icao: string;
+  iata: string | null;
+  name: string;
+  short_name: string | null;
+  municipality: string | null;
+  country_code: string | null;
+  lat: number | null;
+  lon: number | null;
+  timezone: string | null;
+}
+
+interface ConnectionStat {
+  icao: string;
+  code: string;
+  name: string;
+  municipality: string | null;
+  country_code: string | null;
+  lat: number | null;
+  lon: number | null;
+  connection_count: number;
+  departures_from_here: number;
+  arrivals_to_here: number;
+}
+
+let airport: AirportDetails | null = null;
+let totalDepartures = 0;
+let totalArrivals = 0;
+let connections: ConnectionStat[] = [];
+
+if (db) {
+  try {
+    // 1. Fetch airport info by IATA or ICAO
+    airport = await db
+      .prepare(`
+        SELECT icao, iata, name, short_name, municipality, country_code, lat, lon, timezone
+        FROM airports
+        WHERE UPPER(iata) = ? OR UPPER(icao) = ?
+        LIMIT 1
+      `)
+      .bind(rawCode, rawCode)
+      .first<AirportDetails>();
+
+    if (airport) {
+      const icao = airport.icao;
+
+      // 2. Total departures (origin = this airport)
+      const depRow = await db
+        .prepare(`SELECT COUNT(*) AS cnt FROM aircraft_seen WHERE origin = ?`)
+        .bind(icao)
+        .first<{ cnt: number }>();
+      totalDepartures = depRow?.cnt ?? 0;
+
+      // 3. Total arrivals (destination = this airport)
+      const arrRow = await db
+        .prepare(`SELECT COUNT(*) AS cnt FROM aircraft_seen WHERE destination = ?`)
+        .bind(icao)
+        .first<{ cnt: number }>();
+      totalArrivals = arrRow?.cnt ?? 0;
+
+      // 4. Most common connections (both ways)
+      const connRows = await db
+        .prepare(`
+          SELECT 
+            combined.airport_code AS icao,
+            COALESCE(ap.iata, combined.airport_code) AS code,
+            COALESCE(ap.name, combined.airport_code) AS name,
+            ap.municipality,
+            ap.country_code,
+            ap.lat,
+            ap.lon,
+            COUNT(*) AS connection_count,
+            SUM(CASE WHEN combined.direction = 'dep' THEN 1 ELSE 0 END) AS departures_from_here,
+            SUM(CASE WHEN combined.direction = 'arr' THEN 1 ELSE 0 END) AS arrivals_to_here
+          FROM (
+            SELECT destination AS airport_code, 'dep' AS direction 
+            FROM aircraft_seen 
+            WHERE origin = ? AND destination IS NOT NULL
+            UNION ALL
+            SELECT origin AS airport_code, 'arr' AS direction 
+            FROM aircraft_seen 
+            WHERE destination = ? AND origin IS NOT NULL
+          ) combined
+          LEFT JOIN airports ap ON combined.airport_code = ap.icao
+          GROUP BY combined.airport_code
+          ORDER BY connection_count DESC
+          LIMIT 20
+        `)
+        .bind(icao, icao)
+        .all<ConnectionStat>();
+
+      connections = connRows.results || [];
+    }
+  } catch (err) {
+    console.error("Error querying airport details:", err);
+  }
+} else {
+  // Local fallback mock data
+  airport = {
+    icao: "KORD",
+    iata: "ORD",
+    name: "Chicago O'Hare International Airport",
+    short_name: "O'Hare",
+    municipality: "Chicago",
+    country_code: "US",
+    lat: 41.9742,
+    lon: -87.9073,
+    timezone: "America/Chicago",
+  };
+  totalDepartures = 5420;
+  totalArrivals = 5270;
+  connections = [
+    { icao: "KLAX", code: "LAX", name: "Los Angeles International", municipality: "Los Angeles", country_code: "US", lat: 33.9425, lon: -118.408, connection_count: 1190, departures_from_here: 605, arrivals_to_here: 585 },
+    { icao: "KPHX", code: "PHX", name: "Phoenix Sky Harbor", municipality: "Phoenix", country_code: "US", lat: 33.4343, lon: -112.012, connection_count: 1053, departures_from_here: 520, arrivals_to_here: 533 },
+    { icao: "KMCI", code: "MCI", name: "Kansas City International", municipality: "Kansas City", country_code: "US", lat: 39.2976, lon: -94.7139, connection_count: 1006, departures_from_here: 510, arrivals_to_here: 496 },
+    { icao: "KSAN", code: "SAN", name: "San Diego International", municipality: "San Diego", country_code: "US", lat: 32.7336, lon: -117.19, connection_count: 703, departures_from_here: 360, arrivals_to_here: 343 },
+    { icao: "KMLI", code: "MLI", name: "Quad Cities International", municipality: "Moline", country_code: "US", lat: 41.4485, lon: -90.5075, connection_count: 573, departures_from_here: 290, arrivals_to_here: 283 },
+  ];
+}
+
+const totalMovements = totalDepartures + totalArrivals;
+const displayCode = airport?.iata || airport?.icao || rawCode;
+
+// Prepare Great Circle routes for map
+const mapRoutes = (airport && airport.lat != null && airport.lon != null)
+  ? connections
+      .filter((c) => c.lat != null && c.lon != null)
+      .map((c) => ({
+        origin: {
+          lat: airport!.lat!,
+          lng: airport!.lon!,
+          name: airport!.name,
+          code: displayCode,
+        },
+        destination: {
+          lat: c.lat!,
+          lng: c.lon!,
+          name: c.name,
+          code: c.code,
+        },
+        flight: `${c.connection_count} flights`,
+        airline: `${c.connection_count} connected flights`,
+      }))
+  : [];
+---
+
+<Layout title={airport ? `${airport.name} (${displayCode}) - ADSB Tracker` : "Airport Not Found - ADSB Tracker"}>
+  <link slot="head" rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+
+  <main class="adsb-airport-detail-page">
+    {!airport ? (
+      <div class="content-container masthead">
+        <div class="header-breadcrumbs">
+          <a href="/adsb" class="breadcrumb-link">ADSB Tracker</a>
+          <span class="breadcrumb-sep">/</span>
+          <a href="/adsb/airports" class="breadcrumb-link">Airports</a>
+          <span class="breadcrumb-sep">/</span>
+          <span>{rawCode}</span>
+        </div>
+        <div class="not-found-card card">
+          <h1>Airport Not Found</h1>
+          <p>No airport record exists with code <strong>{rawCode}</strong>.</p>
+          <a href="/adsb/airports" class="nav-btn">&larr; Return to Airports Directory</a>
+        </div>
+      </div>
+    ) : (
+      <>
+        <!-- Masthead -->
+        <div class="content-container masthead">
+          <div class="header-breadcrumbs">
+            <a href="/adsb" class="breadcrumb-link">ADSB Tracker</a>
+            <span class="breadcrumb-sep">/</span>
+            <a href="/adsb/airports" class="breadcrumb-link">Airports</a>
+            <span class="breadcrumb-sep">/</span>
+            <span>{displayCode}</span>
+          </div>
+
+          <div class="masthead-header">
+            <div class="title-with-codes">
+              <h1>{airport.name}</h1>
+              <div class="code-badges">
+                {airport.iata && <span class="badge iata">{airport.iata}</span>}
+                {airport.icao && <span class="badge icao">ICAO: {airport.icao}</span>}
+              </div>
+            </div>
+
+            <div class="header-nav">
+              <a href="/adsb/airports" class="nav-btn" title="View all airports">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>All Airports</span>
+              </a>
+            </div>
+          </div>
+
+          <p class="subtitle">
+            {[airport.municipality, airport.country_code].filter(Boolean).join(", ")}
+            {airport.timezone ? ` • Timezone: ${airport.timezone}` : ""}
+            {airport.lat != null && airport.lon != null ? ` • ${airport.lat.toFixed(3)}°, ${airport.lon.toFixed(3)}°` : ""}
+          </p>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="content-container">
+          <div class="stats-grid">
+            <div class="stat-card card">
+              <div class="stat-label">TOTAL SIGHTINGS</div>
+              <div class="stat-value">{totalMovements.toLocaleString()}</div>
+              <div class="stat-sub">Departures + arrivals overhead</div>
+            </div>
+
+            <div class="stat-card card">
+              <div class="stat-label">DEPARTURES</div>
+              <div class="stat-value">{totalDepartures.toLocaleString()}</div>
+              <div class="stat-sub">Originated from {displayCode}</div>
+            </div>
+
+            <div class="stat-card card">
+              <div class="stat-label">ARRIVALS</div>
+              <div class="stat-value">{totalArrivals.toLocaleString()}</div>
+              <div class="stat-sub">Flying into {displayCode}</div>
+            </div>
+
+            <div class="stat-card card">
+              <div class="stat-label">CONNECTED AIRPORTS</div>
+              <div class="stat-value">{connections.length.toLocaleString()}</div>
+              <div class="stat-sub">Unique routes recorded</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connection Map Section -->
+        {mapRoutes.length > 0 && (
+          <div class="content-container map-section">
+            <div class="map-wrapper card">
+              <div class="map-header">
+                <h2>Top Connection Corridors</h2>
+                <p class="section-desc">Great Circle routes connecting {airport.name} with other airports overhead.</p>
+              </div>
+              <div class="map-inner">
+                <AdsbMap client:only="react" routes={mapRoutes} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Top Connections Table -->
+        <div class="content-container table-section">
+          <div class="section-card card">
+            <div class="section-header">
+              <h2>Most Common Connections</h2>
+              <p class="section-desc">Top paired airports recorded for flights originating or landing at {displayCode}.</p>
+            </div>
+
+            {connections.length === 0 ? (
+              <p class="no-records">No connection data recorded for this airport.</p>
+            ) : (
+              <div class="table-responsive">
+                <table class="connections-table">
+                  <thead>
+                    <tr>
+                      <th class="col-code">Connected Airport</th>
+                      <th class="col-name">Name & Location</th>
+                      <th class="col-stat">Departures</th>
+                      <th class="col-stat">Arrivals</th>
+                      <th class="col-total">Total Flights</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {connections.map((c) => {
+                      const targetCode = (c.code || c.icao).toUpperCase();
+                      return (
+                        <tr>
+                          <td class="col-code">
+                            <a href={`/adsb/airports/${targetCode}`} class="code-pill">
+                              {targetCode}
+                            </a>
+                            {c.code !== c.icao && <span class="sub-icao">{c.icao}</span>}
+                          </td>
+                          <td class="col-name">
+                            <a href={`/adsb/airports/${targetCode}`} class="airport-link">
+                              {c.name}
+                            </a>
+                            <div class="sub-location">
+                              {[c.municipality, c.country_code].filter(Boolean).join(", ")}
+                            </div>
+                          </td>
+                          <td class="col-stat">{c.departures_from_here.toLocaleString()}</td>
+                          <td class="col-stat">{c.arrivals_to_here.toLocaleString()}</td>
+                          <td class="col-total">
+                            <span class="count-pill">{c.connection_count.toLocaleString()}</span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      </>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .adsb-airport-detail-page {
+    padding-bottom: var(--space-12);
+  }
+
+  .header-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+
+    .breadcrumb-link {
+      color: var(--color-primary);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .breadcrumb-sep {
+      opacity: 0.5;
+    }
+  }
+
+  .masthead-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-1);
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .title-with-codes {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .code-badges {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .badge {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--radius-xs);
+  }
+
+  .badge.iata {
+    color: var(--color-primary-dark);
+    background: var(--color-primary-light);
+  }
+
+  .badge.icao {
+    color: var(--color-text-muted);
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    font-size: 0.75rem;
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 6px 14px;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+    transition: background-color var(--transition-standard), color var(--transition-standard);
+
+    &:hover {
+      background-color: var(--color-surface-alt);
+      color: var(--color-primary-dark);
+    }
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 720px;
+    line-height: 1.6;
+    margin-top: var(--space-2);
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-4) 0 var(--space-6) 0;
+  }
+
+  .stat-card {
+    padding: var(--space-5);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+
+  .stat-sub {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  /* Map Section */
+  .map-section {
+    margin-bottom: var(--space-6);
+  }
+
+  .map-wrapper {
+    padding: var(--space-4);
+  }
+
+  .map-header {
+    margin-bottom: var(--space-3);
+
+    h2 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+  }
+
+  .map-inner {
+    height: 420px;
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+  }
+
+  /* Table Section */
+  .table-section {
+    margin-bottom: var(--space-6);
+  }
+
+  .section-card {
+    padding: var(--space-5);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-4);
+
+    h2 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+  }
+
+  .section-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .connections-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+
+    th {
+      text-align: left;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      padding: var(--space-3);
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    td {
+      padding: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: middle;
+    }
+
+    tbody tr:hover {
+      background-color: var(--color-surface-alt);
+    }
+  }
+
+  .col-code {
+    width: 120px;
+    white-space: nowrap;
+  }
+
+  .code-pill {
+    display: inline-block;
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    background: var(--color-primary-light);
+    padding: 3px 8px;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .flight-pill {
+    font-family: var(--font-hanken-grotesk);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .sub-icao {
+    margin-left: 6px;
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+  }
+
+  .col-name {
+    font-weight: 600;
+  }
+
+  .airport-link, .route-link {
+    color: var(--color-text);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+  }
+
+  .route-link {
+    font-weight: 700;
+    font-family: var(--font-hanken-grotesk);
+  }
+
+  .route-arrow {
+    margin: 0 4px;
+    color: var(--color-text-muted);
+  }
+
+  .sub-location {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: normal;
+  }
+
+  .col-stat {
+    text-align: right;
+    font-family: var(--font-hanken-grotesk);
+    color: var(--color-text-muted);
+  }
+
+  .col-total {
+    text-align: right;
+    width: 120px;
+  }
+
+  .count-pill {
+    font-family: var(--font-hanken-grotesk);
+    font-weight: 800;
+    color: var(--color-text);
+  }
+
+  .col-time {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .date-link {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+  }
+
+  .not-found-card {
+    padding: var(--space-8);
+    text-align: center;
+    margin-top: var(--space-4);
+
+    h1 {
+      margin-bottom: var(--space-2);
+    }
+
+    p {
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-6);
+    }
+  }
+
+  .no-records {
+    color: var(--color-text-muted);
+    padding: var(--space-4) 0;
+  }
+</style>

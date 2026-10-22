@@ -23,3 +23,5 @@ pnpm-debug.log*
 
 # wrangler local development files
 .wrangler/
+
+schema_v3.sql
